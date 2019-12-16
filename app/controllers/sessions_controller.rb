@@ -9,4 +9,9 @@ class SessionsController < ApplicationController
     flash[:success] = "Welcome #{user.email}"
     redirect_to "/profile"
   end
+
+  def destroy
+    session.delete(:user_id)
+    redirect_to "/"
+  end
 end
