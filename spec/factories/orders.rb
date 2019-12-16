@@ -7,3 +7,5 @@ FactoryBot.define do
     zip       {12345}
   end
 end
+
+
