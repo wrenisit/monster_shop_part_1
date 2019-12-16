@@ -7,13 +7,13 @@ RSpec.describe "create new users" do
 
     expect(current_path).to eq('/register')
     fill_in :name, with: "John Doe"
-    fill_in :street, with: "42 West Street"
+    fill_in :address, with: "42 West Street"
     fill_in :state, with: "CA"
     fill_in :zip, with: "89897"
     fill_in :email, with: "go@foogle.com"
     fill_in :password, with: "notsecure123"
     fill_in :password_confirmation, with: "notsecure123"
-    click_button "Create User"
+    click_button "Submit"
 
     expect(current_path).to eq('/profile')
     expect(page).to have_content("Congratulations! You are now registered and logged in.")
