@@ -1,0 +1,25 @@
+<h1> Register As A New User </h1>
+<%= form_tag '/register' do %>
+  <%= label_tag :name %>
+  <%= text_field_tag :name %><br>
+
+  <%= label_tag :address %>
+  <%= text_field_tag :address %><br>
+
+  <%= label_tag :city %>
+  <%= text_field_tag :city %><br>
+
+  <%= label_tag :state %>
+  <%= text_field_tag :state %><br>
+
+  <%= label_tag :zip %>
+  <%= text_field_tag :zip %><br>
+
+  <%= label_tag :phone %>
+  <%= text_field_tag :phone %><br>
+
+  <%= label_tag :description %>
+  <%= text_field_tag :description %><br>
+
+  <%= submit_tag "Submit", class: "button"%>
+<% end %>
