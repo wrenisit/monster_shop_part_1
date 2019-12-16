@@ -19,7 +19,7 @@ RSpec.describe "log out user" do
     new_user = User.last
     expect("#{new_user.name}").to eq("Charley Mae")
     expect(current_path).to eq('/profile')
-    click_button("Log Out")
+    click_link("Log Out")
     expect(current_path).to eq('/')
     expect(page).to have_content("You are now logged out.")
   end
