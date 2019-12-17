@@ -47,8 +47,6 @@ RSpec.describe "create new users" do
     click_on "Register"
 
     expect(current_path).to eq('/register')
-    # save_and_open_page
-    # binding.pry
     fill_in :name, with: "Steve Doe"
     fill_in :address, with: "42 West Street"
     fill_in :city, with: "Soloana"
