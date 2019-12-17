@@ -36,12 +36,11 @@ class UsersController<ApplicationController
     params.permit(:name, :address, :city, :state, :zip, :email, :password, :password_confirmation)
   end
 
-<<<<<<< HEAD
   def user_edit_params
     params.permit(:name, :address, :city, :state, :zip, :email)
-=======
+
   def new_params
     params.permit(:name, :address, :city, :state, :zip)
->>>>>>> 372f6318a1aebe3f84dc33e3a152539f91181591
+
   end
 end
