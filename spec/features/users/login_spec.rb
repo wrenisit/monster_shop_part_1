@@ -38,7 +38,7 @@ RSpec.describe "As a visitor when I visit login path", type: :feature do
 
       fill_in :email, with: "yo@gmail.com"
       fill_in :password, with: "notsecure123"
-      fill_in :password_confirmation, with: "notsecure123"
+      fill_in :password_confirmation, with: "notthesame"
       click_button "Log In"
 
       expect(current_path).to eq("/login")
