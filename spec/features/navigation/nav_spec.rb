@@ -7,11 +7,11 @@ describe 'the navigation bar' do
     expect(current_path).to eq "/"
 
     visit "/"
-    click_link "Items"
+    click_link "All Items"
     expect(current_path).to eq "/items"
 
     visit "/"
-    click_link "Merchants"
+    click_link "All Merchants"
     expect(current_path).to eq "/merchants"
 
     item = create(:random_item)
