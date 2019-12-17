@@ -24,14 +24,9 @@ class UsersController<ApplicationController
 
   def update
     @user = User.find(session[:user_id])
-    @user.update(user_edit_params)
-    if @user.save
-      flash[:success] = "Your profile has been updated."
-      redirect_to '/profile'
-    else
-      flash[:error] = "Something went wrong. Please try again."
-      render :edit
-    end
+    @user = @user.update(user_edit_params)
+    flash[:success] = "Your profile has been updated."
+    redirect_to '/profile'
   end
 
   private
