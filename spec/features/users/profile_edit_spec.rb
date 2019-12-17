@@ -59,16 +59,53 @@ RSpec.describe "edit user info" do
     expect(page).to have_content(this_regular_user.zip)
     expect(page).to have_content(this_regular_user.email)
   end
-end
+  it "has an edit page with prepoulated data" do
+    this_regular_user = User.create!(name: "Jimmy",
+                              address: "3 Bronco Rd",
+                              city: "Hye",
+                              state: "TX",
+                              zip: 78737,
+                              email: "explain@c.com",
+                              password: "mypassword")
 
-# As a registered user
-# When I visit my profile page
-# I see a link to edit my profile data
-# When I click on the link to edit my profile data
-# I see a form like the registration page
-# The form is prepopulated with all my current information except my password
-# When I change any or all of that information
-# And I submit the form
-# Then I am returned to my profile page
-# And I see a flash message telling me that my data is updated
-# And I see my updated information
+    walter = User.create!(name: "Walter White",
+                               address: "7 RR 12",
+                               city: "Dripping Springs",
+                               state: "TX",
+                               zip: 78620,
+                               email: "fake@someplace.com",
+                               password: "MangosAreTrash")
+
+
+    visit '/merchants'
+    click_on 'Log In'
+
+    expect(current_path).to eq("/login")
+
+    fill_in :email, with: walter.email
+    fill_in :password, with: walter.password
+    fill_in :password_confirmation, with: walter.password
+    click_button "Log In"
+
+    expect(current_path).to eq("/profile")
+    click_link "Edit Your Profile"
+
+    expect(current_path).to eq("/profile/edit")
+
+    fill_in :email, with: this_regular_user.email
+    click_button "Submit"
+
+    expect(page).to have_content("This email is already used.")
+    expect(current_path).to eq("/profile/edit")
+
+    fill_in :email, with: "enjoy@nothing.com"
+    click_button "Submit"
+
+    expect(page).to have_content(walter.name)
+    expect(page).to have_content(walter.address)
+    expect(page).to have_content(walter.city)
+    expect(page).to have_content(walter.state)
+    expect(page).to have_content(walter.zip)
+    expect(page).to have_content("enjoy@nothing.com")
+  end
+end
