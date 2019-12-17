@@ -38,9 +38,8 @@ class UsersController<ApplicationController
 
   def user_edit_params
     params.permit(:name, :address, :city, :state, :zip, :email)
-
+  end
   def new_params
     params.permit(:name, :address, :city, :state, :zip)
-
   end
 end
