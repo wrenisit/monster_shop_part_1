@@ -40,7 +40,13 @@ Rails.application.routes.draw do
 
   get "/login", to: "sessions#new"
   post "/login", to: "sessions#create"
+<<<<<<< HEAD
   get '/logout', to: "sessions#destroy"
+=======
+
+  get '/logout', to: "sessions#destroy"
+
+>>>>>>> 372f6318a1aebe3f84dc33e3a152539f91181591
   get "/", to: "welcome#index"
 
   get "/profile/edit", to: "users#edit"
