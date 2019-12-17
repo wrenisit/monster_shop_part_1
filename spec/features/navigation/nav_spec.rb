@@ -1,6 +1,6 @@
-require 'rails_helper'
+require "rails_helper"
 
-describe 'the navigation bar' do
+describe "the navigation bar" do
   it "shows these links for a visitor" do
     visit "/"
     click_link "Home"
