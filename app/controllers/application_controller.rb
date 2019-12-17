@@ -4,10 +4,12 @@ class ApplicationController < ActionController::Base
   helper_method :cart, :current_user
 
   def current_user
-    User.find(session[:user_id])
+    @user ||= User.find(session[:user_id]) if session[:user_id]
   end
+
   def cart
-    @cart ||= Cart.new(session[:cart] ||= Hash.new(0))
+    session[:cart] ||= Hash.new(0)
+    @cart ||= Cart.new(session[:cart])
   end
 
 end

@@ -11,7 +11,6 @@ RSpec.describe "As a visitor when I visit login path", type: :feature do
                                  zip: 80020,
                                  email: "go@foogle.com",
                                  password: "notsecure123")
-      new_user = User.last
 
       visit '/merchants'
       click_on 'Log In'
@@ -26,6 +25,42 @@ RSpec.describe "As a visitor when I visit login path", type: :feature do
       expect(current_path).to eq("/profile")
 
       expect(page).to have_content("Welcome go@foogle.com")
+    end
+
+    it "won't login if password does not match" do
+
+      new_user = create(:regular_user, email: "yo@gmail.com", password: "123password", password_confirmation: "123password")
+
+      visit '/merchants'
+      click_on 'Log In'
+
+      expect(current_path).to eq("/login")
+
+      fill_in :email, with: "yo@gmail.com"
+      fill_in :password, with: "notsecure123"
+      fill_in :password_confirmation, with: "notsecure123"
+      click_button "Log In"
+
+      expect(current_path).to eq("/login")
+      expect(page).to have_content("Sorry Invalid Password or Email.")
+    end
+
+    it "won't login if email does not match" do
+
+      new_user = create(:regular_user, email: "yo@gmail.com", password: "123password", password_confirmation: "123password")
+
+      visit '/merchants'
+      click_on 'Log In'
+
+      expect(current_path).to eq("/login")
+
+      fill_in :email, with: "erwq@gmail.com"
+      fill_in :password, with: "notsecure123"
+      fill_in :password_confirmation, with: "notsecure123"
+      click_button "Log In"
+
+      expect(current_path).to eq("/login")
+      expect(page).to have_content("Sorry Invalid Password or Email.")
     end
 
     xit "when I am a merchant user I am redirected to my merchant dashboard" do
