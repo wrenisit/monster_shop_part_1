@@ -18,9 +18,29 @@ class UsersController<ApplicationController
     @user = User.find(session[:user_id])
   end
 
+  def edit
+    @user = User.find(session[:user_id])
+  end
+
+  def update
+    @user = User.find(session[:user_id])
+    @user.update(user_edit_params)
+    if @user.save
+      flash[:success] = "Your profile has been updated."
+      redirect_to '/profile'
+    else
+      flash[:error] = "Something went wrong. Please try again."
+      render :edit
+    end
+  end
+
   private
 
   def user_params
     params.permit(:name, :address, :city, :state, :zip, :email, :password, :password_confirmation)
+  end
+
+  def user_edit_params
+    params.permit(:name, :address, :city, :state, :zip, :email)
   end
 end
