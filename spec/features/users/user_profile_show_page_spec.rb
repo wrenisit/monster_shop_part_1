@@ -32,7 +32,3 @@ RSpec.describe "user profile show page" do
     expect(page).to have_link("Edit Your Profile")
   end
 end
-# As a registered user
-# When I visit my profile page
-# Then I see all of my profile data on the page except my password
-# And I see a link to edit my profile data
