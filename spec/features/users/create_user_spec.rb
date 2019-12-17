@@ -22,6 +22,7 @@ RSpec.describe "create new users" do
     expect(current_path).to eq('/profile')
     expect(page).to have_content("Congratulations! You are now registered and logged in.")
   end
+
   it "won't work with incomplete information" do
     visit '/merchants'
     click_on "Register"
@@ -40,12 +41,14 @@ RSpec.describe "create new users" do
     expect(current_path).to eq('/register')
     expect(page).to have_content("State can't be blank")
   end
+
   it "won't work with mismatched passwords" do
     visit '/merchants'
     click_on "Register"
 
     expect(current_path).to eq('/register')
-
+    # save_and_open_page
+    # binding.pry
     fill_in :name, with: "Steve Doe"
     fill_in :address, with: "42 West Street"
     fill_in :city, with: "Soloana"
@@ -56,20 +59,18 @@ RSpec.describe "create new users" do
     fill_in :password_confirmation, with: "sure123"
     click_button "Submit"
 
-
     expect(current_path).to eq('/register')
     expect(page).to have_content("Password confirmation doesn't match Password")
-
-    find_field('Name', with: 'Jane Doe')
-    find_field('Address', with: "42 West Street")
-    find_field('City', with: 'Soloana')
-    find_field('State', with: "CA")
-    find_field('Zip', with: 89897)
-    find_field('Email', with: " ")
-    find_field('Password', with: " ")
-    find_field('password_confirmation', with: " ")
-
+    find_field :name, with: 'Steve Doe'
+    find_field :address, with: "42 West Street"
+    find_field :city, with: 'Soloana'
+    find_field :state, with: "CA"
+    find_field :zip, with: 89897
+    find_field('email').value.blank?
+    find_field('password').value.blank?
+    find_field('password_confirmation').value.blank?
   end
+
   it "won't work with a used email address" do
     new_user = User.create!(name: "Jon Doe", address: "2233 South Street", city: "Solna", state: "CA", zip: 87654, email: "go@foogle.com", password: "secure1", password_confirmation: "secure1")
 
