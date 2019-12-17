@@ -6,7 +6,7 @@ class Merchant <ApplicationRecord
                         :address,
                         :city,
                         :state,
-                        :zip
+                        :zip, numericality: { only_integer: true, message: "must be a number" }
 
 
   def no_orders?
