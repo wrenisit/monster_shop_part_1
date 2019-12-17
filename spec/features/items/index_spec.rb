@@ -9,7 +9,8 @@ RSpec.describe "Items Index Page" do
       @tire = @meg.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
 
       @pull_toy = @brian.items.create(name: "Pull Toy", description: "Great pull toy!", price: 10, image: "http://lovencaretoys.com/image/cache/dog/tug-toy-dog-pull-9010_2-800x800.jpg", inventory: 32)
-      @dog_bone = @brian.items.create(name: "Dog Bone", description: "They'll love it!", price: 21, image: "https://img.chewy.com/is/image/catalog/54226_MAIN._AC_SL1500_V1534449573_.jpg", active?:false, inventory: 21)
+      @dog_bone = @brian.items.create(name: "Dog Bone", description: "They'll love it!", price: 21, image: "https://img.chewy.com/is/image/catalog/54226_MAIN._AC_SL1500_V1534449573_.jpg", inventory: 21)
+      @muzzle = @brian.items.create(name: "Duck Muzzle", description: "Quiet your dog with this duck muzzle!", price: 25, image: "https://images-na.ssl-images-amazon.com/images/I/51IoHDEFe4L.jpg", active?:false, inventory: 56)
     end
 
     it "all items or merchant names are links" do
@@ -51,11 +52,24 @@ RSpec.describe "Items Index Page" do
         expect(page).to have_link(@dog_bone.name)
         expect(page).to have_content(@dog_bone.description)
         expect(page).to have_content("Price: $#{@dog_bone.price}")
-        expect(page).to have_content("Inactive")
+        expect(page).to have_content("Active")
         expect(page).to have_content("Inventory: #{@dog_bone.inventory}")
         expect(page).to have_link(@brian.name)
         expect(page).to have_css("img[src*='#{@dog_bone.image}']")
       end
+    end
+
+    it "can't see deactivated items" do
+      visit '/items'
+      
+      expect(page).to have_link(@tire.name)
+      expect(page).to have_link(@tire.merchant.name)
+      expect(page).to have_link(@pull_toy.name)
+      expect(page).to have_link(@pull_toy.merchant.name)
+      expect(page).to have_link(@dog_bone.name)
+      expect(page).to have_link(@dog_bone.merchant.name)
+
+      expect(page).to_not have_content(@muzzle.name)
     end
   end
 end
