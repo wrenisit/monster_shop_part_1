@@ -14,8 +14,11 @@ describe 'the navigation bar' do
     click_link "Merchants"
     expect(current_path).to eq "/merchants"
 
+    item = create(:random_item)
+    visit "/items/#{item.id}"
+    click_button "Add To Cart"
     visit "/"
-    click_link "Cart"
+    click_link "Cart: 1"
     expect(current_path).to eq "/cart"
 
     visit "/"
