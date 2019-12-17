@@ -19,7 +19,7 @@ describe 'the navigation bar' do
     expect(current_path).to eq "/cart"
 
     visit "/"
-    click_link "Login"
+    click_link "Log In"
     expect(current_path).to eq "/login"
 
     visit "/"
