@@ -72,7 +72,7 @@ RSpec.describe "As a visitor when I visit login path", type: :feature do
 
       click_button "Log In"
 
-      expect(current_path).to eq('/merchants/dashboard')
+      expect(current_path).to eq('/merchant')
       expect(page).to have_content("Welcome Merchant #{@diana.email}")
     end
 
@@ -89,7 +89,7 @@ RSpec.describe "As a visitor when I visit login path", type: :feature do
 
       click_button "Log In"
 
-      expect(current_path).to eq('/admin/dashboard')
+      expect(current_path).to eq('/admin')
       expect(page).to have_content("Welcome Admin #{@barry.email}!")
     end
   end
