@@ -26,14 +26,14 @@ RSpec.describe "password edit" do
 
     expect(current_path).to eq('/profile')
     expect(page).to have_content("Your password has been updated.")
+
+    click_link("Log Out")
+    click_link("Log In")
+
+    fill_in :email, with: wilma.email
+    fill_in :password, with: "nottrash"
+    click_button "Log In"
+
+    expect(current_path).to eq('/profile')
   end
 end
-# As a registered user
-# When I visit my profile page
-# I see a link to edit my password
-# When I click on the link to edit my password
-# I see a form with fields for a new password, and a new password confirmation
-# When I fill in the same password in both fields
-# And I submit the form
-# Then I am returned to my profile page
-# And I see a flash message telling me that my password is updated
