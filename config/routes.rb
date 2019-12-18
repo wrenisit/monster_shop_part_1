@@ -47,9 +47,13 @@ Rails.application.routes.draw do
 
   get "/login", to: "sessions#new"
   post "/login", to: "sessions#create"
+  
+  get '/logout', to: "sessions#destroy"
 
   get '/logout', to: "sessions#destroy"
 
   get "/", to: "welcome#index"
 
+  get "/profile/edit", to: "users#edit"
+  patch "/profile/edit", to: "users#update"
 end
