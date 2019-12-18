@@ -19,7 +19,7 @@ RSpec.describe "As a visitor when I visit login path", type: :feature do
 
       fill_in :email, with: "go@foogle.com"
       fill_in :password, with: "notsecure123"
-   
+
       click_button "Log In"
 
       expect(current_path).to eq("/profile")
@@ -38,7 +38,7 @@ RSpec.describe "As a visitor when I visit login path", type: :feature do
 
       fill_in :email, with: "erwq@gmail.com"
       fill_in :password, with: "notsecure123"
-     
+
       click_button "Log In"
 
       expect(current_path).to eq("/login")
@@ -55,7 +55,6 @@ RSpec.describe "As a visitor when I visit login path", type: :feature do
 
       fill_in :email, with: "yo@gmail.com"
       fill_in :password, with: ""
-      fill_in :password_confirmation, with: ""
       click_button "Log In"
 
       expect(current_path).to eq("/login")
@@ -72,7 +71,7 @@ RSpec.describe "As a visitor when I visit login path", type: :feature do
 
       fill_in :email, with: @diana.email
       fill_in :password, with: @diana.password
-     
+
       click_button "Log In"
 
       expect(current_path).to eq('/merchants/dashboard')
@@ -89,11 +88,91 @@ RSpec.describe "As a visitor when I visit login path", type: :feature do
 
       fill_in :email, with: @barry.email
       fill_in :password, with: @barry.password
-     
+
       click_button "Log In"
 
       expect(current_path).to eq('/admin/dashboard')
       expect(page).to have_content("Welcome Admin #{@barry.email}!")
+    end
+
+    describe "will redirect all users if they are already logged in" do
+      before :each do
+
+      end
+      it "as regular user, I am redirected to my profile page" do
+        @becky = create(:regular_user)
+
+        visit '/merchants'
+        click_on 'Log In'
+
+        expect(current_path).to eq("/login")
+
+        fill_in :email, with: @becky.email
+        fill_in :password, with: @becky.password
+        click_button "Log In"
+
+        expect(current_path).to eq('/profile')
+        expect(page).to have_content("Welcome #{@becky.email}")
+
+        visit "/login"
+        expect(current_path).to eq('/profile')
+        expect(page).to have_content("You are already logged in.")
+      end
+
+      it "as a merchant user, I am redirected to my merchant dashboard page " do
+        @sarah = create(:merchant_admin)
+        @paul = create(:merchant_employee)
+
+        visit '/merchants'
+        click_on 'Log In'
+
+        fill_in :email, with: @sarah.email
+        fill_in :password, with: @sarah.password
+        click_button "Log In"
+
+        expect(current_path).to eq('/merchants/dashboard')
+        expect(page).to have_content("Welcome Merchant #{@sarah.email}")
+
+        visit "/login"
+        expect(current_path).to eq('/merchants/dashboard')
+        expect(page).to have_content("You are already logged in.")
+        click_on "Log Out"
+
+        visit '/merchants'
+        click_on 'Log In'
+
+        fill_in :email, with: @paul.email
+        fill_in :password, with: @paul.password
+        click_button "Log In"
+
+        expect(current_path).to eq('/merchants/dashboard')
+        expect(page).to have_content("Welcome Merchant #{@paul.email}")
+
+        visit "/login"
+        expect(current_path).to eq('/merchants/dashboard')
+        expect(page).to have_content("You are already logged in.")
+
+      end
+
+      it "as am an admin user, I am redirected to my admin dashboard page " do
+          @barry = create(:admin_user)
+
+          visit '/merchants'
+          click_on 'Log In'
+
+          expect(current_path).to eq("/login")
+
+          fill_in :email, with: @barry.email
+          fill_in :password, with: @barry.password
+          click_button "Log In"
+
+          expect(current_path).to eq('/admin/dashboard')
+          expect(page).to have_content("Welcome Admin #{@barry.email}")
+
+          visit "/login"
+          expect(current_path).to eq('/admin/dashboard')
+          expect(page).to have_content("You are already logged in.")
+      end
     end
   end
 end
