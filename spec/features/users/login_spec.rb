@@ -20,7 +20,6 @@ RSpec.describe "As a visitor when I visit login path", type: :feature do
 
       fill_in :email, with: "go@foogle.com"
       fill_in :password, with: "notsecure123"
-
       click_button "Log In"
 
       expect(current_path).to eq("/profile")
@@ -53,7 +52,6 @@ RSpec.describe "As a visitor when I visit login path", type: :feature do
       click_on 'Log In'
 
       expect(current_path).to eq("/login")
-
       fill_in :email, with: "yo@gmail.com"
       fill_in :password, with: ""
       click_button "Log In"
