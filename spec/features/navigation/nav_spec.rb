@@ -74,7 +74,7 @@ describe "the navigation bar" do
     end
   end
 
-  it "has additional links for a merchant" do
+  it "has additional links for a merchant_employee" do
     visit "/"
     within ".topnav" do
       expect(page).to have_link "Home"
@@ -89,7 +89,7 @@ describe "the navigation bar" do
     fill_in :email, with: user.email
     fill_in :password, with: user.password
     click_button "Log In"
-    expect(current_path).to eq "/merchants/dashboard"
+    expect(current_path).to eq "/merchant"
 
     within ".topnav" do
       expect(page).to have_link "Home"
@@ -100,5 +100,41 @@ describe "the navigation bar" do
       expect(page).not_to have_link "Log In"
       expect(page).not_to have_link "Register"
     end
+  end
+
+  it "should have the same links for a merchant_admin as merchant_employee" do
+    visit "/"
+    within ".topnav" do
+      click_link "Log In"
+    end
+
+    user = create(:merchant_admin, password: "vsecure")
+    fill_in :email, with: user.email
+    fill_in :password, with: user.password
+    click_button "Log In"
+    expect(current_path).to eq "/merchant"
+
+    within ".topnav" do
+      expect(page).to have_link "Home"
+      expect(page).to have_link "All Items"
+      expect(page).to have_link "All Merchants"
+      expect(page).to have_link "Cart: 0"
+      expect(page).to have_link "Merchant Dashboard"
+      expect(page).not_to have_link "Log In"
+      expect(page).not_to have_link "Register"
+    end
+  end
+
+  it "should have these links for an admin" do
+    visit "/"
+    within ".topnav" do
+      click_link "Log In"
+    end
+
+    user = create(:admin_user, password: "vsecure")
+    fill_in :email, with: user.email
+    fill_in :password, with: user.password
+    click_button "Log In"
+    expect(current_path).to eq "/admin"
   end
 end
