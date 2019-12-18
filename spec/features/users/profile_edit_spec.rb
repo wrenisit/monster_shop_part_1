@@ -81,7 +81,6 @@ RSpec.describe "edit user info" do
 
     fill_in :email, with: walter.email
     fill_in :password, with: walter.password
-    fill_in :password_confirmation, with: walter.password
     click_button "Log In"
 
     expect(current_path).to eq("/profile")
