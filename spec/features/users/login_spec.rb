@@ -62,7 +62,7 @@ RSpec.describe "As a visitor when I visit login path", type: :feature do
       expect(page).to have_content("Welcome Merchant #{@diana.email}")
     end
 
-    xit "when I am an admin user I am redirected to my admin dashboard page" do
+    it "when I am an admin user I am redirected to my admin dashboard page" do
       @barry = create(:admin_user)
 
       visit '/merchants'
