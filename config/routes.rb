@@ -54,4 +54,5 @@ Rails.application.routes.draw do
 
   get "/profile/edit", to: "users#edit"
   patch "/profile/edit", to: "users#update"
+  get "/profile/password", to: "users#password_update"
 end
