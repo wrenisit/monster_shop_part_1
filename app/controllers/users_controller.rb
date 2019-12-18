@@ -35,6 +35,9 @@ class UsersController<ApplicationController
     end
   end
 
+  def password_update
+  end
+
   private
 
   def user_params
