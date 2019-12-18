@@ -25,9 +25,14 @@ class UsersController<ApplicationController
 
   def update
     @user = User.find(session[:user_id])
-    @user = @user.update(user_edit_params)
-    flash[:success] = "Your profile has been updated."
-    redirect_to '/profile'
+    if @user.unique_email?(user_edit_params[:email])
+      @user = @user.update(user_edit_params)
+      flash[:success] = "Your profile has been updated."
+      redirect_to '/profile'
+    else
+      flash[:error] = "That email is already taken"
+      render :edit
+    end
   end
 
   private
