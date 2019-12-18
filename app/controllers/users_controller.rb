@@ -29,24 +29,14 @@ class UsersController<ApplicationController
       password_update
     elsif uniq_email?
       update_e_params(true)
-    else uniq_email? == false
-      update_e_params(false)
+    else !uniq_email?
+      update_e_params
     end
   end
 
-    #
-    # if @user.email == e_params[:email] || User.find_by(email: e_params[:email]) == nil
-    #   @user = @user.update(e_params)
-    # else
-    #   @user.update(password_params)
-    #   flash[:success] = "Your password has been updated."
-    #   redirect_to '/profile'
-    # end
-  # end
-
   def password_edit
   end
-  
+
   private
 
   def user_params
@@ -61,7 +51,7 @@ class UsersController<ApplicationController
     params.permit(:password, :password_confirmation)
   end
 
-  def update_e_params(bool)
+  def update_e_params(bool = false)
     if bool == true
       @user = @user.update(e_params)
       flash[:success] = "Your profile has been updated."
