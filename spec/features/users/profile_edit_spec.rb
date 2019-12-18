@@ -103,5 +103,13 @@ RSpec.describe "edit user info" do
     expect(page).to have_content(walter.state)
     expect(page).to have_content(walter.zip)
     expect(page).to have_content("enjoy@nothing.com")
+
+    click_link "Log Out"
+
+    click_link "Log In"
+    fill_in :email, with: "enjoy@nothing.com"
+    fill_in :password, with: walter.password
+    click_button "Log In"
+    expect(page).to have_content("You are logged in as #{walter.name}")
   end
 end
