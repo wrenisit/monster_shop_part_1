@@ -25,8 +25,8 @@ class UsersController<ApplicationController
 
   def update
     @user = User.find(session[:user_id])
-    if @user.email == user_edit_params[:email] || User.find_by(email: user_edit_params[:email]) == nil
-      @user = @user.update(user_edit_params)
+    if @user.email == e_params[:email] || User.find_by(email: e_params[:email]) == nil
+      @user = @user.update(e_params)
       flash[:success] = "Your profile has been updated."
       redirect_to '/profile'
     else
@@ -41,7 +41,7 @@ class UsersController<ApplicationController
     params.permit(:name, :address, :city, :state, :zip, :email, :password, :password_confirmation)
   end
 
-  def user_edit_params
+  def e_params
     params.permit(:name, :address, :city, :state, :zip, :email)
   end
 end
