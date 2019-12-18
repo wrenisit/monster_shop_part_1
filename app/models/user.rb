@@ -4,8 +4,7 @@ class User <ApplicationRecord
 
   validates :email, case_sensitive: false
   validates_uniqueness_of :email
-  # validates_presence_of :password, require: true
-   validates_confirmation_of :password
+  validates_confirmation_of :password
 
   has_secure_password
 
