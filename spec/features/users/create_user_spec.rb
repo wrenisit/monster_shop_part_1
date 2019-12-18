@@ -18,6 +18,7 @@ RSpec.describe "create new users" do
 
     new_user = User.last
     expect("#{new_user.name}").to eq("John Doe")
+    expect(new_user.user?).to eq(true)
 
     expect(current_path).to eq('/profile')
     expect(page).to have_content("Congratulations! You are now registered and logged in.")
