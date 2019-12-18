@@ -11,8 +11,4 @@ class User <ApplicationRecord
 
   enum role: %w(user merchant_employee merchant_admin admin_user)
 
-  def unique_email?(new_email)
-
-    @user.email == new_email || User.find_by(email: new_email) == nil
-  end
 end
