@@ -97,9 +97,12 @@ describe "the navigation bar" do
       expect(page).to have_link "All Merchants"
       expect(page).to have_link "Cart: 0"
       expect(page).to have_link "Merchant Dashboard"
+      expect(page).to have_link "Log Out"
       expect(page).not_to have_link "Log In"
       expect(page).not_to have_link "Register"
+      click_link "Merchant Dashboard"
     end
+    expect(current_path).to eq "/merchant"
   end
 
   it "should have the same links for a merchant_admin as merchant_employee" do
@@ -120,9 +123,12 @@ describe "the navigation bar" do
       expect(page).to have_link "All Merchants"
       expect(page).to have_link "Cart: 0"
       expect(page).to have_link "Merchant Dashboard"
+      expect(page).to have_link "Log Out"
       expect(page).not_to have_link "Log In"
       expect(page).not_to have_link "Register"
+      click_link "Merchant Dashboard"
     end
+    expect(current_path).to eq "/merchant"
   end
 
   it "should have these links for an admin" do
@@ -135,6 +141,19 @@ describe "the navigation bar" do
     fill_in :email, with: user.email
     fill_in :password, with: user.password
     click_button "Log In"
+    expect(current_path).to eq "/admin"
+
+    within ".topnav" do
+      expect(page).to have_link "Home"
+      expect(page).to have_link "All Items"
+      expect(page).to have_link "All Merchants"
+      expect(page).to have_link "Cart: 0"
+      expect(page).to have_link "Admin Dashboard"
+      expect(page).to have_link "Log Out"
+      expect(page).not_to have_link "Log In"
+      expect(page).not_to have_link "Register"
+      click_link "Admin Dashboard"
+    end
     expect(current_path).to eq "/admin"
   end
 end
