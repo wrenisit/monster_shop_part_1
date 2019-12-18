@@ -25,7 +25,7 @@ RSpec.describe "password edit" do
     click_button "Submit"
 
     expect(current_path).to eq('/profile')
-    expect(page).to have_content("Your Password Has Been Updated")
+    expect(page).to have_content("Your password has been updated.")
   end
 end
 # As a registered user
