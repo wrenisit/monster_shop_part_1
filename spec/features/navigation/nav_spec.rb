@@ -51,12 +51,12 @@ describe "the navigation bar" do
     expect(current_path).to eq "/cart"
 
     visit "/"
-    click_link "Log In"
-    expect(current_path).to eq "/login"
-
-    visit "/"
     click_link "Register"
     expect(current_path).to eq "/register"
+
+    visit "/"
+    click_link "Log In"
+    expect(current_path).to eq "/login"
 
     user = create(:regular_user, password: "vsecure")
     fill_in :email, with: user.email
