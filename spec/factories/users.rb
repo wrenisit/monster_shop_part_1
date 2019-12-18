@@ -55,4 +55,3 @@ FactoryBot.define do
    role      {3}
   end
 end
-
