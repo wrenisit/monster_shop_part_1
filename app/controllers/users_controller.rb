@@ -25,6 +25,9 @@ class UsersController<ApplicationController
 
   def update
     @user = User.find(session[:user_id])
+      
+
+
     if @user.email == e_params[:email] || User.find_by(email: e_params[:email]) == nil
       @user = @user.update(e_params)
       flash[:success] = "Your profile has been updated."
