@@ -76,5 +76,7 @@ describe "the navigation bar" do
     within ".topnav" do
       click_link "Log Out"
     end
+
+    expect(page).to have_content "Welcome #{user.email}"
   end
 end
