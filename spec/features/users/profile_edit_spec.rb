@@ -22,10 +22,8 @@ RSpec.describe "edit user info" do
     click_on 'Log In'
 
     expect(current_path).to eq("/login")
-
     fill_in :email, with: "go@foogle.com"
     fill_in :password, with: "notsecure123"
-    fill_in :password_confirmation, with: "notsecure123"
     click_button "Log In"
 
     expect(current_path).to eq("/profile")
@@ -49,7 +47,6 @@ RSpec.describe "edit user info" do
 
     fill_in :email, with: this_regular_user.email
     fill_in :password, with: this_regular_user.password
-    fill_in :password_confirmation, with: this_regular_user.password
     click_button "Log In"
 
     expect(page).to have_content(this_regular_user.name)

@@ -7,7 +7,7 @@ FactoryBot.define do
     zip       {12345}
     email     {Faker::Internet.email}
     password  {"password123"}
-    password_confirmation  {"password123"}
+    role      {0}
   end
 
 
@@ -19,21 +19,10 @@ FactoryBot.define do
     zip       {53540}
     email     {"imbatman@bat.com"}
     password  {"robinsucks"}
-    password_confirmation  {"robinsucks"}
+    role      {0}
   end
 
-   factory :admin_user, class: User do
-    name      {"Barry Allen"}
-    address   {"800 S Star St"}
-    city      {"Central City"}
-    state     {"FL"}
-    zip       {32013}
-    email     {"fastestmanalive@yaboo.com"}
-    password  {"imfast1"}
-    password_confirmation  {"imfast1"}
-   end
-
-  factory :merchant_user, class: User do
+  factory :merchant_employee, class: User do
     name      {"Diana Prince"}
     address   {"456 Super Ln"}
     city      {"New Youk City"}
@@ -41,10 +30,10 @@ FactoryBot.define do
     zip       {34533}
     email     {"hailhydra@redskullmaiil.com"}
     password  {"america!1"}
-    password_confirmation  {"america!1"}
-   end
+    role      {1}
+  end
 
-  factory :merchant_admin_user, class: User do
+  factory :merchant_admin, class: User do
     name      {"Clark Kent"}
     address   {"1938 Sullivan Lane"}
     city      {"Smallville"}
@@ -52,7 +41,18 @@ FactoryBot.define do
     zip       {87603}
     email     {"abird@dmail.com"}
     password  {"krypto2"}
-    password_confirmation  {"krypto2"}
-   end
+    role      {2}
+  end
+
+  factory :admin_user, class: User do
+   name      {"Barry Allen"}
+   address   {"800 S Star St"}
+   city      {"Central City"}
+   state     {"FL"}
+   zip       {32013}
+   email     {"fastestmanalive@yaboo.com"}
+   password  {"imfast1"}
+   role      {3}
+  end
 end
 
