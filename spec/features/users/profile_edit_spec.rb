@@ -56,6 +56,7 @@ RSpec.describe "edit user info" do
     expect(page).to have_content(this_regular_user.zip)
     expect(page).to have_content(this_regular_user.email)
   end
+
   it "has an edit page with prepoulated data" do
     this_regular_user = User.create!(name: "Jimmy",
                               address: "3 Bronco Rd",
