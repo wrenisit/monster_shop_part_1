@@ -7,7 +7,6 @@ FactoryBot.define do
     zip       {12345}
     email     {Faker::Internet.email}
     password  {"password123"}
-    password_confirmation  {"password123"}
     role      {0}
   end
 
@@ -20,7 +19,6 @@ FactoryBot.define do
     zip       {53540}
     email     {"imbatman@bat.com"}
     password  {"robinsucks"}
-    password_confirmation  {"robinsucks"}
     role      {0}
   end
 
@@ -32,10 +30,9 @@ FactoryBot.define do
     zip       {34533}
     email     {"hailhydra@redskullmaiil.com"}
     password  {"america!1"}
-    password_confirmation  {"america!1"}
     role      {1}
   end
-  
+
   factory :merchant_admin, class: User do
     name      {"Clark Kent"}
     address   {"1938 Sullivan Lane"}
@@ -44,10 +41,9 @@ FactoryBot.define do
     zip       {87603}
     email     {"abird@dmail.com"}
     password  {"krypto2"}
-    password_confirmation  {"krypto2"}
     role      {2}
   end
-  
+
   factory :admin_user, class: User do
    name      {"Barry Allen"}
    address   {"800 S Star St"}
@@ -56,8 +52,6 @@ FactoryBot.define do
    zip       {32013}
    email     {"fastestmanalive@yaboo.com"}
    password  {"imfast1"}
-   password_confirmation  {"imfast1"}
    role      {3}
   end
 end
-
