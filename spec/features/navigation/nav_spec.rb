@@ -3,60 +3,51 @@ require "rails_helper"
 describe "the navigation bar" do
   it "shows these links for a visitor" do
     visit "/"
-    click_link "Home"
+
+    within ".topnav" do
+      click_link "Home"
+    end
     expect(current_path).to eq "/"
 
-    visit "/"
-    click_link "All Items"
+    within ".topnav" do
+      click_link "All Items"
+    end
     expect(current_path).to eq "/items"
 
-    visit "/"
-    click_link "All Merchants"
+    within ".topnav" do
+      click_link "All Merchants"
+    end
     expect(current_path).to eq "/merchants"
 
     item = create(:random_item)
     visit "/items/#{item.id}"
     click_button "Add To Cart"
-    visit "/"
-    click_link "Cart: 1"
+    within ".topnav" do
+      click_link "Cart: 1"
+    end
     expect(current_path).to eq "/cart"
 
-    visit "/"
-    click_link "Log In"
-    expect(current_path).to eq "/login"
-
-    visit "/"
-    click_link "Register"
+    within ".topnav" do
+      click_link "Register"
+    end
     expect(current_path).to eq "/register"
+
+    within ".topnav" do
+      click_link "Log In"
+    end
+    expect(current_path).to eq "/login"
   end
 
   it "shows additional links for a user" do
     visit "/"
-    click_link "Home"
-    expect(current_path).to eq "/"
-
-    visit "/"
-    click_link "All Items"
-    expect(current_path).to eq "/items"
-
-    visit "/"
-    click_link "All Merchants"
-    expect(current_path).to eq "/merchants"
-
-    item = create(:random_item)
-    visit "/items/#{item.id}"
-    click_button "Add To Cart"
-    visit "/"
-    click_link "Cart: 1"
-    expect(current_path).to eq "/cart"
-
-    visit "/"
-    click_link "Register"
-    expect(current_path).to eq "/register"
-
-    visit "/"
-    click_link "Log In"
-    expect(current_path).to eq "/login"
+    within ".topnav" do
+      expect(page).to have_link "Home"
+      expect(page).to have_link "All Items"
+      expect(page).to have_link "All Merchants"
+      expect(page).to have_link "Cart: 0"
+      expect(page).to have_link "Register"
+      click_link "Log In"
+    end
 
     user = create(:regular_user, password: "vsecure")
     fill_in :email, with: user.email
@@ -64,6 +55,10 @@ describe "the navigation bar" do
     click_button "Log In"
 
     within ".topnav" do
+      expect(page).to have_link "Home"
+      expect(page).to have_link "All Items"
+      expect(page).to have_link "All Merchants"
+      expect(page).to have_link "Cart: 0"
       expect(page).not_to have_link "Log In"
       expect(page).not_to have_link "Register"
     end
@@ -76,6 +71,33 @@ describe "the navigation bar" do
 
     within ".topnav" do
       click_link "Log Out"
+    end
+  end
+
+  it "has additional links for a merchant" do
+    visit "/"
+    within ".topnav" do
+      expect(page).to have_link "Home"
+      expect(page).to have_link "All Items"
+      expect(page).to have_link "All Merchants"
+      expect(page).to have_link "Cart: 0"
+      expect(page).to have_link "Register"
+      click_link "Log In"
+    end
+
+    user = create(:merchant_employee, password: "vsecure")
+    fill_in :email, with: user.email
+    fill_in :password, with: user.password
+    click_button "Log In"
+
+    within ".topnav" do
+      expect(page).to have_link "Home"
+      expect(page).to have_link "All Items"
+      expect(page).to have_link "All Merchants"
+      expect(page).to have_link "Cart: 0"
+      expect(page).to have_link "Merchant Dashboard"
+      expect(page).not_to have_link "Log In"
+      expect(page).not_to have_link "Register"
     end
   end
 end
