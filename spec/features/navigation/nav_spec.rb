@@ -72,11 +72,10 @@ describe "the navigation bar" do
       click_link "My Profile"
     end
     expect(current_path).to eq "/profile"
+    expect(page).to have_content "You are logged in as #{user.name}"
 
     within ".topnav" do
       click_link "Log Out"
     end
-
-    expect(page).to have_content "Welcome #{user.email}"
   end
 end
