@@ -17,7 +17,7 @@ RSpec.describe "user profile show page" do
 
     fill_in :email, with: "go@foogle.com"
     fill_in :password, with: "notsecure123"
-    fill_in :password_confirmation, with: "notsecure123"
+  
     click_button "Log In"
 
     expect(current_path).to eq("/profile")
