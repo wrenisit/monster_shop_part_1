@@ -10,7 +10,8 @@ RSpec.describe "As a visitor when I visit login path", type: :feature do
                                  state: "CO",
                                  zip: 80020,
                                  email: "go@foogle.com",
-                                 password: "notsecure123")
+                                 password: "notsecure123",
+                                 role: 0)
 
       visit '/merchants'
       click_on 'Log In'
@@ -75,7 +76,7 @@ RSpec.describe "As a visitor when I visit login path", type: :feature do
 
       click_button "Log In"
 
-      expect(current_path).to eq('/merchants/dashboard')
+      expect(current_path).to eq('/merchant')
       expect(page).to have_content("Welcome Merchant #{diana.email}")
       click_on "Log Out"
 
@@ -89,7 +90,7 @@ RSpec.describe "As a visitor when I visit login path", type: :feature do
 
       click_button "Log In"
 
-      expect(current_path).to eq('/merchants/dashboard')
+      expect(current_path).to eq('/merchant')
       expect(page).to have_content("Welcome Merchant #{becky.email}")
 
 
@@ -108,7 +109,7 @@ RSpec.describe "As a visitor when I visit login path", type: :feature do
 
       click_button "Log In"
 
-      expect(current_path).to eq('/admin/dashboard')
+      expect(current_path).to eq('/admin')
       expect(page).to have_content("Welcome Admin #{barry.email}!")
     end
 
@@ -147,11 +148,11 @@ RSpec.describe "As a visitor when I visit login path", type: :feature do
         fill_in :password, with: sarah.password
         click_button "Log In"
 
-        expect(current_path).to eq('/merchants/dashboard')
+        expect(current_path).to eq('/merchant')
         expect(page).to have_content("Welcome Merchant #{sarah.email}")
 
         visit "/login"
-        expect(current_path).to eq('/merchants/dashboard')
+        expect(current_path).to eq('/merchant')
         expect(page).to have_content("You are already logged in.")
         click_on "Log Out"
 
@@ -162,11 +163,11 @@ RSpec.describe "As a visitor when I visit login path", type: :feature do
         fill_in :password, with: paul.password
         click_button "Log In"
 
-        expect(current_path).to eq('/merchants/dashboard')
+        expect(current_path).to eq('/merchant')
         expect(page).to have_content("Welcome Merchant #{paul.email}")
 
         visit "/login"
-        expect(current_path).to eq('/merchants/dashboard')
+        expect(current_path).to eq('/merchant')
         expect(page).to have_content("You are already logged in.")
 
       end
@@ -183,11 +184,11 @@ RSpec.describe "As a visitor when I visit login path", type: :feature do
           fill_in :password, with: barry.password
           click_button "Log In"
 
-          expect(current_path).to eq('/admin/dashboard')
+          expect(current_path).to eq('/admin')
           expect(page).to have_content("Welcome Admin #{barry.email}")
 
           visit "/login"
-          expect(current_path).to eq('/admin/dashboard')
+          expect(current_path).to eq('/admin')
           expect(page).to have_content("You are already logged in.")
       end
     end
