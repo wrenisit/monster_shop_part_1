@@ -25,28 +25,30 @@ class UsersController<ApplicationController
 
   def update
     @user = User.find(session[:user_id])
-      
-
-
-    if @user.email == e_params[:email] || User.find_by(email: e_params[:email]) == nil
-      @user = @user.update(e_params)
-      flash[:success] = "Your profile has been updated."
-      redirect_to '/profile'
-    else
-      flash[:error] = "This email is already used."
-      render :edit
+    if password? == false && uniq_email?
+      update_e_params(true)
+    elsif password? == false && uniq_email? == false
+      update_e_params(false)
+    elsif password?
+      @user = @user.update(password?)
     end
+
+    #
+    # if @user.email == e_params[:email] || User.find_by(email: e_params[:email]) == nil
+    #   @user = @user.update(e_params)
+    # else
+    #   @user.update(password_params)
+    #   flash[:success] = "Your password has been updated."
+    #   redirect_to '/profile'
+    # end
   end
 
   def password_edit
   end
-
-  def password_update
-    @user = User.find(session[:user_id])
-    @user.update(password_params)
-    flash[:success] = "Your password has been updated."
-    redirect_to '/profile'
-  end
+  #
+  # def password_update
+  #   @user = User.find(session[:user_id])
+  # end
 
   private
 
@@ -58,7 +60,28 @@ class UsersController<ApplicationController
     params.permit(:name, :address, :city, :state, :zip, :email)
   end
 
-  def password_params
-    params.permit(:password, :password_confirmation)
+  # def password_params
+  #   params.permit(:password, :password_confirmation)
+  # end
+
+  def update_e_params(bool)
+    if bool == true
+      @user = @user.update(e_params)
+      flash[:success] = "Your profile has been updated."
+      redirect_to '/profile'
+    else
+      flash[:error] = "This email is already used."
+      render :edit
+    end
+  end
+
+  def password?
+    if params.include?(:password)
+      password_params = params.permit(:password)
+    end
+  end
+
+  def uniq_email?
+    @user.email == e_params[:email] || User.find_by(email: e_params[:email]) == nil
   end
 end
