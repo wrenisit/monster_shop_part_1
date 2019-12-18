@@ -35,7 +35,7 @@ class UsersController<ApplicationController
     end
   end
 
-  def password_update
+  def password_edit
   end
 
   private
