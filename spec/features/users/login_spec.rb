@@ -112,9 +112,6 @@ RSpec.describe "As a visitor when I visit login path", type: :feature do
     end
 
     describe "will redirect all users if they are already logged in" do
-      before :each do
-
-      end
       it "as regular user, I am redirected to my profile page" do
         becky = create(:regular_user)
 
