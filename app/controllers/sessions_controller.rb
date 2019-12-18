@@ -1,18 +1,15 @@
 class SessionsController < ApplicationController
 
   def new
-    if current_user != nil && current_user.user?
-      flash[:error] = "You are already logged in."
-      redirect_to "/profile"
-    elsif current_user != nil && current_user.merchant_admin?
-      flash[:error] = "You are already logged in."
-      redirect_to "/merchant"
-    elsif current_user != nil && current_user.merchant_employee?
-      flash[:error] = "You are already logged in."
-      redirect_to "/merchant"
-    elsif current_user != nil && current_user.admin_user?
+    if current_admin_user?
       flash[:error] = "You are already logged in."
       redirect_to "/admin"
+    elsif current_merchant_user?
+      flash[:error] = "You are already logged in."
+      redirect_to "/merchant"
+    elsif current_user
+      flash[:error] = "You are already logged in."
+      redirect_to "/profile"
     end
   end
 
