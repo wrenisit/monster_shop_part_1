@@ -24,4 +24,7 @@ class ApplicationController < ActionController::Base
     render file: "/public/404", status: 404 unless current_merchant_user?
   end
 
+  def require_admin
+    render file: "/public/404", status: 404 unless current_admin_user?
+  end
 end
