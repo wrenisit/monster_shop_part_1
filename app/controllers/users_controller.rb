@@ -25,14 +25,16 @@ class UsersController<ApplicationController
 
   def update
     @user = User.find(session[:user_id])
-    if @user.email == e_params[:email] || User.find_by(email: e_params[:email]) == nil
-      @user = @user.update(e_params)
-      flash[:success] = "Your profile has been updated."
-      redirect_to '/profile'
-    else
-      flash[:error] = "This email is already used."
-      render :edit
+    if password?
+      password_update
+    elsif uniq_email?
+      update_e_params(true)
+    else !uniq_email?
+      update_e_params
     end
+  end
+
+  def password_edit
   end
 
   private
@@ -43,5 +45,34 @@ class UsersController<ApplicationController
 
   def e_params
     params.permit(:name, :address, :city, :state, :zip, :email)
+  end
+
+  def password_params
+    params.permit(:password, :password_confirmation)
+  end
+
+  def update_e_params(bool = false)
+    if bool == true
+      @user = @user.update(e_params)
+      flash[:success] = "Your profile has been updated."
+      redirect_to '/profile'
+    else
+      flash[:error] = "This email is already used."
+      render :edit
+    end
+  end
+
+  def password_update
+    @user = @user.update(password_params)
+    flash[:success] = "Your password has been updated."
+    redirect_to '/profile'
+  end
+
+  def password?
+    params.include?(:password)
+  end
+
+  def uniq_email?
+    @user.email == e_params[:email] || User.find_by(email: e_params[:email]) == nil
   end
 end
