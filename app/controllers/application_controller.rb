@@ -27,4 +27,8 @@ class ApplicationController < ActionController::Base
   def require_admin
     render file: "/public/404", status: 404 unless current_admin_user?
   end
+
+  def require_user
+    render file: "/public/404", status: 404 unless current_user
+  end
 end
