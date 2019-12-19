@@ -43,14 +43,16 @@ describe Item, type: :model do
 
     it 'no orders' do
       expect(@chain.no_orders?).to eq(true)
-      order = Order.create(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033)
+      user = create(:regular_user)
+      order = user.orders.create(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033)
       order.item_orders.create(item: @chain, price: @chain.price, quantity: 2)
       expect(@chain.no_orders?).to eq(false)
     end
 
     it 'can find top five selling items' do
-      order = create(:random_order)
-      order_new = create(:random_order)
+      user = create(:regular_user)
+      order = create(:random_order, user: user)
+      order_new = create(:random_order, user: user)
 
       dog_bone = create(:random_item)
       mug = create(:random_item)
@@ -84,8 +86,9 @@ describe Item, type: :model do
     end
 
     it 'can find bottom five selling items' do
-      order = create(:random_order)
-      order_new = create(:random_order)
+      user = create(:regular_user)
+      order = create(:random_order, user: user)
+      order_new = create(:random_order, user: user)
 
       dog_bone = create(:random_item)
       mug = create(:random_item)

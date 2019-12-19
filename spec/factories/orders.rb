@@ -5,7 +5,6 @@ FactoryBot.define do
     city      {Faker::Address.city}
     state     {Faker::Address.state_abbr}
     zip       {12345}
+    association :user, factory: :regular_user
   end
 end
-
-
