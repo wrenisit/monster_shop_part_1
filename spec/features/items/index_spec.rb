@@ -89,21 +89,46 @@ RSpec.describe "Items Index Page" do
         ItemOrder.create(item: dog_bone, order: order_1, price: dog_bone.price, quantity: 9)
         ItemOrder.create(item: dog_bone, order: order_2, price: dog_bone.price, quantity: 2)
         ItemOrder.create(item: dog_bone, order: order_2, price: dog_bone.price, quantity: 1)
+
         ItemOrder.create(item: cookie, order: order_1, price: cookie.price, quantity: 7)
         ItemOrder.create(item: cookie, order: order_2, price: cookie.price, quantity: 3)
+
         ItemOrder.create(item: pants, order: order_2, price: pants.price, quantity: 8)
         ItemOrder.create(item: mug, order: order_1, price: mug.price, quantity: 5)
         ItemOrder.create(item: boot, order: order_1, price: boot.price, quantity: 4)
         ItemOrder.create(item: shirt, order: order_2, price: shirt.price, quantity: 2)
         ItemOrder.create(item: hat, order: order_2, price: hat.price, quantity: 1)
 
+      within "top five_#{dog_bone.id}" do
+        expect(page).to have_content(dog_bone.name)
+        expect(page).to have_content("Quantity: 12")
+      end
+      within "top five_#{cookie.id}" do
+        expect(page).to have_content(cookie.name)
+        expect(page).to have_content("Quantity: 10")
+      end
+      within "top five_#{pants.id}" do
+        expect(page).to have_content(pants.name)
+        expect(page).to have_content("Quantity: 8")
+      end
+      within "top five_#{mug.id}" do
+        expect(page).to have_content(mug.name)
+        expect(page).to have_content("Quantity: 5")
+      end
+      within "top five_#{boot.id}" do
+        expect(page).to have_content(boot.name)
+        expect(page).to have_content("Quantity: 4")
+      end
 
+      within "top five_#{shirt.id}" do
+        expect(page).to_not have_content(shirt.name)
+        expect(page).to_not have_content("Quantity: 2")
+      end
 
-require "pry"; binding.pry
-
-ItemOrder.select(:quantity)
-        # expect(page).to have_content(Item.most_popular)
-
+      within "top five_#{hat.id}" do
+        expect(page).to_not have_content(hat.name)
+        expect(page).to_not have_content("Quantity: 1")
+      end
     end
 
     xit "can list 5 least most popular items and quantity bought  " do
