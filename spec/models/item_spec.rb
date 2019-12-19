@@ -50,8 +50,9 @@ describe Item, type: :model do
     end
 
     it 'can find top five selling items' do
-      order = create(:random_order)
-      order_new = create(:random_order)
+      user = create(:regular_user)
+      order = create(:random_order, user: user)
+      order_new = create(:random_order, user: user)
 
       dog_bone = create(:random_item)
       mug = create(:random_item)
@@ -85,8 +86,9 @@ describe Item, type: :model do
     end
 
     it 'can find bottom five selling items' do
-      order = create(:random_order)
-      order_new = create(:random_order)
+      user = create(:regular_user)
+      order = create(:random_order, user: user)
+      order_new = create(:random_order, user: user)
 
       dog_bone = create(:random_item)
       mug = create(:random_item)
