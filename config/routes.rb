@@ -11,10 +11,7 @@ Rails.application.routes.draw do
   end
 
   resources :reviews, only: [:edit, :update, :destroy]
-
-  get "/orders/new", to: "orders#new"
-  post "/orders", to: "orders#create"
-  get "/orders/:id", to: "orders#show"
+  resources :orders, only: [:new, :create, :show]
 
   get "/register", to: "users#new"
   post "/register", to: "users#create"
