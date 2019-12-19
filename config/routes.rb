@@ -10,9 +10,7 @@ Rails.application.routes.draw do
     resources :reviews, only: [:new, :create]
   end
 
-  get "/reviews/:id/edit", to: "reviews#edit"
-  patch "/reviews/:id", to: "reviews#update"
-  delete "/reviews/:id", to: "reviews#destroy"
+  resources :reviews, only: [:edit, :update, :destroy]
 
   get "/orders/new", to: "orders#new"
   post "/orders", to: "orders#create"
