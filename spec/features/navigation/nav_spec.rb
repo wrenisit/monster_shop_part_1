@@ -155,5 +155,10 @@ describe "the navigation bar" do
       click_link "Admin Dashboard"
     end
     expect(current_path).to eq "/admin"
+
+    within ".topnav" do
+      click_link "All Users"
+    end
+    expect(current_path).to eq "/admin/users"
   end
 end

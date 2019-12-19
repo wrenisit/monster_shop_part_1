@@ -47,5 +47,75 @@ describe Item, type: :model do
       order.item_orders.create(item: @chain, price: @chain.price, quantity: 2)
       expect(@chain.no_orders?).to eq(false)
     end
+
+    it 'can find top five selling items' do
+      order = create(:random_order)
+      order_new = create(:random_order)
+
+      dog_bone = create(:random_item)
+      mug = create(:random_item)
+      boot = create(:random_item)
+      shirt = create(:random_item)
+      hat = create(:random_item)
+      cookie = create(:random_item)
+      pants = create(:random_item)
+
+      ItemOrder.create(item: dog_bone, order: order, price: dog_bone.price, quantity: 9)
+      ItemOrder.create(item: dog_bone, order: order_new, price: dog_bone.price, quantity: 2)
+      ItemOrder.create(item: dog_bone, order: order_new, price: dog_bone.price, quantity: 1)
+
+      ItemOrder.create(item: cookie, order: order, price: cookie.price, quantity: 7)
+      ItemOrder.create(item: cookie, order: order_new, price: cookie.price, quantity: 3)
+
+
+      ItemOrder.create(item: pants, order: order_new, price: pants.price, quantity: 8)
+      ItemOrder.create(item: mug, order: order, price: mug.price, quantity: 5)
+      ItemOrder.create(item: boot, order: order, price: boot.price, quantity: 4)
+      ItemOrder.create(item: shirt, order: order_new, price: shirt.price, quantity: 2)
+      ItemOrder.create(item: hat, order: order_new, price: hat.price, quantity: 1)
+      items = Item.top_five
+
+      expect(items.length).to eq(5)
+      expect(items.first.quantity).to eq(12)
+      expect(items[1].quantity).to eq(10)
+      expect(items[2].quantity).to eq(8)
+      expect(items[3].quantity).to eq(5)
+      expect(items.last.quantity).to eq(4)
+    end
+
+    it 'can find bottom five selling items' do
+      order = create(:random_order)
+      order_new = create(:random_order)
+
+      dog_bone = create(:random_item)
+      mug = create(:random_item)
+      boot = create(:random_item)
+      shirt = create(:random_item)
+      hat = create(:random_item)
+      cookie = create(:random_item)
+      pants = create(:random_item)
+
+      ItemOrder.create(item: dog_bone, order: order, price: dog_bone.price, quantity: 9)
+      ItemOrder.create(item: dog_bone, order: order_new, price: dog_bone.price, quantity: 2)
+      ItemOrder.create(item: dog_bone, order: order_new, price: dog_bone.price, quantity: 1)
+
+      ItemOrder.create(item: cookie, order: order, price: cookie.price, quantity: 7)
+      ItemOrder.create(item: cookie, order: order_new, price: cookie.price, quantity: 3)
+
+
+      ItemOrder.create(item: pants, order: order_new, price: pants.price, quantity: 8)
+      ItemOrder.create(item: mug, order: order, price: mug.price, quantity: 5)
+      ItemOrder.create(item: boot, order: order, price: boot.price, quantity: 4)
+      ItemOrder.create(item: shirt, order: order_new, price: shirt.price, quantity: 2)
+      ItemOrder.create(item: hat, order: order_new, price: hat.price, quantity: 1)
+      items = Item.bottom_five
+
+      expect(items.length).to eq(5)
+      expect(items.first.quantity).to eq(1)
+      expect(items[1].quantity).to eq(2)
+      expect(items[2].quantity).to eq(4)
+      expect(items[3].quantity).to eq(5)
+      expect(items.last.quantity).to eq(8)
+    end
   end
 end
