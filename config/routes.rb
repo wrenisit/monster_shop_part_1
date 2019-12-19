@@ -26,14 +26,14 @@ Rails.application.routes.draw do
 
   get "/login", to: "sessions#new"
   post "/login", to: "sessions#create"
-  get '/logout', to: "sessions#destroy"
+  get "/logout", to: "sessions#destroy"
 
   namespace :merchant do
-    get '/', to: "dashboard#index"
+    get "/", to: "dashboard#index"
   end
 
   namespace :admin do
-    get '/', to: "dashboard#index"
+    get "/", to: "dashboard#index"
     resources :users, only: [:index]
   end
 end
