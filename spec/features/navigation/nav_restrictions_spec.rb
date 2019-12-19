@@ -2,13 +2,13 @@ require 'rails_helper'
 
 describe "user navigation" do
   it "restricts access to visitors" do
-    visit "/merchant"
+    visit merchant_path
     expect(page.status_code).to eq(404)
 
-    visit "/admin"
+    visit admin_path
     expect(page.status_code).to eq(404)
 
-    visit "/profile"
+    visit profile_path
     expect(page.status_code).to eq(404)
   end
 
@@ -16,10 +16,10 @@ describe "user navigation" do
     user = create(:regular_user)
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
 
-    visit "/merchant"
+    visit merchant_path
     expect(page.status_code).to eq(404)
 
-    visit "/admin"
+    visit admin_path
     expect(page.status_code).to eq(404)
   end
 
@@ -27,13 +27,24 @@ describe "user navigation" do
     merchant = create(:merchant_employee)
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(merchant)
 
-    visit "/admin"
+    visit admin_path
     expect(page.status_code).to eq(404)
 
     merchant_admin = create(:merchant_admin)
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(merchant_admin)
 
-    visit "/admin"
+    visit admin_path
+    expect(page.status_code).to eq(404)
+  end
+
+  it "restricts admins from accessing /merchant and /cart" do
+    admin = create(:admin_user)
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
+
+    visit merchant_path
+    expect(page.status_code).to eq(404)
+
+    visit cart_path
     expect(page.status_code).to eq(404)
   end
 end
