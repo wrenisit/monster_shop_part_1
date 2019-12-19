@@ -22,4 +22,18 @@ describe "user navigation" do
     visit "/admin"
     expect(page.status_code).to eq(404)
   end
+
+  it "restricts merchants from accessing /admin" do
+    merchant = create(:merchant_employee)
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(merchant)
+
+    visit "/admin"
+    expect(page.status_code).to eq(404)
+
+    merchant_admin = create(:merchant_admin)
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(merchant_admin)
+
+    visit "/admin"
+    expect(page.status_code).to eq(404)
+  end
 end
