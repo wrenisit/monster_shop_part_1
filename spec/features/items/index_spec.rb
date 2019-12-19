@@ -73,8 +73,9 @@ RSpec.describe "Items Index Page" do
     end
 
     it "can list top 5 most popular items and quantity bought" do
-        order_1 = create(:random_order)
-        order_2 = create(:random_order)
+        user = create(:regular_user)
+        order_1 = create(:random_order, user: user)
+        order_2 = create(:random_order, user: user)
 
         dog_toy = create(:random_item)
         mug = create(:random_item)
@@ -130,8 +131,9 @@ RSpec.describe "Items Index Page" do
     end
 
     it "can list 5 least most popular items and quantity bought  " do
-      order_1 = create(:random_order)
-      order_2 = create(:random_order)
+      user = create(:regular_user)
+      order_1 = create(:random_order, user: user)
+      order_2 = create(:random_order, user: user)
 
       dog_toy = create(:random_item)
       mug = create(:random_item)
