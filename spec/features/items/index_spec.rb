@@ -61,7 +61,7 @@ RSpec.describe "Items Index Page" do
 
     it "can't see deactivated items" do
       visit '/items'
-      
+
       expect(page).to have_link(@tire.name)
       expect(page).to have_link(@tire.merchant.name)
       expect(page).to have_link(@pull_toy.name)
@@ -70,6 +70,122 @@ RSpec.describe "Items Index Page" do
       expect(page).to have_link(@dog_bone.merchant.name)
 
       expect(page).to_not have_content(@muzzle.name)
+    end
+
+    it "can list top 5 most popular items and quantity bought" do
+        order_1 = create(:random_order)
+        order_2 = create(:random_order)
+
+        dog_toy = create(:random_item)
+        mug = create(:random_item)
+        boot = create(:random_item)
+        shirt = create(:random_item)
+        hat = create(:random_item)
+        cookie = create(:random_item)
+        pants = create(:random_item)
+
+        ItemOrder.create(item: dog_toy, order: order_1, price: dog_toy.price, quantity: 9)
+        ItemOrder.create(item: dog_toy, order: order_2, price: dog_toy.price, quantity: 2)
+        ItemOrder.create(item: dog_toy, order: order_2, price: dog_toy.price, quantity: 1)
+
+        ItemOrder.create(item: cookie, order: order_1, price: cookie.price, quantity: 7)
+        ItemOrder.create(item: cookie, order: order_2, price: cookie.price, quantity: 3)
+
+        ItemOrder.create(item: pants, order: order_2, price: pants.price, quantity: 8)
+        ItemOrder.create(item: mug, order: order_1, price: mug.price, quantity: 5)
+        ItemOrder.create(item: boot, order: order_1, price: boot.price, quantity: 4)
+        ItemOrder.create(item: shirt, order: order_2, price: shirt.price, quantity: 2)
+        ItemOrder.create(item: hat, order: order_2, price: hat.price, quantity: 1)
+
+      visit '/items'
+
+      within "#top_five" do
+        expect(page).to have_content(dog_toy.name)
+        expect(page).to have_content("Quantity: 12")
+      end
+      within "#top_five" do
+        expect(page).to have_content(cookie.name)
+        expect(page).to have_content("Quantity: 10")
+      end
+      within "#top_five" do
+        expect(page).to have_content(pants.name)
+        expect(page).to have_content("Quantity: 8")
+      end
+      within "#top_five" do
+        expect(page).to have_content(mug.name)
+        expect(page).to have_content("Quantity: 5")
+      end
+      within "#top_five" do
+        expect(page).to have_content(boot.name)
+        expect(page).to have_content("Quantity: 4")
+      end
+
+      within "#top_five" do
+        expect(page).to_not have_content(shirt.name)
+      end
+
+      within "#top_five" do
+        expect(page).to_not have_content(hat.name)
+      end
+    end
+
+    it "can list 5 least most popular items and quantity bought  " do
+      order_1 = create(:random_order)
+      order_2 = create(:random_order)
+
+      dog_toy = create(:random_item)
+      mug = create(:random_item)
+      boot = create(:random_item)
+      shirt = create(:random_item)
+      hat = create(:random_item)
+      cookie = create(:random_item)
+      pants = create(:random_item)
+
+      ItemOrder.create(item: dog_toy, order: order_1, price: dog_toy.price, quantity: 9)
+      ItemOrder.create(item: dog_toy, order: order_2, price: dog_toy.price, quantity: 2)
+      ItemOrder.create(item: dog_toy, order: order_2, price: dog_toy.price, quantity: 1)
+
+      ItemOrder.create(item: cookie, order: order_1, price: cookie.price, quantity: 7)
+      ItemOrder.create(item: cookie, order: order_2, price: cookie.price, quantity: 3)
+
+      ItemOrder.create(item: pants, order: order_2, price: pants.price, quantity: 8)
+      ItemOrder.create(item: mug, order: order_1, price: mug.price, quantity: 5)
+      ItemOrder.create(item: boot, order: order_1, price: boot.price, quantity: 4)
+      ItemOrder.create(item: shirt, order: order_2, price: shirt.price, quantity: 2)
+      ItemOrder.create(item: hat, order: order_2, price: hat.price, quantity: 1)
+
+    visit '/items'
+
+    within "#bottom_five" do
+      expect(page).to have_content(hat.name)
+      expect(page).to have_content("Quantity: 1")
+    end
+    within "#bottom_five" do
+      expect(page).to have_content(shirt.name)
+      expect(page).to have_content("Quantity: 2")
+    end
+    within "#bottom_five" do
+      expect(page).to have_content(boot.name)
+      expect(page).to have_content("Quantity: 4")
+    end
+    within "#bottom_five" do
+      expect(page).to have_content(mug.name)
+      expect(page).to have_content("Quantity: 5")
+    end
+    within "#bottom_five" do
+      expect(page).to have_content(pants.name)
+      expect(page).to have_content("Quantity: 8")
+    end
+
+    within "#bottom_five" do
+      expect(page).to_not have_content(cookie.name)
+      expect(page).to_not have_content("Quantity: 10")
+    end
+
+    within "#bottom_five" do
+      expect(page).to_not have_content(dog_toy.name)
+      expect(page).to_not have_content("Quantity: 12")
+    end
     end
   end
 end

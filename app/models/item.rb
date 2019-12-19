@@ -1,8 +1,8 @@
 class Item <ApplicationRecord
   belongs_to :merchant
   has_many :reviews, dependent: :destroy
-  has_many :item_orders
-  has_many :orders, through: :item_orders
+  has_many :item_orders, dependent: :destroy
+  has_many :orders, through: :item_orders, dependent: :destroy
 
   validates_presence_of :name,
                         :description,
@@ -23,6 +23,14 @@ class Item <ApplicationRecord
 
   def no_orders?
     item_orders.empty?
+  end
+
+  def self.top_five
+    joins(:item_orders).select("items.name, sum(item_orders.quantity) as quantity").group(:id).order("quantity DESC").limit(5)
+  end
+
+  def self.bottom_five
+    joins(:item_orders).select("items.name, sum(item_orders.quantity) as quantity").group(:id).order("quantity").limit(5)
   end
 
 end

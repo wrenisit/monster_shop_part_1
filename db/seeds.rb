@@ -8,6 +8,8 @@
 
 Merchant.destroy_all
 Item.destroy_all
+Order.destroy_all
+ItemOrder.destroy_all
 
 #merchants
 bike_shop = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
@@ -19,3 +21,30 @@ tire = bike_shop.items.create(name: "Gatorskins", description: "They'll never po
 #dog_shop items
 pull_toy = dog_shop.items.create(name: "Pull Toy", description: "Great pull toy!", price: 10, image: "http://lovencaretoys.com/image/cache/dog/tug-toy-dog-pull-9010_2-800x800.jpg", inventory: 32)
 dog_bone = dog_shop.items.create(name: "Dog Bone", description: "They'll love it!", price: 21, image: "https://img.chewy.com/is/image/catalog/54226_MAIN._AC_SL1500_V1534449573_.jpg", active?:false, inventory: 21)
+
+#orders
+order_1 = Order.create(name: "Sarah Adsit", address: "123 Main Street", city: "Broomfield", state: "CO" , zip: 80020)
+order_2 = Order.create(name: "Chandler Warren", address: "534 Floyd Ave", city: "Chattanooga", state: "TN", zip: 80530)
+
+#more items
+dog_toy = create(:random_item)
+mug = create(:random_item)
+boot = create(:random_item)
+shirt = create(:random_item)
+hat = create(:random_item)
+cookie = create(:random_item)
+pants = create(:random_item)
+
+#ItemOrders
+ItemOrder.create(item: dog_toy, order: order_1, price: dog_toy.price, quantity: 9)
+ItemOrder.create(item: dog_toy, order: order_2, price: dog_toy.price, quantity: 2)
+ItemOrder.create(item: dog_toy, order: order_2, price: dog_toy.price, quantity: 1)
+
+ItemOrder.create(item: cookie, order: order_1, price: cookie.price, quantity: 7)
+ItemOrder.create(item: cookie, order: order_2, price: cookie.price, quantity: 3)
+
+ItemOrder.create(item: pants, order: order_2, price: pants.price, quantity: 8)
+ItemOrder.create(item: mug, order: order_1, price: mug.price, quantity: 5)
+ItemOrder.create(item: boot, order: order_1, price: boot.price, quantity: 4)
+ItemOrder.create(item: shirt, order: order_2, price: shirt.price, quantity: 2)
+ItemOrder.create(item: hat, order: order_2, price: hat.price, quantity: 1)
