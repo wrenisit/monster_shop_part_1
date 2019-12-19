@@ -29,17 +29,18 @@ RSpec.describe("Order Creation") do
     end
 
     it 'I can create a new order' do
-      name = "Bert"
-      address = "123 Sesame St."
-      city = "NYC"
-      state = "New York"
-      zip = 10001
+      user = User.create(
+      name: "Bert",
+      address: "123 Sesame St.",
+      city: "NYC",
+      state: "New York",
+      zip: 10001)
 
-      fill_in :name, with: name
-      fill_in :address, with: address
-      fill_in :city, with: city
-      fill_in :state, with: state
-      fill_in :zip, with: zip
+      fill_in :name, with: user.name
+      fill_in :address, with: user.address
+      fill_in :city, with: user.city
+      fill_in :state, with: user.state
+      fill_in :zip, with: user.zip
 
       click_button "Create Order"
 
