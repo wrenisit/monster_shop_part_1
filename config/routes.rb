@@ -6,13 +6,9 @@ Rails.application.routes.draw do
     resources :items, only: [:index, :new, :create]
   end
 
-  get "/items", to: "items#index"
-  get "/items/:id", to: "items#show"
-  get "/items/:id/edit", to: "items#edit"
-  patch "/items/:id", to: "items#update"
-  delete "/items/:id", to: "items#destroy"
-  get "/items/:item_id/reviews/new", to: "reviews#new"
-  post "/items/:item_id/reviews", to: "reviews#create"
+  resources :items, except: [:new, :create] do
+    resources :reviews, only: [:new, :create]
+  end
 
   get "/reviews/:id/edit", to: "reviews#edit"
   patch "/reviews/:id", to: "reviews#update"
