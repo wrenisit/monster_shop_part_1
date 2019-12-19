@@ -49,12 +49,20 @@ RSpec.describe "log out user" do
     visit "/items/#{@pencil.id}"
     click_on "Add To Cart"
 
-    expect(page).to have_content("Cart: 2")
+    expect(page).to have_link("Cart: 2")
 
     click_link("Log Out")
     expect(current_path).to eq('/')
     expect(page).to have_content("You are now logged out.")
     expect(page).to have_link("Log In")
-    expect(page).to have_content("Cart: 0")  
+    expect(page).to have_content("Cart: 0")
+
+    click_on "Log In"
+    fill_in :email, with: "mol@google.com"
+    fill_in :password, with: "notsecure123"
+    click_button "Log In"
+
+    expect(page).to have_content("Cart: 0")
+    
   end
 end
