@@ -23,5 +23,12 @@
       <% end %>
     </section>
     <% end %>
-   <% end %> 
+   <% end %>
 </section>
+
+<%@items.top_five.each do |item| %>
+  <section class = "top five_<%="#{item.id}"%>">
+     Item Name: <%=item.name %>
+     Quantity: <%= item.quantity %>
+  </section>
+<%end %>
