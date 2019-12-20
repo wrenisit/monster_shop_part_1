@@ -57,7 +57,7 @@ RSpec.describe "order show page" do
 
   it "allowes me to cancel pending orders" do
     user = create(:regular_user)
-    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(merchant_employee)
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
 
     items = create_list(:random_item, 5)
     order = create(:random_order, user: user)
@@ -67,7 +67,5 @@ RSpec.describe "order show page" do
 
     visit "/profile/orders/#{order.id}"
     click_button "Cancel Order"
-
-
   end
 end
