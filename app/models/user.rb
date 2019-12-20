@@ -7,7 +7,7 @@ class User <ApplicationRecord
   validates_presence_of :password_digest
   validates_confirmation_of :password
 
-  has_many :orders
+  has_many :orders, dependent: :destroy
 
   has_secure_password
 
