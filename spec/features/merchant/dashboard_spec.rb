@@ -58,11 +58,12 @@ describe "merchant dashboard" do
 
       it "if a user has pending orders containing items I sell I see a list of those orders" do
         visit "/merchant"
-
         order_1 = @merchant.merchant.item_orders.first.order
         order_2 = @merchant.merchant.item_orders.last.order
+        @merchant.merchant.pending_orders
         items_1 = order_1.items
         items_2 = order_2.items
+
         within("#order-#{order_1.id}") do
           expect(page).to have_link(order_1.id)
           expect(page).to have_content(order_1.created_at)
