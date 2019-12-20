@@ -40,18 +40,18 @@ RSpec.describe "order show page" do
      within "#item-#{@pencil.id}" do
       expect(page).to have_content(@pencil.name)
       expect(page).to have_content(@pencil.description)
-      expect(page).to have_content(@pencil.image)
-      expect(page).to have_content(@pencil.quantity)
-      expect(page).to have_content(@pencil.subtotal)
+      expect(page).to have_css("img[src*='#{@pencil.image}']")
+      expect(page).to have_content("3")
+      expect(page).to have_content("$6.00")
     end
     within "#item-#{@paper.id}" do
       expect(page).to have_content(@paper.name)
       expect(page).to have_content(@paper.description)
-      expect(page).to have_content(@paper.image)
-      expect(page).to have_content(@paper.quantity)
-      expect(page).to have_content(@paper.subtotal)
+      expect(page).to have_css("img[src*='#{@paper.image}']")
+      expect(page).to have_content("2")
+      expect(page).to have_content("$40.00")
     end
      expect(page).to have_content("Total Quantity Ordered: #{@order.items.count}")
-     expect(page).to have_content("Total: #{@order.grandtotal}")
+     expect(page).to have_content("Total: $46.00")
   end
 end
