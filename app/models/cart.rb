@@ -34,17 +34,14 @@ class Cart
 
   def add_quantity(item_id)
     @contents[item_id] += 1
-    flash[:success] = "You have added another item to your cart"
   end
 
   def subtract_quantity(item_id)
     @contents[item_id] -= 1
-    flash[:success] = "You have subtracted an item to your cart"
   end
 
   def limit_reached?(item_id)
     @contents[item_id] == Item.find(item_id).inventory
-    flash[:error] = "You cannot add any more of these items to your cart"
   end
 
   def quantity_zero?(item_id)
