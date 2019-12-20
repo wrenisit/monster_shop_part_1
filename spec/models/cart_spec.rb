@@ -4,12 +4,12 @@ RSpec.describe Cart do
   describe "methods" do
     before :each do
       @session = Hash.new(0)
-      @session[:cart] = 0
-      @cart ||= Cart.new(@session)
       @item = create(:random_item)
+      @session[@item.id.to_s] = 0
+      @cart ||= Cart.new(@session)
     end
     it "can initialize with contents" do
-      expect(@cart.contents[:cart]).to eq(0)
+      expect(@cart.contents[@item_id.to_s]).to eq(0)
     end
 
     it "can add items to content" do
@@ -17,23 +17,47 @@ RSpec.describe Cart do
       expect(@cart.contents[@item.id.to_s]).to eq(1)
     end
 
-    xit "can count total_items" do
+    it "can count total_items" do
+      @cart.add_item(@item.id.to_s)
+      @cart.add_item(@item.id.to_s)
+      item_2 = create(:random_item)
+      @cart.add_item(item_2.id.to_s)
+      expect(@cart.total_items).to eq(3)
     end
 
-    xit "can find a total item quantity" do
+    it "can find a total item quantity" do
+      @cart.add_item(@item.id.to_s)
+      @cart.add_item(@item.id.to_s)
+      expect(@cart.items).to eq({@item => 2})
     end
 
-    xit "can total a cart items contents" do
+    it "can total a cart items contents" do
+      @cart.add_item(@item.id.to_s)
+      @cart.add_item(@item.id.to_s)
+      expect(@cart.subtotal(@item)).to eq(@item.price * 2)
     end
 
-    xit "can total a cart's contents" do
+    it "can total a cart's contents" do
+      @cart.add_item(@item.id.to_s)
+      @cart.add_item(@item.id.to_s)
+      item_2 = create(:random_item)
+      @cart.add_item(item_2.id.to_s)
+      expect(@cart.total).to eq((@item.price * 2) + item_2.price)
     end
 
-    xit "add additional items to cart" do
-
+    it "add additional items to cart" do
+      @cart.add_item(@item.id.to_s)
+      expect(@cart.contents["#{@item.id.to_s}"]).to eq(1)
+      @cart.add_quantity(@item.id.to_s)
+      expect(@cart.contents["#{@item.id.to_s}"]).to eq(2)
     end
 
-    xit "can subtract item quantity from cart" do
+    it "can subtract item quantity from cart" do
+      @cart.add_item(@item.id.to_s)
+      @cart.add_item(@item.id.to_s)
+      expect(@cart.contents["#{@item.id.to_s}"]).to eq(2)
+      @cart.subtract_quantity(@item.id.to_s)
+      expect(@cart.contents["#{@item.id.to_s}"]).to eq(1)
     end
 
     xit "can see if a cart's item quantity is more than inventory total" do
