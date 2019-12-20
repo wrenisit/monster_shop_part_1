@@ -36,4 +36,31 @@ RSpec.describe "password edit" do
 
     expect(current_path).to eq('/profile')
   end
+  it "can't update a user's password if they don't match" do
+    wilma = User.create(name: "Wilma White",
+                               address: "7 RR 12",
+                               city: "Dripping Springs",
+                               state: "TX",
+                               zip: 78620,
+                               email: "fakemom@someplace.com",
+                               password: "MangosAreTrash")
+
+    visit '/login'
+    fill_in :email, with: wilma.email
+    fill_in :password, with: wilma.password
+    click_button "Log In"
+
+    expect(page).to have_link("Edit Your Password")
+    click_link "Edit Your Password"
+
+    expect(current_path).to eq('/profile/password')
+
+    fill_in :password, with: "nottrash"
+    fill_in :password_confirmation, with: "not55"
+    click_button "Submit"
+
+    expect(current_path).to eq('/profile/password')
+    expect(page).to have_content("Passwords entered do not match.")
+
+  end
 end

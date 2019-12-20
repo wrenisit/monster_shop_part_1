@@ -65,9 +65,14 @@ class UsersController<ApplicationController
   end
 
   def password_update
-    @user = @user.update(password_params)
-    flash[:success] = "Your password has been updated."
-    redirect_to '/profile'
+    if params[:password] == params[:password_confirmation]
+      @user = @user.update(password_params)
+      flash[:success] = "Your password has been updated."
+      redirect_to '/profile'
+    else
+      flash[:error] = "Passwords entered do not match."
+      redirect_to '/profile/password'
+    end
   end
 
   def password?
