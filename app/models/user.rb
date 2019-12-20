@@ -13,4 +13,5 @@ class User <ApplicationRecord
 
   enum role: %w(user merchant_employee merchant_admin admin_user)
 
+
 end
