@@ -7,11 +7,10 @@ describe "merchant dashboard" do
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(merchant_employee)
 
     visit "/merchant"
-
-    expect(page).to have_content merchant_employee.name
-    expect(page).to have_content merchant_employee.address
-    expect(page).to have_content merchant_employee.city
-    expect(page).to have_content merchant_employee.state
-    expect(page).to have_content merchant_employee.zip
+    expect(page).to have_content merchant_employee.merchant.name
+    expect(page).to have_content merchant_employee.merchant.name
+    expect(page).to have_content merchant_employee.merchant.name
+    expect(page).to have_content merchant_employee.merchant.name
+    expect(page).to have_content merchant_employee.merchant.name
   end
 end
