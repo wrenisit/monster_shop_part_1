@@ -4,6 +4,8 @@ Merchant.destroy_all
 Item.destroy_all
 Review.destroy_all
 User.destroy_all
+Order.destroy_all
+ItemOrder.destroy_all
 
 #creates 4 merchants
 jomah = create(:jomah_merchant)
