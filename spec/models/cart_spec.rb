@@ -60,10 +60,19 @@ RSpec.describe Cart do
       expect(@cart.contents["#{@item.id.to_s}"]).to eq(1)
     end
 
-    xit "can see if a cart's item quantity is more than inventory total" do
+    it "can see if a cart's item quantity is more than inventory total" do
+      item_2 = create(:random_item, inventory: 3)
+      @cart.add_item(item_2.id.to_s)
+      @cart.add_item(item_2.id.to_s)
+      expect(@cart.limit_reached?(item_2.id.to_s)).to eq(false)
+      @cart.add_item(item_2.id.to_s)
+      expect(@cart.limit_reached?(item_2.id.to_s)).to eq(true)
     end
 
-    xit "can set cart contents to zero" do
+    it "can set cart contents to zero" do
+      expect(@cart.quantity_zero?(@item.id.to_s)).to eq(true)
+      @cart.add_item(@item.id.to_s)
+      expect(@cart.quantity_zero?(@item.id.to_s)).to eq(false)
     end
   end
 end
