@@ -18,7 +18,7 @@ RSpec.describe "it shows all orders on admin dash" do
                                 email: "nom@food.com",
                                 password: "securething")
     @mike = Merchant.create(name: "Mike's Print Shop", address: '123 Paper Rd.', city: 'Denver', state: 'CO', zip: 80203)
-    @gavin = create(:merchant_employee, merchant: @wrens)
+    @gavin = create(:admin_user)
     @tire = @meg.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
     @paper = @mike.items.create(name: "Lined Paper", description: "Great for writing on!", price: 20, image: "https://cdn.vertex42.com/WordTemplates/images/printable-lined-paper-wide-ruled.png", inventory: 25)
     @pencil = @mike.items.create(name: "Yellow Pencil", description: "You can write on paper with it!", price: 2, image: "https://images-na.ssl-images-amazon.com/images/I/31BlVr01izL._SX425_.jpg", inventory: 100)
@@ -33,30 +33,15 @@ RSpec.describe "it shows all orders on admin dash" do
     visit "/admin"
     within "#order-#{@order.id}" do
       expect(page).to have_link(@order.user.name)
-      expect(page).to have_content("Order #{@order.id}")
+      expect(page).to have_content("Order: #{@order.id}")
       expect(page).to have_content("Order Created At: #{@order.created_at}")
       expect(page).to have_content("Order Last Updated: #{@order.updated_at}")
     end
     within "#order-#{@order2.id}" do
       expect(page).to have_link(@order2.user.name)
-      expect(page).to have_content("Order #{@order2.id}")
+      expect(page).to have_content("Order: #{@order2.id}")
       expect(page).to have_content("Order Created At: #{@order2.created_at}")
       expect(page).to have_content("Order Last Updated: #{@order2.updated_at}")
     end
   end
 end
-
-# As an admin user
-# When I visit my admin dashboard ("/admin")
-# Then I see all orders in the system.
-# For each order I see the following information:
-#
-# user who placed the order, which links to admin view of user profile
-# order id
-# date the order was created
-# Orders are sorted by "status" in this order:
-#
-# packaged
-# pending
-# shipped
-# cancelled
