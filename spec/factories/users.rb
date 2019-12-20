@@ -31,6 +31,7 @@ FactoryBot.define do
     email     {"hailhydra@redskullmaiil.com"}
     password  {"america!1"}
     role      {1}
+    association :merchant, factory: :jomah_merchant
   end
 
   factory :merchant_admin, class: User do
@@ -42,6 +43,7 @@ FactoryBot.define do
     email     {"abird@dmail.com"}
     password  {"krypto2"}
     role      {2}
+    association :merchant, factory: :jomah_merchant
   end
 
   factory :admin_user, class: User do
