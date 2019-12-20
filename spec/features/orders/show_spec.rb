@@ -54,4 +54,20 @@ RSpec.describe "order show page" do
      expect(page).to have_content("Total Quantity Ordered: #{@order.items.count}")
      expect(page).to have_content("Total: $46.00")
   end
+
+  it "allowes me to cancel pending orders" do
+    user = create(:regular_user)
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(merchant_employee)
+
+    items = create_list(:random_item, 5)
+    order = create(:random_order, user: user)
+    items.each do |item|
+      create(:item_order, order: order, item: item, price: item.price)
+    end
+
+    visit "/profile/orders/#{order.id}"
+    click_button "Cancel Order"
+
+
+  end
 end
