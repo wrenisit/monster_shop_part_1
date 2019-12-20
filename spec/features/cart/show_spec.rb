@@ -127,6 +127,13 @@ RSpec.describe 'Cart show' do
           expect(page).to have_content("1")
         end
           expect(current_path).to eq("/cart")
+          click_on "Subtract Item"
+          expect(page).not_to have_content("#{tire.name}")
+          expect(page).not_to have_content("#{tire.price}")
+          expect(page).not_to have_button("Add Item")
+          expect(page).not_to have_button("Subtract Item")
+          expect(current_path).to eq("/cart")
+          expect(page).to have_content("Cart is currently empty")
       end
     end
   end
