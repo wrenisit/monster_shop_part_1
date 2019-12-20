@@ -1,5 +1,5 @@
 class Admin::MerchantsController < ApplicationController
   def show
-    binding.pry
+    @merchant = Merchant.find(params[:id])
   end
 end
