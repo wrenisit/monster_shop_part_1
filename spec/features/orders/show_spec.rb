@@ -1,7 +1,7 @@
-require 'rails_helper'
+require "rails_helper"
 
-RSpec.describe "profile orders index page" do
-  it "has a index of orders for user" do
+RSpec.describe "order show page" do
+  it "shows an order show page" do
     @mike = Merchant.create(name: "Mike's Print Shop", address: '123 Paper Rd.', city: 'Denver', state: 'CO', zip: 80203)
     @meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
     @regular_user = User.create(name: "Boo",
@@ -29,12 +29,29 @@ RSpec.describe "profile orders index page" do
      expect(current_path).to eq("/profile/orders")
 
      within "#order-#{@order.id}" do
-     expect(page).to have_link(@order.id)
+       click_link "#{@order.id}"
+     end
+     expect(current_path).to eq("/profile/orders/#{@order.id}")
+
+     expect(page).to have_content("Order: #{@order.id}")
      expect(page).to have_content(@order.created_at)
      expect(page).to have_content(@order.updated_at)
-     expect(page).to have_content(@order.items.count)
-     expect(page).to have_content(@order.grandtotal)
      expect(page).to have_content(@order.status)
-   end
+     within "#item-#{@pencil.id}" do
+      expect(page).to have_content(@pencil.name)
+      expect(page).to have_content(@pencil.description)
+      expect(page).to have_css("img[src*='#{@pencil.image}']")
+      expect(page).to have_content("3")
+      expect(page).to have_content("$6.00")
+    end
+    within "#item-#{@paper.id}" do
+      expect(page).to have_content(@paper.name)
+      expect(page).to have_content(@paper.description)
+      expect(page).to have_css("img[src*='#{@paper.image}']")
+      expect(page).to have_content("2")
+      expect(page).to have_content("$40.00")
+    end
+     expect(page).to have_content("Total Quantity Ordered: #{@order.items.count}")
+     expect(page).to have_content("Total: $46.00")
   end
 end
