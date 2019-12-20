@@ -8,9 +8,9 @@ describe "merchant dashboard" do
 
     visit "/merchant"
     expect(page).to have_content merchant_employee.merchant.name
-    expect(page).to have_content merchant_employee.merchant.name
-    expect(page).to have_content merchant_employee.merchant.name
-    expect(page).to have_content merchant_employee.merchant.name
-    expect(page).to have_content merchant_employee.merchant.name
+    expect(page).to have_content merchant_employee.merchant.address
+    expect(page).to have_content merchant_employee.merchant.city
+    expect(page).to have_content merchant_employee.merchant.state
+    expect(page).to have_content merchant_employee.merchant.zip
   end
 end
