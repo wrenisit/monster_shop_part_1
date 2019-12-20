@@ -16,23 +16,27 @@ describe "merchant dashboard" do
 
   describe "setting up orders" do
     before :each do
-        @item_1 = create(:random_item)
-        @item_2 = create(:random_item)
-        @item_3 = create(:random_item)
-        @item_4 = create(:random_item)
-        @merchant = create(:merchant_employee)
-        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant)
+        @merchant_shop = create(:jomah_merchant)
+        @merchant = create(:merchant_employee, merchant_id: @merchant_shop.id)
+        @item_1 = create(:random_item, merchant_id: @merchant_shop.id )
+        @item_2 = create(:random_item, merchant_id: @merchant_shop.id)
+        @item_3 = create(:random_item, merchant_id: @merchant_shop.id)
+        @item_4 = create(:random_item, merchant_id: @merchant_shop.id)
+        @regular_user = create(:regular_user)
+
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@regular_user)
 
         visit "/items/#{@item_1.id}"
         click_on "Add To Cart"
         visit "/items/#{@item_2.id}"
+        click_on "Add To Cart"
         visit "/cart"
         click_on "Checkout"
-        fill_in 'Name', with: @merchant.name
-        fill_in 'Address', with: @merchant.address
-        fill_in 'City', with: @merchant.city
-        fill_in 'State', with: @merchant.state
-        fill_in 'Zip', with: @merchant.zip
+        fill_in 'Name', with: @regular_user.name
+        fill_in 'Address', with: @regular_user.address
+        fill_in 'City', with: @regular_user.city
+        fill_in 'State', with: @regular_user.state
+        fill_in 'Zip', with: @regular_user.zip
 
         click_on "Create Order"
 
@@ -43,26 +47,36 @@ describe "merchant dashboard" do
         visit "/cart"
         click_on "Checkout"
 
-        fill_in 'Name', with: @merchant.name
-        fill_in 'Address', with: @merchant.address
-        fill_in 'City', with: @merchant.city
-        fill_in 'State', with: @merchant.state
-        fill_in 'Zip', with: @merchant.zip
+        fill_in 'Name', with: @regular_user.name
+        fill_in 'Address', with: @regular_user.address
+        fill_in 'City', with: @regular_user.city
+        fill_in 'State', with: @regular_user.state
+        fill_in 'Zip', with: @regular_user.zip
         click_on "Create Order"
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant)
       end
 
       it "if a user has pending orders containing items I sell I see a list of those orders" do
-
         visit "/merchant"
 
-        order_1 = @merchant.orders.first
-        order_2 = @merchant.orders.last
+        order_1 = @merchant.merchant.item_orders.first.order
+        order_2 = @merchant.merchant.item_orders.last.order
         items_1 = order_1.items
-        items_1 = order_2.items
+        items_2 = order_2.items
         within("#order-#{order_1.id}") do
           expect(page).to have_link(order_1.id)
           expect(page).to have_content(order_1.created_at)
           expect(page).to have_content(items_1.size)
+          expect(page).to have_content(order_1.grandtotal)
+        end
+
+        within("#order-#{order_2.id}") do
+          expect(page).to have_link(order_2.id)
+          expect(page).to have_content(order_2.created_at)
+          expect(page).to have_content(items_2.size)
+          expect(page).to have_content(order_2.grandtotal)
+          click_on "#{order_2.id}"
+          expect(current_path).to eq("/profile/orders/#{order_2.id}")
         end
       end
 
