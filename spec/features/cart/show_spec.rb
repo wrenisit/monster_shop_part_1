@@ -87,12 +87,13 @@ RSpec.describe 'Cart show' do
 
         visit '/cart'
 
-        within "#item-#{paper.id}"
-        expect(page).to have_button("Add Item")
-        expect(page).to have_content("Quantity: 1")
+        within "#item-#{paper.id}" do
+          expect(page).to have_button("Add Item")
+          expect(page).to have_content("1")
 
-        click_on "Add Item"
-        expect(page).to have_content("Quantity: 2")
+          click_on "Add Item"
+          expect(page).to have_content("2")
+        end
       end
       it "I cannot increment the count beyond the item's inventory size" do
         # @items_in_cart = [@paper,@tire,@pencil]
