@@ -1,0 +1,6 @@
+<h1>Orders</h1>
+
+<h3>Packaged Orders</h3>
+<% @orders.orders_by("packaged").each do |order| %>
+<%= link=to "order.user.name", "/admin/users/#{order.user.id}" %>
+<p>
