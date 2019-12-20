@@ -16,5 +16,6 @@ RSpec.describe "admin mechant show page" do
      expect(page).to have_content(ray.state)
      expect(page).to have_content(ray.zip)
      expect(page).to have_link("All #{ray.name} Items")
+     expect(page).to have_content("Number of Items: #{ray.item_count}")
   end
 end
