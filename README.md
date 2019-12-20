@@ -481,14 +481,12 @@ The words "log in" is a link to the login page
 
 ```
 [ ] done
-
 User Story 26, Registered users can check out
-
 As a registered user
 When I add items to my cart
 And I visit my cart
 I see a button or link indicating that I can check out
-And I click the button or link to check out
+And I click the button or link to check out and fill out order info and click create order
 An order is created in the system, which has a status of "pending"
 That order is associated with my user
 I am taken to my orders page ("/profile/orders")
