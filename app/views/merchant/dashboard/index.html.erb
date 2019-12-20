@@ -2,11 +2,11 @@
 <p><%= @user.merchant.address %> <%= @user.merchant.city %>, <%= @user.merchant.state %> <%= @user.merchant.zip %></p>
 
 
-<% @user.merchant.item_orders.each do |item_order|%>
-<section id='order-<%=item_order.order.id%>'>
-  <p>Item Id: <%=link_to item_order.order.id, "/profile/orders/#{item_order.order.id}" %></p>
-  <p>Date Created: <%= item_order.order.created_at %></p>
-  <p>Number of Items In Order: <%=item_order.order.items.size %></p>
-  <p>Order Total: <%= item_order.order.grandtotal %></p>
-</section>
+<% @user.merchant.pending_orders.each do | order |%>
+<section id='order-<%= order.id%>'>
+  <p>Item Id: <%=link_to order.id, "/profile/orders/#{order.id}" %></p>
+  <p>Date Created: <%= order.created_at %></p>
+  <p>Number of Items In Order: <%= order.items.size %></p>
+  <p>Order Total: <%= order.grandtotal %></p>
+</section><br>
 <%end  %>
