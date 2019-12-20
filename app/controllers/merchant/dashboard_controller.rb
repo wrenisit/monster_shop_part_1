@@ -1,5 +1,5 @@
 class Merchant::DashboardController < Merchant::BaseController
-    def index
-
-    end
+  def index
+    @merchant = current_user
+  end
 end
