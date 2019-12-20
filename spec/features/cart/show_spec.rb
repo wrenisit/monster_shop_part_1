@@ -70,7 +70,7 @@ RSpec.describe 'Cart show' do
         expect(page).to_not have_link("Empty Cart")
       end
 
-      it "I can see a button/link to increment count of items I want to purchase" do
+      it "I can see a button/link to add to the count of items I want to purchase" do
         meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
 
         tire = meg.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
@@ -86,11 +86,10 @@ RSpec.describe 'Cart show' do
           click_on "Add Item"
           expect(page).to have_content("2")
         end
-          expect(page).to have_content("You have add another #{tire.name} to your cart.")
           expect(current_path).to eq("/cart")
       end
 
-      xit "I cannot increment the count beyond the item's inventory size" do
+      it "I cannot add to the count beyond the item's inventory size" do
         meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
 
         tire = meg.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
@@ -100,13 +99,33 @@ RSpec.describe 'Cart show' do
         visit '/cart'
 
         within "#item-#{tire.id}" do
-          11.times { click_on "Add To Cart" }
+          11.times { click_on "Add Item" }
           expect(page).to have_content("12")
 
           click_on "Add Item"
           expect(page).to have_content("12")
         end
-          expect(page).to have_content("You cannot add any more #{tire.name} to your cart.")
+          expect(current_path).to eq("/cart")
+      end
+
+      it "I can see a button/link to subtract the count of items I want to purchase" do
+        meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
+
+        tire = meg.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
+        visit "/items/#{tire.id}"
+        click_on "Add To Cart"
+
+        visit '/cart'
+
+        within "#item-#{tire.id}" do
+          expect(page).to have_button("Subtract Item")
+          expect(page).to have_content("1")
+
+          click_on "Add Item"
+          expect(page).to have_content("2")
+          click_on "Subtract Item"
+          expect(page).to have_content("1")
+        end
           expect(current_path).to eq("/cart")
       end
     end
