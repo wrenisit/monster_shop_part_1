@@ -36,4 +36,35 @@ RSpec.describe 'Cart show' do
       expect(page).to_not have_link("Checkout")
     end
   end
-end
+
+    describe "I visit my cart" do
+      it "will have message that I need to login to finish the checkout process" do
+        visit "/cart"
+
+        expect(page).to have_content("Login needed to Checkout") 
+      end
+      it "will wont have message to login" do
+        regular_user = User.create!(name: "Becky",
+                                address: "123 Main",
+                                city: "Broomfield",
+                                state: "CO",
+                                zip: 80020,
+                                email: "go@foogle.com",
+                                password: "notsecure123",
+                                role: 0)
+
+        visit '/merchants'
+        click_on 'Log In'
+
+        expect(current_path).to eq("/login")
+
+        fill_in :email, with: "go@foogle.com"
+        fill_in :password, with: "notsecure123"
+        click_button "Log In"
+
+        visit "/cart"
+
+        expect(page).to_not have_content("Login needed to Checkout") 
+      end 
+    end   
+ end
