@@ -10,6 +10,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     get "/", to: "dashboard#index"
+    get "/dashboard", to: "orders#packaged"
     resources :users, only: [:index]
   end
 
