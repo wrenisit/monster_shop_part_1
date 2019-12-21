@@ -58,5 +58,7 @@
 </section>
 
 <section id="order-cancel">
-  <%= button_to "Cancel Order", "/profile/orders/#{@order.id}", method: :delete %>
+  <% if @order.pending? %>
+    <%= button_to "Cancel Order", "/profile/orders/#{@order.id}", method: :delete %>
+  <% end %>
 </section>
