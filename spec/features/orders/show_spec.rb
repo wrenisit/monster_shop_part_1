@@ -55,7 +55,7 @@ RSpec.describe "order show page" do
      expect(page).to have_content("Total: $46.00")
   end
 
-  it "allowes me to cancel only pending orders" do
+  it "allows me to cancel only pending orders" do
     user = create(:regular_user)
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
 
@@ -71,12 +71,12 @@ RSpec.describe "order show page" do
       click_button "Cancel Order"
     end
 
-    expect(ItemOrder.all[0].unfulfilled?).to be_truthy
-    expect(ItemOrder.all[1].unfulfilled?).to be_truthy
-    expect(ItemOrder.all[2].unfulfilled?).to be_truthy
-    expect(ItemOrder.all[3].unfulfilled?).to be_truthy
-    expect(ItemOrder.all[4].unfulfilled?).to be_truthy
-    expect(order.cancelled?).to be_truthy
+    expect(ItemOrder.all[0].unfulfilled?).to be true
+    expect(ItemOrder.all[1].unfulfilled?).to be true
+    expect(ItemOrder.all[2].unfulfilled?).to be true
+    expect(ItemOrder.all[3].unfulfilled?).to be true
+    expect(ItemOrder.all[4].unfulfilled?).to be true
+    expect(Order.first.cancelled?).to be true
     expect(merchant.items[0].inventory).to eq 15
     expect(merchant.items[1].inventory).to eq 15
     expect(merchant.items[2].inventory).to eq 15
