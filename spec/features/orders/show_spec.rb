@@ -71,17 +71,6 @@ RSpec.describe "order show page" do
       click_button "Cancel Order"
     end
 
-    expect(ItemOrder.all[0].unfulfilled?).to be true
-    expect(ItemOrder.all[1].unfulfilled?).to be true
-    expect(ItemOrder.all[2].unfulfilled?).to be true
-    expect(ItemOrder.all[3].unfulfilled?).to be true
-    expect(ItemOrder.all[4].unfulfilled?).to be true
-    expect(Order.first.cancelled?).to be true
-    expect(merchant.items[0].inventory).to eq 15
-    expect(merchant.items[1].inventory).to eq 15
-    expect(merchant.items[2].inventory).to eq 15
-    expect(merchant.items[3].inventory).to eq 15
-    expect(merchant.items[4].inventory).to eq 15
     expect(current_path).to eq "/profile"
     expect(page).to have_content "Order cancelled"
   end
