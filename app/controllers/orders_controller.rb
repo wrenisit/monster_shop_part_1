@@ -35,7 +35,8 @@ class OrdersController <ApplicationController
   end
 
   def cancel
-
+    @order = Order.find(params[:id])
+    redirect_to profile_path
   end
 
   private
