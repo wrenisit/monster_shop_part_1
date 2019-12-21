@@ -82,7 +82,7 @@ RSpec.describe "order show page" do
     expect(merchant.items[2].inventory).to eq 15
     expect(merchant.items[3].inventory).to eq 15
     expect(merchant.items[4].inventory).to eq 15
-
     expect(current_path).to eq "/profile"
+    expect(page).to have_content "Order cancelled"
   end
 end
