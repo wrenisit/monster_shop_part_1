@@ -55,4 +55,6 @@
   <p> Last updated:<%= @order.updated_at %></p>
 </section>
 
-<%= button_to "Cancel Order", "/orders/#{@order.id}", method: :patch %>
+<section id="order-cancel">
+  <%= button_to "Cancel Order", "/profile/orders/#{@order.id}", method: :cancel %>
+</section>
