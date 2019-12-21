@@ -34,8 +34,8 @@ class OrdersController <ApplicationController
     @user = User.find(session[:user_id])
   end
 
-  def update
-    @order = Order.find(params[:id])
+  def cancel
+
   end
 
   private
