@@ -23,5 +23,25 @@ RSpec.describe 'merchant show page', type: :feature do
       expect(current_path).to eq("/merchants/#{@bike_shop.id}/items")
     end
 
+    it "can show merchant items index" do
+      regular_user = User.create(name: "Becky",
+                                 address: "123 Main",
+                                 city: "Broomfield",
+                                 state: "CO",
+                                 zip: 80020,
+                                 email: "goble@foogle.com",
+                                 password: "notsecure123",
+                                 role: 1,
+                                merchant_id: @bike_shop.id)
+      visit "/"
+      click_link "Log In"
+      fill_in :email, with: regular_user.email
+      fill_in :password, with: regular_user.password
+      click_button "Log In"
+
+      visit '/merchant'
+      click_link "My Shop Items"
+      expect(current_path).to eq('/merchant/items')
+    end
   end
 end
