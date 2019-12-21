@@ -8,7 +8,6 @@ class User <ApplicationRecord
 
   belongs_to :merchant, optional: true
   has_many :orders, dependent: :destroy
-  has_many :orders, through: :item_orders
 
   has_secure_password
 
