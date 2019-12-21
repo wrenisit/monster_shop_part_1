@@ -3,15 +3,15 @@ Rails.application.routes.draw do
   get "/", to: "welcome#index"
 
   namespace :merchant do
-    get "/", to: "dashboard#index"
     resources :orders, only: [:show]
+    get "/", to: "dashboard#index"
     patch "/orders/:id", to: "orders#fulfill"
   end
 
   namespace :admin do
+    resources :users, only: [:index]
     get "/", to: "dashboard#index"
     get "/dashboard", to: "orders#packaged"
-    resources :users, only: [:index]
   end
 
   resources :merchants do
