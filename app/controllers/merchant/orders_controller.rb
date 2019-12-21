@@ -4,6 +4,7 @@ class Merchant::OrdersController < ApplicationController
   end
 
   def fulfill
-
+    order = Order.find(params[:id])
+    order.update(status: "packaged")
   end
 end
