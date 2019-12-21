@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   namespace :merchant do
     get "/", to: "dashboard#index"
     resources :orders, only: [:show]
+    patch "/orders/:id", to: "orders#fulfill"
   end
 
   namespace :admin do
