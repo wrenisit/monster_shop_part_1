@@ -60,16 +60,28 @@ RSpec.describe "order show page" do
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
 
     merchant = create(:jomah_merchant)
-    items = create_list(:random_item, 5, merchant: merchant)
+    items = create_list(:random_item, 5, merchant: merchant, inventory: 10)
     order = create(:random_order, user: user)
     items.each do |item|
-      create(:item_order, order: order, item: item, price: item.price)
+      create(:item_order, order: order, item: item, price: item.price, quantity: 5)
     end
 
     visit "/profile/orders/#{order.id}"
     within "#order-cancel" do
       click_button "Cancel Order"
     end
+
+    expect(ItemOrder.all[0].unfulfilled?).to be_truthy
+    expect(ItemOrder.all[1].unfulfilled?).to be_truthy
+    expect(ItemOrder.all[2].unfulfilled?).to be_truthy
+    expect(ItemOrder.all[3].unfulfilled?).to be_truthy
+    expect(ItemOrder.all[4].unfulfilled?).to be_truthy
+    expect(order.cancelled?).to be_truthy
+    expect(merchant.items[0].inventory).to eq 15
+    expect(merchant.items[1].inventory).to eq 15
+    expect(merchant.items[2].inventory).to eq 15
+    expect(merchant.items[3].inventory).to eq 15
+    expect(merchant.items[4].inventory).to eq 15
 
     expect(current_path).to eq "/profile"
   end
