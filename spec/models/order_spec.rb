@@ -46,8 +46,8 @@ describe Order, type: :model do
 
       order.cancel
       expect(order.cancelled?).to be true
-      order.item_order.each do |item_order|
-        expect(item_order.fulfilled?).to be true
+      order.item_orders.each do |item_order|
+        expect(item_order.unfulfilled?).to be true
       end
       merchant.items.each do |item|
         expect(item.inventory).to eq 15
