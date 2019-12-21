@@ -7,12 +7,12 @@ describe "admin order dashboard" do
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin_user)
 
     merchant = create(:jomah_merchant)
-    items = create_list(:random_item, 5, merchant: merchant, inventory: 10)
-    order = create(:random_order, user: user)
-    items.each do |item|
-      create(:item_order, order: order, item: item, price: item.price, quantity: 5)
-    end
+    order = create(:random_order, user: user, status: "pending")
+    order_2 = create(:random_order, user: user, status: "packaged")
 
-    visit "/admin/dashboard"
+    visit "/admin"
+
+    expect(page).to have_content "#{order.name}"
+    expect(page).to have_content "#{order_2.name}"
   end
 end
