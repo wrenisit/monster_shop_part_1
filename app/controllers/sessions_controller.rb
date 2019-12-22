@@ -14,18 +14,18 @@ class SessionsController < ApplicationController
   end
 
   def create
-    user_login = User.find_by(email: params[:email])
-    if user_login != nil && user_login.authenticate(params[:password])
-      session[:user_id] = user_login.id
-      if user_login.user?
-        flash[:success] = "Welcome #{user_login.email}"
-        redirect_to "/profile"
-      elsif user_login.merchant_employee? || user_login.merchant_admin?
-        flash[:success] = "Welcome Merchant #{user_login.email}"
-        redirect_to "/merchant"
-      elsif user_login.admin_user?
-        flash[:success] = "Welcome Admin #{user_login.email}!"
+    user = User.find_by(email: params[:email])
+    if login_successful?(user)
+      session[:user_id] = user.id
+      if current_admin_user?
+        flash[:success] = "Welcome Admin #{user.email}!"
         redirect_to "/admin"
+      elsif current_merchant_user?
+        flash[:success] = "Welcome Merchant #{user.email}"
+        redirect_to "/merchant"
+      else
+        flash[:success] = "Welcome #{user.email}"
+        redirect_to "/profile"
       end
     else
       flash[:error] = "Sorry Invalid Password or Email."
@@ -38,5 +38,9 @@ class SessionsController < ApplicationController
     session.delete(:cart)
     flash[:success] = "You are now logged out."
     redirect_to "/"
+  end
+
+  def login_successful?(user)
+    !user.nil? && user.authenticate(params[:password])
   end
 end
