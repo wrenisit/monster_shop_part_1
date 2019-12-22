@@ -29,7 +29,7 @@ Rails.application.routes.draw do
   get "/profile", to: "users#show"
   get "/profile/edit", to: "users#edit"
   patch "/profile", to: "users#update"
-  get "/profile/password", to: "users#password_edit"
+  get "/profile/edit_password", to: "users#edit_password"
   get "/profile/orders", to: "orders#index"
   get "/profile/orders/:id", to: "orders#show"
   delete "/profile/orders/:id", to: "orders#cancel"

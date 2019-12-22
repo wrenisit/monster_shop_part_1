@@ -18,7 +18,7 @@ RSpec.describe "password edit" do
     expect(page).to have_link("Edit Your Password")
     click_link "Edit Your Password"
 
-    expect(current_path).to eq('/profile/password')
+    expect(current_path).to eq('/profile/edit_password')
 
     fill_in :password, with: "nottrash"
     fill_in :password_confirmation, with: "nottrash"
@@ -53,13 +53,13 @@ RSpec.describe "password edit" do
     expect(page).to have_link("Edit Your Password")
     click_link "Edit Your Password"
 
-    expect(current_path).to eq('/profile/password')
+    expect(current_path).to eq('/profile/edit_password')
 
     fill_in :password, with: "nottrash"
     fill_in :password_confirmation, with: "not55"
     click_button "Submit"
 
-    expect(current_path).to eq('/profile/password')
+    expect(current_path).to eq('/profile/edit_password')
     expect(page).to have_content("Passwords entered do not match.")
 
   end

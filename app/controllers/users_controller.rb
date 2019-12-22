@@ -38,7 +38,7 @@ class UsersController<ApplicationController
     end
   end
 
-  def password_edit
+  def edit_password
   end
 
   private
@@ -54,7 +54,7 @@ class UsersController<ApplicationController
       redirect_to '/profile'
     else
       flash[:error] = "Passwords entered do not match."
-      redirect_to '/profile/password'
+      redirect_to '/profile/edit_password'
     end
   end
 end
