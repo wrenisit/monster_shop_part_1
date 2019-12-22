@@ -26,7 +26,10 @@ describe "admin order dashboard" do
 
     within "#order-#{order_2.id}" do
       click_button "Ship Order"
-      expect(page).to have_content "Order Shipped"
+    end
+
+    within "#shipped-orders" do
+      expect(page).to have_content user_2.name
     end
 
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user_2)
