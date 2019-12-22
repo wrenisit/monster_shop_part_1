@@ -9,6 +9,7 @@
         <p>Order: <%= order.id %></p>
         <p>Order Created At: <%= order.created_at %></p>
         <p>Order Last Updated: <%= order.updated_at %></p>
+        <%= button_to "Ship Order", "/admin/orders/#{order.id}", method: :patch %>
       </section>
       <% end %>
   <% end %>
