@@ -54,4 +54,45 @@ RSpec.describe "order show page" do
      expect(page).to have_content("Total Quantity Ordered: #{@order.items.count}")
      expect(page).to have_content("Total: $46.00")
   end
+
+  it "allows me to cancel only pending orders" do
+    user = create(:regular_user)
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+
+    merchant = create(:jomah_merchant)
+    items = create_list(:random_item, 5, merchant: merchant, inventory: 10)
+    order = create(:random_order, user: user)
+    items.each do |item|
+      create(:item_order, order: order, item: item, price: item.price, quantity: 5)
+    end
+
+    visit "/profile/orders/#{order.id}"
+    within "#order-cancel" do
+      click_button "Cancel Order"
+    end
+    expect(current_path).to eq profile_path
+    expect(page).to have_content "Order cancelled"
+
+    visit "/profile/orders/#{order.id}"
+    within "#order-status" do
+      expect(page).to have_content "cancelled"
+    end
+  end
+
+  it "doesn't allow me to cancel an order with a status other than pending" do
+    user = create(:regular_user)
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+
+    merchant = create(:jomah_merchant)
+    items = create_list(:random_item, 5, merchant: merchant, inventory: 10)
+    order = create(:random_order, user: user, status: "packaged")
+    items.each do |item|
+      create(:item_order, order: order, item: item, price: item.price, quantity: 5)
+    end
+
+    visit "/profile/orders/#{order.id}"
+    within "#order-cancel" do
+      expect(page).not_to have_button "Cancel Order"
+    end
+  end
 end

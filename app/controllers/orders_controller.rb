@@ -34,6 +34,13 @@ class OrdersController <ApplicationController
     @user = User.find(session[:user_id])
   end
 
+  def cancel
+    @order = Order.find(params[:id])
+    @order.cancel
+    flash[:notice] = "Order cancelled"
+    redirect_to profile_path
+  end
+
   private
 
   def order_params

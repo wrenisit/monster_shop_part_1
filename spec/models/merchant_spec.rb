@@ -10,11 +10,10 @@ describe Merchant, type: :model do
   end
 
   describe "relationships" do
-    it {should have_many :items}
-    it {should have_many(:item_orders).through(:items)}
-    it {should have_many(:orders).through(:item_orders)}
-    it {should have_many :users }
-
+    it { should have_many :items }
+    it { should have_many(:item_orders).through(:items) }
+    it { should have_many(:orders).through(:item_orders) }
+    it { should have_many :users }
   end
 
   describe 'instance methods' do
@@ -56,24 +55,5 @@ describe Merchant, type: :model do
       expect(@meg.distinct_cities).to match_array(["Denver","Hershey"])
     end
 
-    it 'can find pending_orders' do
-      @merchant_shop = create(:jomah_merchant)
-      @merchant = create(:merchant_employee, merchant_id: @merchant_shop.id)
-      @item_1 = create(:random_item, merchant_id: @merchant_shop.id )
-      @item_2 = create(:random_item, merchant_id: @merchant_shop.id)
-      @item_3 = create(:random_item, merchant_id: @merchant_shop.id)
-      @item_4 = create(:random_item, merchant_id: @merchant_shop.id)
-      @regular_user = create(:regular_user)
-
-      @order_1 = create(:random_order, user_id: @regular_user.id )
-      @order_2 = create(:random_order, user_id: @regular_user.id)
-      @order_1.item_orders.create!(item: @item_1, price: @item_1.price, quantity: 2)
-      @order_1.item_orders.create!(item: @item_2, price: @item_2.price, quantity: 3)
-      @order_2.item_orders.create!(item: @item_3, price: @item_3.price, quantity: 2)
-      @order_2.item_orders.create!(item: @item_4, price: @item_4.price, quantity: 2)
-
-      expect(@merchant_shop.pending_orders.size).to eq(2)
-      expect(@merchant_shop.pending_orders).to eq([@order_1, @order_2])
-    end
   end
 end
