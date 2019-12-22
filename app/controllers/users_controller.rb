@@ -29,10 +29,12 @@ class UsersController<ApplicationController
     @user = current_user
     if params[:password]
       password_update
-    elsif uniq_email?
-      update_e_params(true)
-    else !uniq_email?
-      update_e_params
+    elsif @user.update(user_params)
+      flash[:success] = "Your profile has been updated."
+      redirect_to profile_path
+    else
+      flash[:error] = @user.errors.full_messages.to_sentence
+      redirect_back(fallback_location: profile_edit_path)
     end
   end
 
@@ -45,17 +47,6 @@ class UsersController<ApplicationController
     params.permit(:name, :address, :city, :state, :zip, :email, :password, :password_confirmation)
   end
 
-  def update_e_params(bool = false)
-    if bool == true
-      @user = @user.update(user_params)
-      flash[:success] = "Your profile has been updated."
-      redirect_to '/profile'
-    else
-      flash[:error] = "This email is already used."
-      render :edit
-    end
-  end
-
   def password_update
     if params[:password] == params[:password_confirmation]
       @user = @user.update(user_params)
@@ -65,9 +56,5 @@ class UsersController<ApplicationController
       flash[:error] = "Passwords entered do not match."
       redirect_to '/profile/password'
     end
-  end
-
-  def uniq_email?
-    @user.email == params[:email] || User.find_by(email: params[:email]) == nil
   end
 end
