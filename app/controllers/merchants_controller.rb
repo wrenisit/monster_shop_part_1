@@ -27,8 +27,7 @@ class MerchantsController <ApplicationController
 
   def update
     @merchant = Merchant.find(params[:id])
-    @merchant.update(merchant_params)
-    if @merchant.save
+    if @merchant.update(merchant_params)
       redirect_to "/merchants/#{@merchant.id}"
     else
       flash[:error] = @merchant.errors.full_messages.to_sentence
@@ -38,7 +37,7 @@ class MerchantsController <ApplicationController
 
   def destroy
     Merchant.destroy(params[:id])
-    redirect_to '/merchants'
+    redirect_to merchants_path
   end
 
   private
