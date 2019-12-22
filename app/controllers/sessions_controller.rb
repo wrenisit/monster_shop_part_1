@@ -3,10 +3,10 @@ class SessionsController < ApplicationController
   def new
     if current_admin_user?
       flash[:error] = "You are already logged in."
-      redirect_to admin_path
+      redirect_to admin_dash_path
     elsif current_merchant_user?
       flash[:error] = "You are already logged in."
-      redirect_to merchant_path
+      redirect_to merchant_dash_path
     elsif current_user
       flash[:error] = "You are already logged in."
       redirect_to profile_path
@@ -40,10 +40,10 @@ class SessionsController < ApplicationController
   def welcome(user)
     if current_admin_user?
       flash[:success] = "Welcome Admin #{user.email}!"
-      redirect_to admin_path
+      redirect_to admin_dash_path
     elsif current_merchant_user?
       flash[:success] = "Welcome Merchant #{user.email}"
-      redirect_to merchant_path
+      redirect_to merchant_dash_path
     else
       flash[:success] = "Welcome #{user.email}"
       redirect_to profile_path
