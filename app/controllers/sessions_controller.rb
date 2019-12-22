@@ -17,16 +17,7 @@ class SessionsController < ApplicationController
     user = User.find_by(email: params[:email])
     if login_successful?(user)
       session[:user_id] = user.id
-      if current_admin_user?
-        flash[:success] = "Welcome Admin #{user.email}!"
-        redirect_to "/admin"
-      elsif current_merchant_user?
-        flash[:success] = "Welcome Merchant #{user.email}"
-        redirect_to "/merchant"
-      else
-        flash[:success] = "Welcome #{user.email}"
-        redirect_to "/profile"
-      end
+      welcome(user)
     else
       flash[:error] = "Sorry Invalid Password or Email."
       render :new
@@ -42,5 +33,18 @@ class SessionsController < ApplicationController
 
   def login_successful?(user)
     !user.nil? && user.authenticate(params[:password])
+  end
+
+  def welcome(user)
+    if current_admin_user?
+      flash[:success] = "Welcome Admin #{user.email}!"
+      redirect_to "/admin"
+    elsif current_merchant_user?
+      flash[:success] = "Welcome Merchant #{user.email}"
+      redirect_to "/merchant"
+    else
+      flash[:success] = "Welcome #{user.email}"
+      redirect_to "/profile"
+    end
   end
 end
