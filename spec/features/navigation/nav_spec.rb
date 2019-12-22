@@ -147,6 +147,7 @@ describe "the navigation bar" do
       expect(page).to have_link "Home"
       expect(page).to have_link "All Items"
       expect(page).to have_link "All Merchants"
+      expect(page).not_to have_link "Cart: 0"
       expect(page).to have_link "Admin Dashboard"
       expect(page).to have_link "Log Out"
       expect(page).not_to have_link "Log In"
