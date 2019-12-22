@@ -92,7 +92,7 @@ RSpec.describe "edit user info" do
     fill_in :email, with: this_regular_user.email
     click_button "Submit"
 
-    expect(page).to have_content("This email is already used.")
+    expect(page).to have_content("Email has already been taken")
     expect(current_path).to eq("/profile/edit")
 
     fill_in :email, with: "enjoy@nothing.com"
