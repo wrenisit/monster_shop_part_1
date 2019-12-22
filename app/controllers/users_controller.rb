@@ -27,7 +27,7 @@ class UsersController<ApplicationController
 
   def update
     @user = current_user
-    if password?
+    if params[:password]
       password_update
     elsif uniq_email?
       update_e_params(true)
@@ -65,10 +65,6 @@ class UsersController<ApplicationController
       flash[:error] = "Passwords entered do not match."
       redirect_to '/profile/password'
     end
-  end
-
-  def password?
-    params.include?(:password)
   end
 
   def uniq_email?
