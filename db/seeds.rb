@@ -45,12 +45,17 @@ Item.all.each do |item|
   create(:item_order, order: order_1, item: item, price: item.price)
 end
 
-order_2 = create(:random_order, user: user)
+order_2 = create(:random_order, user: user, status: 1)
 Item.all.each do |item|
   create(:item_order, order: order_2, item: item, price: item.price)
 end
 
-order_3 = create(:random_order, user: user)
+order_3 = create(:random_order, user: user, status: 2)
+Item.all.each do |item|
+  create(:item_order, order: order_3, item: item, price: item.price)
+end
+
+order_4 = create(:random_order, user: user, status: 3)
 Item.all.each do |item|
   create(:item_order, order: order_3, item: item, price: item.price)
 end
