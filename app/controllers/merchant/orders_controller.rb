@@ -3,7 +3,7 @@ class Merchant::OrdersController < Merchant::BaseController
     @order = Order.find(params[:id])
   end
 
-  def fulfill
+  def update
     order = Order.find(params[:id])
     order.update(status: "packaged")
   end

@@ -3,9 +3,8 @@ Rails.application.routes.draw do
   get "/", to: "welcome#index"
 
   namespace :merchant, as: :merchant_dash do
-    resources :orders, only: [:show]
+    resources :orders, only: [:show, :update]
     get "/", to: "dashboard#index"
-    patch "/orders/:id", to: "orders#fulfill"
   end
 
   namespace :admin, as: :admin_dash do
