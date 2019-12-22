@@ -29,7 +29,7 @@ RSpec.describe "profile orders index page" do
      expect(current_path).to eq("/profile/orders")
 
      within "#order-#{@order.id}" do
-     expect(page).to have_link(@order.id)
+     expect(page).to have_link "#{@order.id}"
      expect(page).to have_content(@order.created_at)
      expect(page).to have_content(@order.updated_at)
      expect(page).to have_content(@order.items.count)

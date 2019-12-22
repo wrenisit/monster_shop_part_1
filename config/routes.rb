@@ -5,11 +5,14 @@ Rails.application.routes.draw do
   namespace :merchant do
     get "/items", to: "dashboard#item_index"
     get "/", to: "dashboard#index"
+    resources :orders, only: [:show]
+    patch "/orders/:id", to: "orders#fulfill"
   end
 
   namespace :admin do
     get "/", to: "dashboard#index"
     resources :users, only: [:index]
+    resources :merchants, only: [:show]
   end
 
   resources :merchants do
@@ -21,7 +24,7 @@ Rails.application.routes.draw do
   end
 
   resources :reviews, only: [:edit, :update, :destroy]
-  resources :orders, only: [:new, :create, :show]
+  resources :orders, only: [:new, :create, :show, :update]
 
   get "/register", to: "users#new"
   post "/register", to: "users#create"
@@ -32,6 +35,7 @@ Rails.application.routes.draw do
   patch "/profile/password_edit", to: "users#update"
   get "/profile/orders", to: "orders#index"
   get "/profile/orders/:id", to: "orders#show"
+  delete "/profile/orders/:id", to: "orders#cancel"
 
   post "/cart/:item_id", to: "cart#add_item"
   patch "/cart/:item_id", to: "cart#add_subtract_cart"

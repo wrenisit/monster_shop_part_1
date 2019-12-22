@@ -13,7 +13,7 @@ class OrdersController <ApplicationController
   end
 
   def create
-    user = User.find(session[:user_id])
+    user = current_user
     order = user.orders.create(order_params)
     if order.save
       cart.items.each do |item,quantity|
@@ -32,6 +32,13 @@ class OrdersController <ApplicationController
   end
   def index
     @user = User.find(session[:user_id])
+  end
+
+  def cancel
+    @order = Order.find(params[:id])
+    @order.cancel
+    flash[:notice] = "Order cancelled"
+    redirect_to profile_path
   end
 
   private
