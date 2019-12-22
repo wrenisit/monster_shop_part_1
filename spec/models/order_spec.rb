@@ -35,8 +35,6 @@ describe Order, type: :model do
     end
 
     it 'cancel' do
-      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
-
       merchant = create(:jomah_merchant)
       items = create_list(:random_item, 5, merchant: merchant, inventory: 10)
       order = create(:random_order, user: @user)
