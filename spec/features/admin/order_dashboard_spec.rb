@@ -17,19 +17,22 @@ describe "admin order dashboard" do
 
     visit "/admin"
 
-    within "#packaged-orders" do
-      expect(page).to have_content user_2.name
-      expect(page).not_to have_content user_1.name
-      expect(page).not_to have_content user_3.name
-      expect(page).not_to have_content user_4.name
+    within "#order-#{order_1.id}" do
+      expect(page).not_to have_button "Ship Order"
+    end
+    within "#order-#{order_3.id}" do
+      expect(page).not_to have_button "Ship Order"
+    end
+    within "#order-#{order_4.id}" do
+      expect(page).not_to have_button "Ship Order"
     end
 
     within "#order-#{order_2.id}" do
       click_button "Ship Order"
     end
 
-    within "#shipped-orders" do
-      expect(page).to have_content user_2.name
+    within "#order-#{order_2.id}" do
+      expect(page).to have_content "Status: shipped"
     end
 
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user_2)
