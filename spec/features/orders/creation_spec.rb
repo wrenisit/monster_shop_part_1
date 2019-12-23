@@ -86,7 +86,7 @@ RSpec.describe("Order Creation") do
       end
     end
 
-    it 'i cant create order if info not filled out' do
+    it "can't create order if info not filled out" do
       name = ""
       address = "123 Sesame St."
       city = "NYC"

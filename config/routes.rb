@@ -4,12 +4,14 @@ Rails.application.routes.draw do
 
   namespace :merchant, as: :merchant_dash do
     resources :orders, only: [:show, :update]
+    get "/items", to: "dashboard#item_index"
     get "/", to: "dashboard#index"
   end
 
   namespace :admin, as: :admin_dash do
     resources :users, only: [:index]
     get "/", to: "dashboard#index"
+    resources :merchants, only: [:show]
   end
 
   resources :merchants do
@@ -42,5 +44,6 @@ Rails.application.routes.draw do
   get "/login", to: "sessions#new"
   post "/login", to: "sessions#create"
   get "/logout", to: "sessions#destroy"
+
 
 end
