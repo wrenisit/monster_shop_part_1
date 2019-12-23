@@ -4,14 +4,14 @@ Rails.application.routes.draw do
 
   namespace :merchant, as: :merchant_dash do
     resources :orders, only: [:show, :update]
-    get "/items", to: "dashboard#item_index"
     get "/", to: "dashboard#index"
+    get "/items", to: "dashboard#item_index"
   end
 
-  namespace :admin do
-    get "/", to: "dashboard#index"
+  namespace :admin, as: :admin_dash do
     resources :users, only: [:index, :show]
     resources :merchants, only: [:show]
+    get "/", to: "dashboard#index"
     patch "orders/:id", to: "orders#update"
   end
 
