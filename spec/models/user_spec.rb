@@ -13,7 +13,8 @@ RSpec.describe User, type: :model do
     it { should define_enum_for(:role).with_values([:user, :merchant_employee, :merchant_admin, :admin_user]) }
   end
   describe "relationships" do
-    it { should have_many :orders}
+    it { should have_many :orders }
+    it { should belong_to(:merchant).optional }
   end
   describe "roles" do
     it "can be created as a user" do
