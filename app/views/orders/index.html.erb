@@ -5,7 +5,7 @@
     <h4>Order: <%= link_to "#{order.id}", "/profile/orders/#{order.id}" %></h4>
     <h4>Created at: <%= order.created_at %></h4>
     <h4>Last updated: <%= order.updated_at %></h4>
-    <h4>Total items: <%= order.items.count %></h4>
+    <h4>Total items: <%= order.quantity_ordered %></h4>
     <h4>Total price: <%= order.grandtotal %></h4>
     <h4>Order status: <%= order.status %></h4>
   </section>
