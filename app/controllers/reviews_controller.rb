@@ -14,7 +14,7 @@ class ReviewsController<ApplicationController
       review = @item.reviews.create(review_params)
       if review.save
         flash[:success] = "Review successfully created"
-        redirect_to "/items/#{@item.id}"
+        redirect_to item_path(@item)
       else
         flash[:error] = "Rating must be between 1 and 5"
         render :new
@@ -29,14 +29,14 @@ class ReviewsController<ApplicationController
   def update
     review = Review.find(params[:id])
     review.update(review_params)
-    redirect_to "/items/#{review.item.id}"
+    redirect_to item_path(review.item)
   end
 
   def destroy
     review = Review.find(params[:id])
     item = review.item
     review.destroy
-    redirect_to "/items/#{item.id}"
+    redirect_to item_path(item)
   end
 
   private

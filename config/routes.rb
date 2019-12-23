@@ -2,11 +2,10 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   get "/", to: "welcome#index"
 
-  namespace :merchant do
+  namespace :merchant, as: :merchant_dash do
+    resources :orders, only: [:show, :update]
     get "/items", to: "dashboard#item_index"
     get "/", to: "dashboard#index"
-    resources :orders, only: [:show]
-    patch "/orders/:id", to: "orders#fulfill"
   end
 
   namespace :admin do
@@ -31,9 +30,8 @@ Rails.application.routes.draw do
   post "/register", to: "users#create"
   get "/profile", to: "users#show"
   get "/profile/edit", to: "users#edit"
-  patch "/profile/edit", to: "users#update"
-  get "/profile/password", to: "users#password_edit"
-  patch "/profile/password_edit", to: "users#update"
+  patch "/profile", to: "users#update"
+  get "/profile/edit_password", to: "users#edit_password"
   get "/profile/orders", to: "orders#index"
   get "/profile/orders/:id", to: "orders#show"
   delete "/profile/orders/:id", to: "orders#cancel"

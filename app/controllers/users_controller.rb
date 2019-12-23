@@ -10,7 +10,7 @@ class UsersController<ApplicationController
     if @user.save
       flash[:success] = "Congratulations! You are now registered and logged in."
       session[:user_id] = @user.id
-      redirect_to "/profile"
+      redirect_to profile_path
     else
       flash[:error] = @user.errors.full_messages.to_sentence
       render :new
@@ -22,21 +22,23 @@ class UsersController<ApplicationController
   end
 
   def edit
-    @user = User.find(session[:user_id])
+    @user = current_user
   end
 
   def update
-    @user = User.find(session[:user_id])
-    if password?
+    @user = current_user
+    if params[:password]
       password_update
-    elsif uniq_email?
-      update_e_params(true)
-    else !uniq_email?
-      update_e_params
+    elsif @user.update(user_params)
+      flash[:success] = "Your profile has been updated."
+      redirect_to profile_path
+    else
+      flash[:error] = @user.errors.full_messages.to_sentence
+      redirect_back(fallback_location: profile_edit_path)
     end
   end
 
-  def password_edit
+  def edit_password
   end
 
   private
@@ -45,41 +47,14 @@ class UsersController<ApplicationController
     params.permit(:name, :address, :city, :state, :zip, :email, :password, :password_confirmation)
   end
 
-  def e_params
-    params.permit(:name, :address, :city, :state, :zip, :email)
-  end
-
-  def password_params
-    params.permit(:password, :password_confirmation)
-  end
-
-  def update_e_params(bool = false)
-    if bool == true
-      @user = @user.update(e_params)
-      flash[:success] = "Your profile has been updated."
-      redirect_to '/profile'
-    else
-      flash[:error] = "This email is already used."
-      render :edit
-    end
-  end
-
   def password_update
     if params[:password] == params[:password_confirmation]
-      @user = @user.update(password_params)
+      @user = @user.update(user_params)
       flash[:success] = "Your password has been updated."
-      redirect_to '/profile'
+      redirect_to profile_path
     else
       flash[:error] = "Passwords entered do not match."
-      redirect_to '/profile/password'
+      redirect_to profile_edit_password_path
     end
-  end
-
-  def password?
-    params.include?(:password)
-  end
-
-  def uniq_email?
-    @user.email == e_params[:email] || User.find_by(email: e_params[:email]) == nil
   end
 end

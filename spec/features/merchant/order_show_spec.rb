@@ -13,7 +13,7 @@ describe "merchant order show page" do
       create(:item_order, order: order, item: item, price: item.price, quantity: 5)
     end
 
-    visit merchant_order_path(order)
+    visit merchant_dash_order_path(order)
     click_button "Fulfill Order"
     expect(Order.first.packaged?).to be true
   end

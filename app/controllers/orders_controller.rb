@@ -1,11 +1,6 @@
 class OrdersController <ApplicationController
 
   def new
-    # @user = User.find(session[:user_id])
-    # if @user.nil?
-    #   flash[:notice] = "You must log in to check out."
-    #   redirect_to '/login'
-    # end
   end
 
   def show
@@ -24,14 +19,16 @@ class OrdersController <ApplicationController
           })
       end
       session.delete(:cart)
-      redirect_to "/orders/#{order.id}"
+      flash[:notice] = "Order Placed"
+      redirect_to order_path(order)
     else
       flash[:notice] = "Please complete address form to create an order."
       render :new
     end
   end
+
   def index
-    @user = User.find(session[:user_id])
+    @user = current_user
   end
 
   def cancel

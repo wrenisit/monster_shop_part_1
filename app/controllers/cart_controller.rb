@@ -5,7 +5,7 @@ class CartController < ApplicationController
     item = Item.find(params[:item_id])
     cart.add_item(item.id.to_s)
     flash[:success] = "#{item.name} was successfully added to your cart"
-    redirect_to "/items"
+    redirect_to items_path
   end
 
   def show
@@ -14,12 +14,12 @@ class CartController < ApplicationController
 
   def empty
     session.delete(:cart)
-    redirect_to '/cart'
+    redirect_to cart_path
   end
 
   def remove_item
     session[:cart].delete(params[:item_id])
-    redirect_to '/cart'
+    redirect_to cart_path
   end
 
   def add_subtract_cart
@@ -29,6 +29,6 @@ class CartController < ApplicationController
       cart.subtract_quantity(params[:item_id])
       return remove_item if cart.quantity_zero?(params[:item_id])
     end
-    redirect_to "/cart"
+    redirect_to cart_path
   end
 end

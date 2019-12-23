@@ -3,30 +3,21 @@ class SessionsController < ApplicationController
   def new
     if current_admin_user?
       flash[:error] = "You are already logged in."
-      redirect_to "/admin"
+      redirect_to admin_dash_path
     elsif current_merchant_user?
       flash[:error] = "You are already logged in."
-      redirect_to "/merchant"
+      redirect_to merchant_dash_path
     elsif current_user
       flash[:error] = "You are already logged in."
-      redirect_to "/profile"
+      redirect_to profile_path
     end
   end
 
   def create
-    user_login = User.find_by(email: params[:email])
-    if user_login != nil && user_login.authenticate(params[:password])
-      session[:user_id] = user_login.id
-      if user_login.user?
-        flash[:success] = "Welcome #{user_login.email}"
-        redirect_to "/profile"
-      elsif user_login.merchant_employee? || user_login.merchant_admin?
-        flash[:success] = "Welcome Merchant #{user_login.email}"
-        redirect_to "/merchant"
-      elsif user_login.admin_user?
-        flash[:success] = "Welcome Admin #{user_login.email}!"
-        redirect_to "/admin"
-      end
+    user = User.find_by(email: params[:email])
+    if login_successful?(user)
+      session[:user_id] = user.id
+      welcome(user)
     else
       flash[:error] = "Sorry Invalid Password or Email."
       render :new
@@ -38,5 +29,24 @@ class SessionsController < ApplicationController
     session.delete(:cart)
     flash[:success] = "You are now logged out."
     redirect_to "/"
+  end
+
+  private
+
+  def login_successful?(user)
+    !user.nil? && user.authenticate(params[:password])
+  end
+
+  def welcome(user)
+    if current_admin_user?
+      flash[:success] = "Welcome Admin #{user.email}!"
+      redirect_to admin_dash_path
+    elsif current_merchant_user?
+      flash[:success] = "Welcome Merchant #{user.email}"
+      redirect_to merchant_dash_path
+    else
+      flash[:success] = "Welcome #{user.email}"
+      redirect_to profile_path
+    end
   end
 end
