@@ -40,17 +40,22 @@ create(:merchant_admin, merchant: jomah)
 create(:admin_user)
 
 #creates 3 orders each ordering a random quantity of each item
-order_1 = create(:random_order, user: user)
+order_1 = create(:random_order, user: user, status: 0)
 Item.all.each do |item|
   create(:item_order, order: order_1, item: item, price: item.price)
 end
 
-order_2 = create(:random_order, user: user)
+order_2 = create(:random_order, user: user, status: 1)
 Item.all.each do |item|
   create(:item_order, order: order_2, item: item, price: item.price)
 end
 
-order_3 = create(:random_order, user: user)
+order_3 = create(:random_order, user: user, status: 2)
+Item.all.each do |item|
+  create(:item_order, order: order_3, item: item, price: item.price)
+end
+
+order_4 = create(:random_order, user: user, status: 3)
 Item.all.each do |item|
   create(:item_order, order: order_3, item: item, price: item.price)
 end

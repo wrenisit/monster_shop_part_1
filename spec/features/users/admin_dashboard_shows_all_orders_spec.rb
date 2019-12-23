@@ -33,15 +33,13 @@ RSpec.describe "it shows all orders on admin dash" do
     visit "/admin"
     within "#order-#{@order.id}" do
       expect(page).to have_link(@order.user.name)
-      expect(page).to have_content("Order: #{@order.id}")
+      expect(page).to have_content("Order ID: #{@order.id}")
       expect(page).to have_content("Order Created At: #{@order.created_at}")
-      expect(page).to have_content("Order Last Updated: #{@order.updated_at}")
     end
     within "#order-#{@order2.id}" do
       expect(page).to have_link(@order2.user.name)
-      expect(page).to have_content("Order: #{@order2.id}")
+      expect(page).to have_content("Order ID: #{@order2.id}")
       expect(page).to have_content("Order Created At: #{@order2.created_at}")
-      expect(page).to have_content("Order Last Updated: #{@order2.updated_at}")
     end
   end
 end
