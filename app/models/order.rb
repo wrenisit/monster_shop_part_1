@@ -5,7 +5,7 @@ class Order <ApplicationRecord
   has_many :items, through: :item_orders
   belongs_to :user
 
-  enum status: %w(pending packaged shipped cancelled)
+  enum status: %w(packaged pending shipped cancelled)
 
   def grandtotal
     item_orders.sum('price * quantity')
@@ -17,5 +17,9 @@ class Order <ApplicationRecord
       item_order.update(status: "unfulfilled")
       item_order.item.update(inventory: item_order.item.inventory + item_order.quantity)
     end
+  end
+
+  def self.sort_by_status
+    order(status: :ASC)
   end
 end

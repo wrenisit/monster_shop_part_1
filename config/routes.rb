@@ -8,10 +8,11 @@ Rails.application.routes.draw do
     get "/", to: "dashboard#index"
   end
 
-  namespace :admin, as: :admin_dash do
-    resources :users, only: [:index]
+  namespace :admin do
     get "/", to: "dashboard#index"
+    resources :users, only: [:index, :show]
     resources :merchants, only: [:show]
+    patch "orders/:id", to: "orders#update"
   end
 
   resources :merchants do
