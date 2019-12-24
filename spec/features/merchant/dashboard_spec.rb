@@ -77,7 +77,7 @@ describe "merchant dashboard" do
           expect(page).to have_content(items_2.size)
           expect(page).to have_content(order_2.grandtotal)
           click_on "#{order_2.id}"
-          expect(current_path).to eq("/profile/orders/#{order_2.id}")
+          expect(current_path).to eq("/merchant/orders/#{order_2.id}")
         end
       end
 
