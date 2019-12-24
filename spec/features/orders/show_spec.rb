@@ -51,7 +51,7 @@ RSpec.describe "order show page" do
       expect(page).to have_content("2")
       expect(page).to have_content("$40.00")
     end
-     expect(page).to have_content("Total Quantity Ordered: #{@order.items.count}")
+     expect(page).to have_content("Total Quantity Ordered: 5")
      expect(page).to have_content("Total: $46.00")
   end
 

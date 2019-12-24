@@ -18,8 +18,8 @@
   </table>
 </section>
 <section id="order-status">
-  <h5>Order: <%= @order.id %></h5>
-  <h5>Order Status: <%= @order.status %></h5>
+  <h2>Order: <%= @order.id %></h5>
+  <h2>Order Status: <%= @order.status %></h5>
   <h1 align = "center">Order Info</h1>
 </section>
 <center>
@@ -49,7 +49,7 @@
 </table>
 
 <section id="grandtotal">
-  <p>Total Quantity Ordered: <%= @order.items.count %></p>
+  <p>Total Quantity Ordered: <%= @order.quantity_ordered %></p>
   <p>Total: <%=number_to_currency(@order.grandtotal)%></p>
 </section>
 <section id="datecreated">

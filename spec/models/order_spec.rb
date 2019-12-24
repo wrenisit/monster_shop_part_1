@@ -51,6 +51,18 @@ describe Order, type: :model do
         expect(item.inventory).to eq 15
       end
     end
+
+    it 'quantity_ordered' do
+      expect(@order_1.quantity_ordered).to eq 5
+    end
+
+    it 'quantity_ordered_from' do
+      expect(@order_1.quantity_ordered_from(@meg)).to eq 2
+    end
+
+    it 'subtotal_from' do
+      expect(@order_1.subtotal_from(@meg)).to eq 200
+    end
   end
 
   describe 'class methods' do

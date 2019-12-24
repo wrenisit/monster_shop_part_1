@@ -1,13 +1,13 @@
-<h2><%= @user.merchant.name %></h2>
-<p><%= @user.merchant.address %> <%= @user.merchant.city %>, <%= @user.merchant.state %> <%= @user.merchant.zip %></p>
+<h2><%= @merchant.name %></h2>
+<p><%= @merchant.address %> <%= @merchant.city %>, <%= @merchant.state %> <%= @merchant.zip %></p>
 
 <%= link_to "My Shop Items", "/merchant/items" %>
 
-<% @user.merchant.pending_orders.each do | order |%>
+<% @merchant.pending_orders.each do | order |%>
 <section id='order-<%= order.id%>'>
-  <p>Order ID: <%=link_to order.id, "/profile/orders/#{order.id}" %></p>
+  <p>Order ID: <%=link_to order.id, "/merchant/orders/#{order.id}" %></p>
   <p>Date Created: <%= order.created_at %></p>
-  <p>Number of Items In Order: <%= order.items.size %></p>
-  <p>Order Total: <%= order.grandtotal %></p>
+  <p>Number of Items In Order: <%= order.quantity_ordered_from(@merchant) %></p>
+  <p>Order Total: <%= order.subtotal_from(@merchant) %></p>
 </section><br>
 <%end  %>

@@ -19,6 +19,18 @@ class Order <ApplicationRecord
     end
   end
 
+  def quantity_ordered
+    item_orders.sum(:quantity)
+  end
+
+  def quantity_ordered_from(merchant)
+    items.where(merchant: merchant).sum("item_orders.quantity")
+  end
+
+  def subtotal_from(merchant)
+    items.joins(:item_orders).where(merchant: merchant).sum("item_orders.price * item_orders.quantity")
+  end
+
   def self.sort_by_status
     order(status: :ASC)
   end
