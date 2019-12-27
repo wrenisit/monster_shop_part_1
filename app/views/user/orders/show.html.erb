@@ -1,6 +1,6 @@
 <%= render "show" %>
 <section id="order-cancel">
   <% if @order.pending? %>
-    <%= button_to "Cancel Order", "/orders/#{@order.id}", method: :patch %>
+    <%= button_to "Cancel Order", "/profile/orders/#{@order.id}", method: :patch %>
   <% end %>
 </section>

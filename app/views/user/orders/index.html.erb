@@ -1,6 +1,6 @@
 <h1>Your Orders</h1>
 
-<% @user.orders.each do |order| %>
+<% @orders.each do |order| %>
   <section id="order-<%= order.id %>">
     <h4>Order: <%= link_to "#{order.id}", "/profile/orders/#{order.id}" %></h4>
     <h4>Created at: <%= order.created_at %></h4>

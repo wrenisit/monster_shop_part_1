@@ -15,6 +15,7 @@ describe "merchant order show page" do
 
     visit merchant_dash_order_path(order)
     click_button "Fulfill Order"
-    expect(Order.first.packaged?).to be true
+    order.reload
+    expect(order.packaged?).to be true
   end
 end

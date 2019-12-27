@@ -24,7 +24,7 @@ Rails.application.routes.draw do
   end
 
   resources :reviews, only: [:edit, :update, :destroy]
-  resources :orders, only: [:new, :create, :show, :update]
+  # resources :orders, only: [:new, :create, :show, :update]
 
   get "/register", to: "users#new"
   post "/register", to: "users#create"
@@ -32,8 +32,11 @@ Rails.application.routes.draw do
   get "/profile/edit", to: "users#edit"
   patch "/profile", to: "users#update"
   get "/profile/edit_password", to: "users#edit_password"
-  get "/profile/orders", to: "orders#index"
-  get "/profile/orders/:id", to: "orders#show"
+  get "/profile/orders", to: "user/orders#index"
+  get "/profile/orders/new", to: "user/orders#new"
+  get "/profile/orders/:id", to: "user/orders#show"
+  post "/orders", to: "user/orders#create"
+  patch "/profile/orders/:id", to: "user/orders#update"
 
   post "/cart/:item_id", to: "cart#add_item"
   patch "/cart/:item_id", to: "cart#add_subtract_cart"

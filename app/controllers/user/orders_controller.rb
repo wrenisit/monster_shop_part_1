@@ -1,10 +1,10 @@
-class OrdersController <ApplicationController
+class User::OrdersController < User::BaseController
 
   def new
   end
 
   def show
-    @order = Order.find(params[:id])
+    @order = current_user.orders.find(params[:id])
   end
 
   def create
@@ -28,7 +28,7 @@ class OrdersController <ApplicationController
   end
 
   def index
-    @user = current_user
+    @orders = current_user.orders
   end
 
   def update
