@@ -28,8 +28,6 @@ RSpec.describe("Order Creation") do
     end
 
     it 'I can create a new order' do
-
-
       visit "/cart"
       click_on "Checkout"
 
@@ -43,7 +41,8 @@ RSpec.describe("Order Creation") do
 
       new_order = Order.last
 
-      expect(current_path).to eq("/orders/#{new_order.id}")
+      expect(current_path).to eq "/profile/orders"
+      visit "/orders/#{new_order.id}"
 
       within '.shipping-address' do
         expect(page).to have_content(@user.name)
@@ -104,7 +103,5 @@ RSpec.describe("Order Creation") do
       expect(page).to have_content("Please complete address form to create an order.")
       expect(page).to have_button("Create Order")
     end
-
-
   end
 end

@@ -6,7 +6,6 @@
 <% end %>
 <section class="grid-container">
   <% @items.each do |item| %>
-  <% if item.active? == true %>
     <section class = "grid-item" id= 'item-<%=item.id%>'>
       <h2> <%=link_to item.name, "/items/#{item.id}" %> </h2>
       <p>Sold by: <%=link_to item.merchant.name, "/merchants/#{item.merchant.id}" %></p>
@@ -22,13 +21,12 @@
         <p>Inactive</p>
       <% end %>
     </section>
-    <% end %>
-   <% end %>
+  <% end %>
 </section>
 
 <h2>Most Popular Items </h2>
 <section id="top_five">
-<% @items.top_five.each do |item| %>
+<% @items.by_popularity(5, "DESC").each do |item| %>
      <p>Item Name: <%=item.name %></p>
      <p>Quantity: <%= item.quantity %></p>
 <%end %>
@@ -36,7 +34,7 @@
 
 <h2>Least Popular Items</h2>
 <section id= "bottom_five">
-  <% @items.bottom_five.each do |item| %>
+  <% @items.by_popularity(5, "ASC").each do |item| %>
     <p>Item Name: <%= item.name %></p>
     <p>Quantity: <%= item.quantity %></p>
   <%end %>

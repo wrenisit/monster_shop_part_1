@@ -75,7 +75,7 @@ describe Item, type: :model do
       ItemOrder.create(item: boot, order: order, price: boot.price, quantity: 4)
       ItemOrder.create(item: shirt, order: order_new, price: shirt.price, quantity: 2)
       ItemOrder.create(item: hat, order: order_new, price: hat.price, quantity: 1)
-      items = Item.top_five
+      items = Item.by_popularity(5, "DESC")
 
       expect(items.length).to eq(5)
       expect(items.first.quantity).to eq(12)
@@ -111,7 +111,7 @@ describe Item, type: :model do
       ItemOrder.create(item: boot, order: order, price: boot.price, quantity: 4)
       ItemOrder.create(item: shirt, order: order_new, price: shirt.price, quantity: 2)
       ItemOrder.create(item: hat, order: order_new, price: hat.price, quantity: 1)
-      items = Item.bottom_five
+      items = Item.by_popularity(5, "ASC")
 
       expect(items.length).to eq(5)
       expect(items.first.quantity).to eq(1)

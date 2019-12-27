@@ -20,7 +20,7 @@ class OrdersController <ApplicationController
       end
       session.delete(:cart)
       flash[:notice] = "Order Placed"
-      redirect_to order_path(order)
+      redirect_to profile_orders_path
     else
       flash[:notice] = "Please complete address form to create an order."
       render :new
@@ -31,14 +31,14 @@ class OrdersController <ApplicationController
     @user = current_user
   end
 
-  def cancel
+  def update
     @order = Order.find(params[:id])
     @order.cancel
     flash[:notice] = "Order cancelled"
     redirect_to profile_path
   end
 
-  private
+private
 
   def order_params
     params.permit(:name, :address, :city, :state, :zip)
