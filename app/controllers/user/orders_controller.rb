@@ -8,8 +8,7 @@ class User::OrdersController < User::BaseController
   end
 
   def create
-    user = current_user
-    order = user.orders.create(order_params)
+    order = current_user.orders.create(order_params)
     if order.save
       cart.items.each do |item,quantity|
         order.item_orders.create({
@@ -32,7 +31,7 @@ class User::OrdersController < User::BaseController
   end
 
   def update
-    @order = Order.find(params[:id])
+    @order = current_user.orders.find(params[:id])
     @order.cancel
     flash[:notice] = "Order cancelled"
     redirect_to profile_path

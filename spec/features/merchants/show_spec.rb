@@ -40,7 +40,7 @@ RSpec.describe 'merchant show page', type: :feature do
       click_button "Log In"
 
       visit '/merchant'
-      click_link "My Shop Items"
+      click_link "All #{@bike_shop.name} Items"
       expect(current_path).to eq('/merchant/items')
     end
   end

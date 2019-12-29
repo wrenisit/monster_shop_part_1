@@ -3,6 +3,9 @@ RSpec.describe "admin mechant show page" do
   it "sees everything that merchant would see" do
      user = create(:admin_user)
      ray = create(:ray_merchant)
+     item = create(:random_item, merchant: ray)
+     order = create(:random_order, user: user)
+     create(:item_order, item: item, order: order, price: item.price)
 
      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
 
@@ -15,6 +18,12 @@ RSpec.describe "admin mechant show page" do
      expect(page).to have_content(ray.state)
      expect(page).to have_content(ray.zip)
      expect(page).to have_link("All #{ray.name} Items")
-     expect(page).to have_content("Number of Items: #{ray.item_count}")
+
+     within "#order-#{order.id}" do
+       expect(page).to have_link("#{order.id}")
+       expect(page).to have_content(order.created_at)
+       expect(page).to have_content(order.quantity_ordered_from(ray))
+       expect(page).to have_content(order.subtotal_from(ray))
+     end
   end
 end
