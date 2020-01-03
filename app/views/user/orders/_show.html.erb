@@ -56,3 +56,9 @@
   <p> Ordered at:<%= @order.created_at%></p>
   <p> Last updated:<%= @order.updated_at %></p>
 </section>
+
+<section id="order-cancel">
+  <% if @order.pending? %>
+    <%= button_to "Cancel Order", "/profile/orders/#{@order.id}", method: :patch %>
+  <% end %>
+</section>
