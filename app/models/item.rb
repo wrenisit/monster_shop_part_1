@@ -24,12 +24,11 @@ class Item <ApplicationRecord
     item_orders.empty?
   end
 
-  def self.top_five
-    joins(:item_orders).select("items.name, sum(item_orders.quantity) as quantity").group(:id).order("quantity DESC").limit(5)
+  def self.active_items
+    where(active?: true)
   end
 
-  def self.bottom_five
-    joins(:item_orders).select("items.name, sum(item_orders.quantity) as quantity").group(:id).order("quantity").limit(5)
+  def self.by_popularity(limit = nil, order = "DESC")
+    joins(:item_orders).select("items.name, sum(item_orders.quantity) as quantity").group(:id).order("quantity #{order}").limit(limit)
   end
-
 end

@@ -34,7 +34,7 @@ class SessionsController < ApplicationController
   private
 
   def login_successful?(user)
-    !user.nil? && user.authenticate(params[:password])
+    user && user.authenticate(params[:password])
   end
 
   def welcome(user)
