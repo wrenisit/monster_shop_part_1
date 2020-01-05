@@ -1,13 +1,15 @@
 <h2><%= @merchant.name %></h2>
 <p><%= @merchant.address %> <%= @merchant.city %>, <%= @merchant.state %> <%= @merchant.zip %></p>
 
-<%= link_to "All #{@merchant.name} Items", "/merchant/items" %>
+<p><%= link_to "All #{@merchant.name} Items", "/merchant/items" %></p>
 
-<% @merchant.pending_orders.each do | order |%>
-<section id='order-<%= order.id%>'>
-  <p>Order ID: <%=link_to order.id, "/merchant/orders/#{order.id}" %></p>
-  <p>Date Created: <%= order.created_at %></p>
-  <p>Number of Items In Order: <%= order.quantity_ordered_from(@merchant) %></p>
-  <p>Order Total: <%= order.subtotal_from(@merchant) %></p>
-</section><br>
-<% end %>
+<section class="grid-container">
+  <% @merchant.pending_orders.each do | order |%>
+  <section class = "grid-item" id='order-<%= order.id%>'>
+    <p><%= link_to "Order ID: #{order.id}", "/merchant/orders/#{order.id}" %></p>
+    <p>Date Created: <%= order.created_at %></p>
+    <p>Number of Items In Order: <%= order.quantity_ordered_from(@merchant) %></p>
+    <p>Order Total: <%= order.subtotal_from(@merchant) %></p>
+  </section>
+  <% end %>
+</section>

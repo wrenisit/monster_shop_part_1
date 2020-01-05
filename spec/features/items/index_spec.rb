@@ -31,7 +31,7 @@ RSpec.describe "Items Index Page" do
       within "#item-#{@tire.id}" do
         expect(page).to have_link(@tire.name)
         expect(page).to have_content(@tire.description)
-        expect(page).to have_content("Price: $#{@tire.price}")
+        expect(page).to have_content(number_to_currency(@tire.price/100.to_f))
         expect(page).to have_content("Active")
         expect(page).to have_content("Inventory: #{@tire.inventory}")
         expect(page).to have_link(@meg.name)
@@ -41,7 +41,7 @@ RSpec.describe "Items Index Page" do
       within "#item-#{@pull_toy.id}" do
         expect(page).to have_link(@pull_toy.name)
         expect(page).to have_content(@pull_toy.description)
-        expect(page).to have_content("Price: $#{@pull_toy.price}")
+        expect(page).to have_content(number_to_currency(@pull_toy.price/100.to_f))
         expect(page).to have_content("Active")
         expect(page).to have_content("Inventory: #{@pull_toy.inventory}")
         expect(page).to have_link(@brian.name)
@@ -51,7 +51,7 @@ RSpec.describe "Items Index Page" do
       within "#item-#{@dog_bone.id}" do
         expect(page).to have_link(@dog_bone.name)
         expect(page).to have_content(@dog_bone.description)
-        expect(page).to have_content("Price: $#{@dog_bone.price}")
+        expect(page).to have_content(number_to_currency(@dog_bone.price/100.to_f))
         expect(page).to have_content("Active")
         expect(page).to have_content("Inventory: #{@dog_bone.inventory}")
         expect(page).to have_link(@brian.name)

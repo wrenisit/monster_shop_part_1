@@ -44,7 +44,7 @@ RSpec.describe "Create Merchant Items" do
       expect(Item.last.active?).to be(true)
       expect("#item-#{Item.last.id}").to be_present
       expect(page).to have_content(name)
-      expect(page).to have_content("Price: $#{new_item.price}")
+      expect(page).to have_content(number_to_currency(new_item.price/100.to_f))
       expect(page).to have_css("img[src*='#{new_item.image}']")
       expect(page).to have_content("Active")
       expect(page).to_not have_content(new_item.description)
