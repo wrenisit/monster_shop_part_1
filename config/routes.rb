@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   namespace :merchant, as: :merchant_dash do
     resources :orders, only: [:show]
-    resources :items, only: [:index, :destroy]
+    resources :items, only: [:index, :new, :create, :destroy]
     get "/", to: "dashboard#index"
     patch "/orders/:id/item_orders/:item_order_id", to: "orders#fulfill"
   end
