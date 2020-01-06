@@ -52,6 +52,18 @@ describe Order, type: :model do
       end
     end
 
+    it 'package_if_fulfilled' do
+      @order_1.package_if_fulfilled
+      expect(@order_1.packaged?).to be false
+
+      @order_1.item_orders.each do |item_order|
+        item_order.update(status: "fulfilled")
+      end
+
+      @order_1.package_if_fulfilled
+      expect(@order_1.packaged?).to be true
+    end
+
     it 'quantity_ordered' do
       expect(@order_1.quantity_ordered).to eq 5
     end
