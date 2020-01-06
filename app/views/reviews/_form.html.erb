@@ -1,0 +1,11 @@
+<center>
+  <%= form_tag path, method: method do %>
+    <%= text_field_tag :title, "#{@review.title}" %>
+
+    <%= text_field_tag :content, "#{@review.content}" %>
+
+    <%= text_field_tag :rating, "#{@review.rating}"%>
+
+    <%= submit_tag button_text %>
+  <% end %>
+</center>
