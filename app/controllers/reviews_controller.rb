@@ -18,7 +18,7 @@ class ReviewsController<ApplicationController
         redirect_to item_path(@item)
       else
         flash[:error] = "Rating must be between 1 and 5"
-        redirect_to i"/items/#{@item.id}/reviews/new"
+        render :new
       end
     end
   end
