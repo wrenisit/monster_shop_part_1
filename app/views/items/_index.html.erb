@@ -1,6 +1,6 @@
 <% if @merchant %>
   <h1><%= link_to @merchant.name, "/merchants/#{@merchant.id}"%><span> Items</span></h1>
-  <p align="center"><%= link_to "Add New Item", new_merchant_dash_item_path %></p>
+  <p align="center"><%= link_to "Add New Item", new_merchant_dash_item_path if current_merchant_user? %></p>
 <% else %>
   <h1>All Items</h1>
 <% end %>
@@ -21,7 +21,7 @@
         <p>Inactive</p>
       <% end %>
       <% if @merchant %>
-          <p><%= link_to "Delete Item", merchant_dash_item_path(item), method: :delete if item.no_orders?%></p>
+          <p><%= link_to "Delete Item", merchant_dash_item_path(item), method: :delete if item.no_orders? && current_merchant_user? %></p>
       <% end %>
     </section>
   <% end %>
