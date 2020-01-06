@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     resources :orders, only: [:show]
     resources :items, only: [:index]
     get "/", to: "dashboard#index"
+    patch "/orders/:id/item_orders/:item_order_id", to: "orders#fulfill"
   end
 
   namespace :admin, as: :admin_dash do
