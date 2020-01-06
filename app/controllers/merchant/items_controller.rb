@@ -7,7 +7,11 @@ class Merchant::ItemsController < Merchant::BaseController
     item = Item.find(params[:item_id])
     item.toggle!(:active?)
     redirect_to "/merchant/items"
-    flash[:success] = "Item is no longer for sale."
+    if !item.active? 
+      flash[:success] = "#{item.name} is no longer for sale."
+    else 
+      flash[:success] = "#{item.name} is now avalible for sale."
+    end
   end   
 
 end
