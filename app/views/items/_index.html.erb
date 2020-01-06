@@ -4,6 +4,7 @@
 <% else %>
   <h1>All Items</h1>
 <% end %>
+  <% @items.reload %>
 <section class="grid-container">
   <% @items.each do |item| %>
     <section class = "grid-item" id= 'item-<%=item.id%>'>
@@ -17,6 +18,9 @@
         <p>Active</p>
       <% else %>
         <p>Inactive</p>
+      <% end %>
+      <% if @merchant %>
+          <p><%= link_to "Delete Item", merchant_dash_item_path(item), method: :delete if item.no_orders?%></p>
       <% end %>
     </section>
   <% end %>
