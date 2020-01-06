@@ -25,7 +25,7 @@ Rails.application.routes.draw do
 
   resources :reviews, only: [:edit, :update, :destroy]
 
-  patch "/merchants", to: "merchants#active"
+  patch "/merchants/:id", to: "merchants#active"
   get "/register", to: "users#new"
   post "/register", to: "users#create"
   get "/profile", to: "users#show"
