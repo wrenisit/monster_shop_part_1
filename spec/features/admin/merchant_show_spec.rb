@@ -31,7 +31,7 @@ RSpec.describe "admin mechant show page" do
     user = create(:admin_user)
     ray = create(:ray_merchant)
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
-    visit "/merchants"
+    visit "/admin/merchants"
     within "#merchant-#{ray.id}" do
       expect(page).to have_button("Disable")
       expect(page).not_to have_button("Enable")
