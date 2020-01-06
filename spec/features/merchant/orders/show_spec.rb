@@ -50,4 +50,29 @@ describe "merchant order show page" do
 
     expect(page).not_to have_link @item_3.name
   end
+
+  it 'allows me to fullfil individual items' do
+    visit "/merchant/orders/#{@order.id}"
+    within "#item-#{@item_1.id}" do
+      click_button "Fulfill"
+    end
+    @item_order_1.reload
+    expect(@item_order_1.status).to eq "fulfilled"
+    @item_1.reload
+    expect(@item_1.inventory).to eq 5
+
+    expect(current_path).to eq("/merchant/orders/#{@order.id}")
+    within "#item-#{@item_1.id}" do
+      expect(page).not_to have_button "Fulfill"
+      expect(page).to have_content "Fulfilled"
+    end
+  end
+
+  it 'doesnt alow me to fulfill an item if inventory insufficient' do
+    visit "/merchant/orders/#{@order.id}"
+    within "#item-#{@item_2.id}" do
+      expect(page).to have_content "Insufficient Inventory"
+    end
+  end
+
 end
