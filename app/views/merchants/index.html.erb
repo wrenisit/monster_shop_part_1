@@ -5,7 +5,7 @@
     <section id="merchant-<%= merchant.id %>" class="grid-item" >
       <% if current_admin_user? %>
         <h2><%= link_to merchant.name, "/admin/merchants/#{merchant.id}" %></h2>
-        <%= button_to "Disable", "/merchants", method: :patch %>
+        <%= button_to "Disable", "/merchants/#{merchant.id}", method: :patch %>
       <% else %>
         <h2><%=link_to merchant.name, "/merchants/#{merchant.id}"%></h2>
       <% end %>
