@@ -18,8 +18,8 @@
   </table>
 </section>
 <section id="order-status">
-  <h2>Order: <%= @order.id %></h5>
-  <h2>Order Status: <%= @order.status %></h5>
+  <h2>Order ID: <%= @order.id %></h2>
+  <h2>Order Status: <%= @order.status.capitalize %></h2>
   <h1 align = "center">Order Info</h1>
 </section>
 <center>
@@ -33,7 +33,7 @@
       <th>Quantity</th>
       <th>Subtotal</th>
     </tr>
-  <% @order.item_orders.each do |item_order|%>
+  <% @item_orders.each do |item_order|%>
     <tr>
     <section id = "item-<%=item_order.item_id%>">
         <td><p><img src=<%= item_order.item.image %>></p></td>
@@ -55,10 +55,4 @@
 <section id="datecreated">
   <p> Ordered at:<%= @order.created_at%></p>
   <p> Last updated:<%= @order.updated_at %></p>
-</section>
-
-<section id="order-cancel">
-  <% if !@order.shipped? && !@order.cancelled? %>
-    <%= button_to "Cancel Order", "/profile/orders/#{@order.id}", method: :patch %>
-  <% end %>
 </section>

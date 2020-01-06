@@ -34,12 +34,12 @@ RSpec.describe "it shows all orders on admin dash" do
     within "#order-#{@order.id}" do
       expect(page).to have_link(@order.user.name)
       expect(page).to have_content("Order ID: #{@order.id}")
-      expect(page).to have_content("Order Created At: #{@order.created_at}")
+      expect(page).to have_content("Created: #{@order.created_at}")
     end
     within "#order-#{@order2.id}" do
       expect(page).to have_link(@order2.user.name)
       expect(page).to have_content("Order ID: #{@order2.id}")
-      expect(page).to have_content("Order Created At: #{@order2.created_at}")
+      expect(page).to have_content("Created: #{@order2.created_at}")
     end
   end
 end

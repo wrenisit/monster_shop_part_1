@@ -32,7 +32,7 @@ describe "admin order dashboard" do
     end
 
     within "#order-#{order_2.id}" do
-      expect(page).to have_content "Status: shipped"
+      expect(page).to have_content "Status: Shipped"
     end
 
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user_2)

@@ -34,7 +34,7 @@ RSpec.describe "profile orders index page" do
      expect(page).to have_content(@order.updated_at)
      expect(page).to have_content(@order.items.count)
      expect(page).to have_content(number_to_currency(@order.grandtotal/100.to_f))
-     expect(page).to have_content(@order.status)
+     expect(page).to have_content(@order.status.capitalize)
    end
   end
 end
