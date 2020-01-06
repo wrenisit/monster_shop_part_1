@@ -20,6 +20,10 @@ RSpec.describe "disabling merchant disables items" do
 
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(customer)
     visit "/items"
-    
+    expect(page).not_to have_content(item1.name)
+    expect(page).not_to have_content(item2.name)
+    expect(page).not_to have_content(item3.name)
+    expect(page).not_to have_content(item4.name)
+    expect(page).to have_content(item5.name)
   end
 end
