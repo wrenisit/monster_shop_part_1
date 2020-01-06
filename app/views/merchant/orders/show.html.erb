@@ -30,6 +30,7 @@
       <th>Price</th>
       <th>Quantity</th>
       <th>Subtotal</th>
+      <th>Fulfill</th>
     </tr>
   <% @item_orders.each do |item_order|%>
     <tr>
@@ -39,6 +40,13 @@
         <td><p><%= number_to_currency(item_order.price/100.to_f)%></p></td>
         <td><p><%= item_order.quantity%></p></td>
         <td><p><%= number_to_currency(item_order.subtotal/100.to_f)%></p></td>
+        <% if item_order.fulfilled? %>
+          <td><p>Fulfilled</p></td>
+        <% elsif item_order.fulfillable? %>
+          <td><p><%= button_to "Fulfill", "/merchant/orders/#{@order.id}/item_orders/#{item_order.id}", method: :patch %></p></td>
+        <% else %>
+          <td><p>Insufficient Inventory</p></td>
+        <% end %>
       </section>
     </tr>
   <% end %>
