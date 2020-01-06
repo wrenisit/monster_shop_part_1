@@ -26,4 +26,21 @@ RSpec.describe "admin mechant show page" do
        expect(page).to have_content(order.subtotal_from(ray))
      end
   end
+  it "shows a button to enable or disable merchant" do
+    user = create(:admin_user)
+    ray = create(:ray_merchant)
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+    visit "/merchants"
+    within "#merchant-#{ray.id}" do
+      expect(page).to have_button("Disable")
+      expect(page).not_to have_button("Enable")
+      click_on "Disable"
+    end
+    expect(current_path).to eq("/admin/merchants")
+    within "#merchant-#{ray.id}" do
+      expect(page).not_to have_button("Disable")
+      expect(page).to have_button("Enable")
+      click_on "Enable"
+    end
+  end
 end
