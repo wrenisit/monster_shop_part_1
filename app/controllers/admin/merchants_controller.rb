@@ -3,6 +3,10 @@ class Admin::MerchantsController < ApplicationController
     @merchant = Merchant.find(params[:id])
   end
 
+  def index
+    @merchants = Merchant.all
+  end
+
   def update
     merchant = Merchant.find(params[:id])
     if merchant.active == true
