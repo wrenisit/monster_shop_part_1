@@ -37,14 +37,14 @@ describe "merchant order show page" do
     within "#item-#{@item_1.id}" do
       expect(page).to have_link @item_1.name
       expect(page).to have_css "img[src*='#{@item_1.image}']"
-      expect(page).to have_content @item_1.price
+      expect(page).to have_content number_to_currency(@item_1.price/100.to_f)
       expect(page).to have_content @item_order_1.quantity
     end
 
     within "#item-#{@item_2.id}" do
       expect(page).to have_link @item_2.name
       expect(page).to have_css "img[src*='#{@item_2.image}']"
-      expect(page).to have_content @item_2.price
+      expect(page).to have_content number_to_currency(@item_2.price/100.to_f)
       expect(page).to have_content @item_order_2.quantity
     end
 

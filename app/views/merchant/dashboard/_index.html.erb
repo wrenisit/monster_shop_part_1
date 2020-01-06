@@ -9,7 +9,7 @@
     <p><%= link_to "Order ID: #{order.id}", "/merchant/orders/#{order.id}" %></p>
     <p>Date Created: <%= order.created_at %></p>
     <p>Number of Items In Order: <%= order.quantity_ordered_from(@merchant) %></p>
-    <p>Order Total: <%= order.subtotal_from(@merchant) %></p>
+    <p>Order Total: <%= number_to_currency(order.subtotal_from(@merchant)/100.to_f) %></p>
   </section>
   <% end %>
 </section>

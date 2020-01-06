@@ -29,7 +29,7 @@ RSpec.describe "order show page" do
      expect(current_path).to eq("/profile/orders")
 
      within "#order-#{@order.id}" do
-       click_link "#{@order.id}"
+       click_link "Order ID: #{@order.id}"
      end
      expect(current_path).to eq("/profile/orders/#{@order.id}")
 

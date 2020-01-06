@@ -23,17 +23,21 @@
 </section>
 
 <h2>Most Popular Items </h2>
-<section id="top_five">
-<% @items.by_popularity(5, "DESC").each do |item| %>
-     <p>Item Name: <%=item.name %></p>
-     <p>Quantity: <%= item.quantity %></p>
-<%end %>
+<section class="grid-container" id="top_five">
+  <% @items.by_popularity(5, "DESC").each do |item| %>
+    <section class="grid-item">
+      <p>Item Name: <%=item.name %></p>
+      <p>Quantity: <%= item.quantity %></p>
+    </section>
+  <%end %>
 </section>
 
 <h2>Least Popular Items</h2>
-<section id= "bottom_five">
+<section class="grid-container" id= "bottom_five">
   <% @items.by_popularity(5, "ASC").each do |item| %>
-    <p>Item Name: <%= item.name %></p>
-    <p>Quantity: <%= item.quantity %></p>
+    <section class="grid-item">
+      <p>Item Name: <%= item.name %></p>
+      <p>Quantity: <%= item.quantity %></p>
+    </section>
   <%end %>
 </section>

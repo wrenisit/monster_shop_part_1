@@ -1,7 +1,6 @@
 <h1>Admin View</h1>
-<h2>Name: <%= @display_user.name %></h3>
-<h3>Address: <%= @display_user.address %></h3>
-<h3>City: <%= @display_user.city %></h3>
-<h3>State: <%= @display_user.state %></h3>
-<h3>Zip: <%= @display_user.zip %></h3>
-<h3>Email: <%= @display_user.email %></h3>
+
+<h2><%= @display_user.name %></h2>
+<p><%= @display_user.email %></p>
+<p><%= @display_user.address %></p>
+<p><%= @display_user.city %>, <%= @display_user.state %> <%= @display_user.zip %></p>
