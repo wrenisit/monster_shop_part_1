@@ -45,9 +45,11 @@ class MerchantsController <ApplicationController
     merchant = Merchant.find(params[:id])
     if merchant.active == true
       merchant.toggle(:active)
+      redirect_to "/merchants"
       flash[:notice] = "Merchant has been deactivated"
     else
       merchant.toggle(:active)
+      redirect_to "/merchants"
       flash[:notice] = "Merchant has been activated"
     end
   end
