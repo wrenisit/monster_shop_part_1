@@ -23,7 +23,7 @@ RSpec.describe "admin mechant show page" do
        expect(page).to have_link("#{order.id}")
        expect(page).to have_content(order.created_at)
        expect(page).to have_content(order.quantity_ordered_from(ray))
-       expect(page).to have_content(order.subtotal_from(ray))
+       expect(page).to have_content(number_to_currency(order.subtotal_from(ray)/100.to_f))
      end
   end
 end
