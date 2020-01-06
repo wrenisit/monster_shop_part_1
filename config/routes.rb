@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   end
 
   resources :merchants do
+    patch "/merchants", to: "merchants#active"
     resources :items, only: [:index, :new, :create]
   end
 
