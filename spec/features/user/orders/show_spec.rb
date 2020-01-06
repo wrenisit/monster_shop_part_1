@@ -33,10 +33,10 @@ RSpec.describe "order show page" do
      end
      expect(current_path).to eq("/profile/orders/#{@order.id}")
 
-     expect(page).to have_content("Order: #{@order.id}")
+     expect(page).to have_content("Order ID: #{@order.id}")
      expect(page).to have_content(@order.created_at)
      expect(page).to have_content(@order.updated_at)
-     expect(page).to have_content(@order.status)
+     expect(page).to have_content(@order.status.capitalize)
      within "#item-#{@pencil.id}" do
       expect(page).to have_content(@pencil.name)
       expect(page).to have_content(@pencil.description)
@@ -75,7 +75,7 @@ RSpec.describe "order show page" do
 
     visit "/profile/orders/#{order.id}"
     within "#order-status" do
-      expect(page).to have_content "cancelled"
+      expect(page).to have_content "Cancelled"
     end
   end
 
