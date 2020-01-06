@@ -1,6 +1,5 @@
 <h1>Edit <%=link_to @item.name, "/items/#{@item.id}" %></h1>
 
-
 <center>
 <%= render partial: 'form', locals: {path: item_path(@item), method: :patch, button_text: 'Update Item'} %>
 </center>

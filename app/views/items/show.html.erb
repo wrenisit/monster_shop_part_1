@@ -10,7 +10,7 @@
     </section>
     <section style="text-align:left" class = "item-show-item">
       <p><%= @item.description %></p>
-      <p>Price: <%= number_to_currency(@item.price )%> </p>
+      <p>Price: <%= number_to_currency(@item.price/100.to_f)%> </p>
       <p>Inventory: <%= @item.inventory %> </p>
       <% if @item.active? %>
         <p style= "color:green">Active</p>
@@ -46,11 +46,11 @@
     <h2>All Reviews</h2>
     <% @item.reviews.each do |review| %>
       <section id= 'review-<%=review.id%>'>
-        <%= review.title %>
-        <%= review.content %>
-        Rating: <%= review.rating %>/5
+        <h4><%= review.title %></h4>
+        <p><%= review.content %></p>
+        <p>Rating: <%= review.rating %>/5
         <%= link_to "Edit", "/reviews/#{review.id}/edit" %>
-        <%= link_to "Delete", "/reviews/#{review.id}", method: :delete %>
+        <%= link_to "Delete", "/reviews/#{review.id}", method: :delete %></p>
       </section>
     <% end %>
   <% end %>

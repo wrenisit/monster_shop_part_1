@@ -1,15 +1,14 @@
-class OrdersController <ApplicationController
+class User::OrdersController < User::BaseController
 
   def new
   end
 
   def show
-    @order = Order.find(params[:id])
+    @order = current_user.orders.find(params[:id])
   end
 
   def create
-    user = current_user
-    order = user.orders.create(order_params)
+    order = current_user.orders.create(order_params)
     if order.save
       cart.items.each do |item,quantity|
         order.item_orders.create({
@@ -20,7 +19,7 @@ class OrdersController <ApplicationController
       end
       session.delete(:cart)
       flash[:notice] = "Order Placed"
-      redirect_to order_path(order)
+      redirect_to profile_orders_path
     else
       flash[:notice] = "Please complete address form to create an order."
       render :new
@@ -28,17 +27,17 @@ class OrdersController <ApplicationController
   end
 
   def index
-    @user = current_user
+    @orders = current_user.orders
   end
 
-  def cancel
-    @order = Order.find(params[:id])
+  def update
+    @order = current_user.orders.find(params[:id])
     @order.cancel
     flash[:notice] = "Order cancelled"
     redirect_to profile_path
   end
 
-  private
+private
 
   def order_params
     params.permit(:name, :address, :city, :state, :zip)
