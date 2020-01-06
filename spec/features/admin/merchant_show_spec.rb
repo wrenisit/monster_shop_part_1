@@ -37,7 +37,7 @@ RSpec.describe "admin mechant show page" do
       expect(page).not_to have_button("Enable")
       click_on "Disable"
     end
-    expect(current_path).to eq("/merchants")
+    expect(current_path).to eq("/admin/merchants")
     within "#merchant-#{ray.id}" do
       expect(page).not_to have_button("Disable")
       expect(page).to have_button("Enable")
