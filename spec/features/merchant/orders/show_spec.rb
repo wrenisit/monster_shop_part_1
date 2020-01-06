@@ -21,12 +21,12 @@ describe "merchant order show page" do
   it 'shows the customers name and address' do
     visit "/merchant/orders/#{@order.id}"
 
-    within "#order-data" do
-      expect(page).to have_content @user.name
-      expect(page).to have_content @user.address
-      expect(page).to have_content @user.city
-      expect(page).to have_content @user.state
-      expect(page).to have_content @user.zip
+    within ".shipping-address" do
+      expect(page).to have_content @order.name
+      expect(page).to have_content @order.address
+      expect(page).to have_content @order.city
+      expect(page).to have_content @order.state
+      expect(page).to have_content @order.zip
     end
   end
 
