@@ -16,7 +16,6 @@ Rails.application.routes.draw do
   end
 
   resources :merchants do
-    patch "/merchants", to: "merchants#active"
     resources :items, only: [:index, :new, :create]
   end
 
@@ -26,6 +25,7 @@ Rails.application.routes.draw do
 
   resources :reviews, only: [:edit, :update, :destroy]
 
+  patch "/merchants", to: "merchants#active"
   get "/register", to: "users#new"
   post "/register", to: "users#create"
   get "/profile", to: "users#show"
