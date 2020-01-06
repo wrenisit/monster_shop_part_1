@@ -16,6 +16,7 @@ class ItemsController<ApplicationController
   def new
     @item = Item.new
     @merchant = Merchant.find(params[:merchant_id])
+    @item = Item.new
   end
 
   def create
@@ -54,6 +55,6 @@ class ItemsController<ApplicationController
 private
 
   def item_params
-    params.permit(:name,:description,:price,:inventory,:image)
+    params.require(:item).permit(:name,:description,:price,:inventory,:image)
   end
 end
