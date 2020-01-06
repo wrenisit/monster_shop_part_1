@@ -29,33 +29,33 @@ RSpec.describe "order show page" do
      expect(current_path).to eq("/profile/orders")
 
      within "#order-#{@order.id}" do
-       click_link "#{@order.id}"
+       click_link "Order ID: #{@order.id}"
      end
      expect(current_path).to eq("/profile/orders/#{@order.id}")
 
-     expect(page).to have_content("Order: #{@order.id}")
+     expect(page).to have_content("Order ID: #{@order.id}")
      expect(page).to have_content(@order.created_at)
      expect(page).to have_content(@order.updated_at)
-     expect(page).to have_content(@order.status)
+     expect(page).to have_content(@order.status.capitalize)
      within "#item-#{@pencil.id}" do
       expect(page).to have_content(@pencil.name)
       expect(page).to have_content(@pencil.description)
       expect(page).to have_css("img[src*='#{@pencil.image}']")
       expect(page).to have_content("3")
-      expect(page).to have_content("$6.00")
+      expect(page).to have_content("$0.06")
     end
     within "#item-#{@paper.id}" do
       expect(page).to have_content(@paper.name)
       expect(page).to have_content(@paper.description)
       expect(page).to have_css("img[src*='#{@paper.image}']")
       expect(page).to have_content("2")
-      expect(page).to have_content("$40.00")
+      expect(page).to have_content("$0.40")
     end
      expect(page).to have_content("Total Quantity Ordered: 5")
-     expect(page).to have_content("Total: $46.00")
+     expect(page).to have_content("Total: $0.46")
   end
 
-  it "allows me to cancel only pending orders" do
+  it "allows me to cancel orders" do
     user = create(:regular_user)
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
 
@@ -75,17 +75,17 @@ RSpec.describe "order show page" do
 
     visit "/profile/orders/#{order.id}"
     within "#order-status" do
-      expect(page).to have_content "cancelled"
+      expect(page).to have_content "Cancelled"
     end
   end
 
-  it "doesn't allow me to cancel an order with a status other than pending" do
+  it "doesn't allow me to cancel an order with a status of shipped" do
     user = create(:regular_user)
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
 
     merchant = create(:jomah_merchant)
     items = create_list(:random_item, 5, merchant: merchant, inventory: 10)
-    order = create(:random_order, user: user, status: "packaged")
+    order = create(:random_order, user: user, status: "shipped")
     items.each do |item|
       create(:item_order, order: order, item: item, price: item.price, quantity: 5)
     end

@@ -1,0 +1,7 @@
+<%= render "show" %>
+
+<section id="order-cancel">
+  <% if !@order.shipped? && !@order.cancelled? %>
+    <%= button_to "Cancel Order", "/profile/orders/#{@order.id}", method: :patch %>
+  <% end %>
+</section>

@@ -21,6 +21,7 @@ describe Merchant, type: :model do
       @meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
       @tire = @meg.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
     end
+
     it 'no_orders' do
       expect(@meg.no_orders?).to eq(true)
       user = create(:regular_user)
@@ -55,5 +56,24 @@ describe Merchant, type: :model do
       expect(@meg.distinct_cities).to match_array(["Denver","Hershey"])
     end
 
+    it 'item_orders_from(order)' do
+      jomah = create(:jomah_merchant)
+      ray = create(:ray_merchant)
+
+      user = create(:regular_user)
+      merchant_user = create(:merchant_employee, merchant: jomah)
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(merchant_user)
+
+      item_1 = create(:random_item, merchant: jomah, inventory: 10)
+      item_2 = create(:random_item, merchant: jomah, inventory: 5)
+      item_3 = create(:random_item, merchant: ray, inventory: 10)
+
+      order = create(:random_order, user: user)
+      item_order_1 = create(:item_order, order: order, item: item_1, price: item_1.price, quantity: 5)
+      item_order_2 = create(:item_order, order: order, item: item_2, price: item_2.price, quantity: 6)
+      item_order_3 = create(:item_order, order: order, item: item_3, price: item_3.price, quantity: 5)
+
+      expect(jomah.item_orders_from(order)).to match_array [item_order_1, item_order_2]
+    end
   end
 end

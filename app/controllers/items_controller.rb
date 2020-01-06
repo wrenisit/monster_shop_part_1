@@ -5,7 +5,7 @@ class ItemsController<ApplicationController
       @merchant = Merchant.find(params[:merchant_id])
       @items = @merchant.items
     else
-      @items = Item.all
+      @items = Item.active_items
     end
   end
 
@@ -14,16 +14,18 @@ class ItemsController<ApplicationController
   end
 
   def new
+    @item = Item.new
     @merchant = Merchant.find(params[:merchant_id])
+    @item = Item.new
   end
 
   def create
     @merchant = Merchant.find(params[:merchant_id])
-    item = @merchant.items.create(item_params)
-    if item.save
+    @item = @merchant.items.create(item_params)
+    if @item.save
       redirect_to merchant_items_path(@merchant)
     else
-      flash[:error] = item.errors.full_messages.to_sentence
+      flash[:error] = @item.errors.full_messages.to_sentence
       render :new
     end
   end
@@ -50,9 +52,9 @@ class ItemsController<ApplicationController
     redirect_to items_path
   end
 
-  private
+private
 
   def item_params
-    params.permit(:name,:description,:price,:inventory,:image)
+    params.require(:item).permit(:name,:description,:price,:inventory,:image)
   end
 end

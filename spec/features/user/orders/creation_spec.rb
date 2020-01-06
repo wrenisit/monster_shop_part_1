@@ -28,8 +28,6 @@ RSpec.describe("Order Creation") do
     end
 
     it 'I can create a new order' do
-
-
       visit "/cart"
       click_on "Checkout"
 
@@ -43,7 +41,8 @@ RSpec.describe("Order Creation") do
 
       new_order = Order.last
 
-      expect(current_path).to eq("/orders/#{new_order.id}")
+      expect(current_path).to eq "/profile/orders"
+      visit "/profile/orders/#{new_order.id}"
 
       within '.shipping-address' do
         expect(page).to have_content(@user.name)
@@ -56,29 +55,29 @@ RSpec.describe("Order Creation") do
       within "#item-#{@paper.id}" do
         expect(page).to have_link(@paper.name)
         expect(page).to have_link("#{@paper.merchant.name}")
-        expect(page).to have_content("$#{@paper.price}")
+        expect(page).to have_content(number_to_currency(@paper.price/100.to_f))
         expect(page).to have_content("2")
-        expect(page).to have_content("$40")
+        expect(page).to have_content("$0.40")
       end
 
       within "#item-#{@tire.id}" do
         expect(page).to have_link(@tire.name)
         expect(page).to have_link("#{@tire.merchant.name}")
-        expect(page).to have_content("$#{@tire.price}")
+        expect(page).to have_content(number_to_currency(@tire.price/100.to_f))
         expect(page).to have_content("1")
-        expect(page).to have_content("$100")
+        expect(page).to have_content("$1.00")
       end
 
       within "#item-#{@pencil.id}" do
         expect(page).to have_link(@pencil.name)
         expect(page).to have_link("#{@pencil.merchant.name}")
-        expect(page).to have_content("$#{@pencil.price}")
+        expect(page).to have_content(number_to_currency(@pencil.price/100.to_f))
         expect(page).to have_content("1")
-        expect(page).to have_content("$2")
+        expect(page).to have_content("$0.02")
       end
 
       within "#grandtotal" do
-        expect(page).to have_content("Total: $142")
+        expect(page).to have_content("Total: $1.42")
       end
 
       within "#datecreated" do
@@ -104,7 +103,5 @@ RSpec.describe("Order Creation") do
       expect(page).to have_content("Please complete address form to create an order.")
       expect(page).to have_button("Create Order")
     end
-
-
   end
 end

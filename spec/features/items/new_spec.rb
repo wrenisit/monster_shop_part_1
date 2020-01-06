@@ -25,11 +25,11 @@ RSpec.describe "Create Merchant Items" do
 
       expect(page).to have_link(@brian.name)
       expect(current_path).to eq("/merchants/#{@brian.id}/items/new")
-      fill_in :name, with: name
-      fill_in :price, with: price
-      fill_in :description, with: description
-      fill_in :image, with: image_url
-      fill_in :inventory, with: inventory
+      fill_in "Name", with: name
+      fill_in "Price", with: price
+      fill_in "Description", with: description
+      fill_in "Image", with: image_url
+      fill_in "Inventory", with: inventory
 
       click_button "Create Item"
 
@@ -44,7 +44,7 @@ RSpec.describe "Create Merchant Items" do
       expect(Item.last.active?).to be(true)
       expect("#item-#{Item.last.id}").to be_present
       expect(page).to have_content(name)
-      expect(page).to have_content("Price: $#{new_item.price}")
+      expect(page).to have_content(number_to_currency(new_item.price/100.to_f))
       expect(page).to have_css("img[src*='#{new_item.image}']")
       expect(page).to have_content("Active")
       expect(page).to_not have_content(new_item.description)
@@ -62,11 +62,11 @@ RSpec.describe "Create Merchant Items" do
 
       click_on "Add New Item"
 
-      fill_in :name, with: name
-      fill_in :price, with: price
-      fill_in :description, with: description
-      fill_in :image, with: image_url
-      fill_in :inventory, with: inventory
+      fill_in "Name", with: name
+      fill_in "Price", with: price
+      fill_in "Description", with: description
+      fill_in "Image", with: image_url
+      fill_in "Inventory", with: inventory
 
       click_button "Create Item"
 
