@@ -68,14 +68,14 @@ describe "merchant dashboard" do
           expect(page).to have_link("Order ID: #{order_1.id}")
           expect(page).to have_content(order_1.created_at)
           expect(page).to have_content(items_1.size)
-          expect(page).to have_content(order_1.grandtotal)
+          expect(page).to have_content(number_to_currency(order_1.grandtotal/100.to_f))
         end
 
         within("#order-#{order_2.id}") do
           expect(page).to have_link("Order ID: #{order_2.id}")
           expect(page).to have_content(order_2.created_at)
           expect(page).to have_content(items_2.size)
-          expect(page).to have_content(order_2.grandtotal)
+          expect(page).to have_content(number_to_currency(order_2.grandtotal/100.to_f))
           click_on "#{order_2.id}"
           expect(current_path).to eq("/merchant/orders/#{order_2.id}")
         end
