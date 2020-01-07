@@ -40,4 +40,21 @@ describe "admin order dashboard" do
     visit "/profile/orders/#{order_2.id}"
     expect(page).not_to have_button "Cancel Order"
   end
+
+  it "shows order id's as link to admin order show page" do
+    user_1 = create(:random_user)
+    user_2 = create(:random_user)
+    admin_user = create(:admin_user)
+    merchant = create(:jomah_merchant)
+    order_1 = create(:random_order, user: user_1, status: "pending")
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin_user)
+
+    visit "/admin"
+
+    within "#order-#{order_1.id}" do
+      expect(page).to have_link(order_1.id)
+      click_link "#{order_1.id}"
+    end
+    expect(current_path).to eq("/admin/users/#{user_1.id}/orders/#{order_1.id}")
+  end
 end

@@ -15,7 +15,10 @@ class SessionsController < ApplicationController
 
   def create
     user = User.find_by(email: params[:email])
-    if login_successful?(user)
+    if user && !user.active?
+      flash[:error] = "Sorry This Acount Is Inactive"
+      render :new
+    elsif login_successful?(user)
       session[:user_id] = user.id
       welcome(user)
     else

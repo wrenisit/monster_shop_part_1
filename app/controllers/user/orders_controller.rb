@@ -5,7 +5,6 @@ class User::OrdersController < User::BaseController
 
   def show
     @order = current_user.orders.find(params[:id])
-    @item_orders = @order.item_orders
   end
 
   def create

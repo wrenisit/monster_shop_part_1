@@ -3,19 +3,22 @@ Rails.application.routes.draw do
   get "/", to: "welcome#index"
 
   namespace :merchant, as: :merchant_dash do
-    resources :items, only: [:index, :destroy] do 
-      patch "", to: "items#toggle_active"
+
+
+    resources :items, only: [:index, :edit, :update, :destroy] do
+      patch "/toggle_active", to: "items#toggle_active", to: "items#toggle_active"
+      patch "", to: "items#update"
     end
     resources :orders, only: [:show]
+    resources :items, only: [:index, :new, :create]
     get "/", to: "dashboard#index"
     patch "/orders/:id/item_orders/:item_order_id", to: "orders#fulfill"
   end
 
   namespace :admin, as: :admin_dash do
-    resources :users, only: [:index, :show] do 
-      get "/edit", to: "users#edit"
-      patch "", to: "users#update"
+    resources :users, only: [:index, :show, :edit, :update] do 
       get "/edit_password", to: "users#edit_password"
+      patch "/toggle_active", to: "users#toggle_active
     end
     resources :merchants, only: [:index, :show, :update]
     resources :orders, only: [:update]
@@ -26,7 +29,7 @@ Rails.application.routes.draw do
     resources :items, only: [:index, :new, :create]
   end
 
-  resources :items, except: [:new, :create] do
+  resources :items do
     resources :reviews, only: [:new, :create]
   end
 

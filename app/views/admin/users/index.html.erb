@@ -1,5 +1,6 @@
 <% @users.each do |user| %>
 <center>
+<section id="user-<%=user.id%>">
 <h1><%= link_to "#{user.name}", "/admin/users/#{user.id}" %></h2>
 <h2>Registered at: <%= user.created_at %></h3>
 <h2>User Role: <%= user.role %></h3>
@@ -9,6 +10,12 @@
 <p>Address:</p>
 <p><%= user.address %></p>
 <p><%= user.city %>, <%= user.state %> <%= user.zip %></p>
+<% if user.active %>
+  <%= link_to "Deactivate User", "/admin/users/#{user.id}", method: :patch %>
+<% else %>
+  <%= link_to "Activate User", "/admin/users/#{user.id}", method: :patch %>
+<% end %>
 <h3>================</h3>
+</section>
 <% end %>
 <center>
