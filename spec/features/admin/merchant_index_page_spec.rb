@@ -10,7 +10,7 @@ RSpec.describe "merchant index page" do
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
 
     visit "/admin/merchants"
-    
+
     within "#merchant-#{wren.id}" do
       click_button "Disable"
     end
@@ -37,10 +37,3 @@ RSpec.describe "merchant index page" do
     end
   end
 end
-# As an admin user
-# When I visit the merchant's index page at "/admin/merchants"
-# I see all merchants in the system
-# Next to each merchant's name I see their city and state
-# The merchant's name is a link to their Merchant Dashboard at routes such as "/admin/merchants/5"
-# I see a "disable" button next to any merchants who are not yet disabled
-# I see an "enable" button next to any merchants whose accounts are disabled
