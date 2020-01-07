@@ -77,5 +77,22 @@ RSpec.describe 'merchant item delete', type: :feature do
         expect(page).to_not have_link("Delete Item")
       end
     end
+
+    it "a merchant employee will not be able to delete an item from another shop" do
+      ray = create(:ray_merchant)
+      merchant = create(:jomah_merchant)
+      merchant_employee = create(:merchant_employee, merchant: merchant)
+
+      chain = create(:random_item, name: "chain", merchant: ray)
+      tire = create(:random_item, merchant: ray)
+      roof_rack = create(:random_item, merchant: ray)
+      boots = create(:random_item, merchant: merchant)
+
+
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(merchant_employee)
+
+      visit "merchants/#{ray.id}/items"
+      expect(page).not_to have_link("Delete Item")
+    end
   end
 end
