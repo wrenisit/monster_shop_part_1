@@ -16,7 +16,9 @@ Rails.application.routes.draw do
   end
 
   namespace :admin, as: :admin_dash do
-    resources :users, only: [:index, :show, :update]
+    resources :users, only: [:index, :show, :update] do
+      resources :orders, only: [:show]
+    end
     resources :merchants, only: [:index, :show, :update]
     resources :orders, only: [:update]
     get "/", to: "dashboard#index"
