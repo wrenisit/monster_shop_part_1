@@ -19,7 +19,8 @@ class SessionsController < ApplicationController
       session[:user_id] = user.id
       welcome(user)
     else
-      flash[:error] = "Sorry Invalid Password or Email."
+      flash[:error] = "Sorry Invalid Password or Email." if user.active
+      flash[:error] = "Sorry This Acount Is Inactive" if !user.active 
       render :new
     end
   end
@@ -34,7 +35,7 @@ class SessionsController < ApplicationController
   private
 
   def login_successful?(user)
-    user && user.authenticate(params[:password])
+    user.active && user && user.authenticate(params[:password])
   end
 
   def welcome(user)
