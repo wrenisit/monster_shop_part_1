@@ -12,7 +12,11 @@ Rails.application.routes.draw do
   end
 
   namespace :admin, as: :admin_dash do
-    resources :users, only: [:index, :show]
+    resources :users, only: [:index, :show] do 
+      get "/edit", to: "users#edit"
+      patch "", to: "users#update"
+      get "/edit_password", to: "users#edit_password"
+    end
     resources :merchants, only: [:index, :show, :update]
     resources :orders, only: [:update]
     get "/", to: "dashboard#index"
