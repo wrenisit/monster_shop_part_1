@@ -8,11 +8,11 @@ class Admin::UsersController < Admin::BaseController
   end
 
   def edit
-    @display_user = User.find(params[:user_id])
+    @display_user = User.find(params[:id])
   end
 
   def update
-    @display_user = User.find(params[:user_id])
+    @display_user = User.find(params[:id])
     if params[:password]
       password_update
     elsif @display_user.update(user_params)
@@ -23,9 +23,9 @@ class Admin::UsersController < Admin::BaseController
       redirect_to "/admin/users/#{@display_user.id}"
     end
   end
-  
+
   def toggle_active
-    user = User.find(params[:id])
+    user = User.find(params[:user_id])
     user.toggle!(:active)
     redirect_to admin_dash_users_path
     if !user.active
