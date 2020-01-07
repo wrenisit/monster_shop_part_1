@@ -3,11 +3,14 @@ Rails.application.routes.draw do
   get "/", to: "welcome#index"
 
   namespace :merchant, as: :merchant_dash do
-    resources :items, only: [:index, :destroy] do
-      patch "", to: "items#toggle_active"
+    resources :items, only: [:index, :edit, :update, :destroy] do
+      member do
+        put "", to: "items#toggle_active"
+        patch "/merchant/items/:item_id", to: "items#update"
+      end
     end
     resources :orders, only: [:show]
-    resources :items, only: [:index, :new, :create, :destroy]
+    resources :items, only: [:index, :new, :create]
     get "/", to: "dashboard#index"
     patch "/orders/:id/item_orders/:item_order_id", to: "orders#fulfill"
   end
