@@ -5,7 +5,6 @@ Rails.application.routes.draw do
   namespace :merchant, as: :merchant_dash do
     resources :items, only: [:index, :edit, :update, :destroy] do
       patch "/toggle_active", to: "items#toggle_active", to: "items#toggle_active"
-      patch "", to: "items#update"
     end
     resources :orders, only: [:show]
     resources :items, only: [:index, :new, :create]

@@ -26,7 +26,7 @@ class Merchant::ItemsController < Merchant::BaseController
   end
 
   def update
-    @item = Item.find(params[:item_id])
+    @item = Item.find(params[:id])
     @item.update(item_params)
     if @item.save
       redirect_to merchant_dash_items_path
