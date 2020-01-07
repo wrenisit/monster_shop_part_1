@@ -11,14 +11,13 @@ RSpec.describe "on user order show page" do
       create(:item_order, order: order, item: item, price: item.price, quantity: 5)
     end
 
-    visit "/profile/orders/#{order.id}"
+    visit "/admin/users/#{user.id}/orders/#{order.id}"
     within "#order-cancel" do
       click_button "Cancel Order"
     end
-    expect(current_path).to eq profile_path
+    expect(current_path).to eq "/admin/users/#{user.id}/orders/#{order.id}"
     expect(page).to have_content "Order cancelled"
 
-    visit "/profile/orders/#{order.id}"
     within "#order-status" do
       expect(page).to have_content "Cancelled"
     end

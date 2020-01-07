@@ -3,8 +3,6 @@ Rails.application.routes.draw do
   get "/", to: "welcome#index"
 
   namespace :merchant, as: :merchant_dash do
-
-
     resources :items, only: [:index, :edit, :update, :destroy] do
       patch "/toggle_active", to: "items#toggle_active", to: "items#toggle_active"
       patch "", to: "items#update"
@@ -22,6 +20,8 @@ Rails.application.routes.draw do
     resources :merchants, only: [:index, :show, :update]
     resources :orders, only: [:update]
     get "/", to: "dashboard#index"
+    patch "/users/:user_id/orders/:id", to: "orders#cancel"
+
   end
 
   resources :merchants do
