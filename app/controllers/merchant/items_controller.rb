@@ -20,8 +20,24 @@ class Merchant::ItemsController < Merchant::BaseController
     end
   end
 
+  def edit
+    @merchant = current_user.merchant
+    @item = Item.find(params[:id])
+  end
+
+  def update
+    @item = Item.find(params[:id])
+    @item.update(item_params)
+    if @item.save
+      redirect_to merchant_dash_items_path
+    else
+      flash[:error] = @item.errors.full_messages.to_sentence
+      render :edit
+    end
+  end
+
   def toggle_active
-    item = Item.find(params[:item_id])
+    item = Item.find(params[:id])
     item.toggle!(:active?)
     redirect_to "/merchant/items"
     if !item.active?
