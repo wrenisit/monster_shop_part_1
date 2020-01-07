@@ -49,7 +49,7 @@ class UsersController<ApplicationController
 
   def password_update
     if params[:password] == params[:password_confirmation]
-      @user = @user.update(user_params)
+      @user.update(user_params)
       flash[:success] = "Your password has been updated."
       redirect_to profile_path
     else
