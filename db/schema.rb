@@ -31,12 +31,12 @@ ActiveRecord::Schema.define(version: 20200106223955) do
     t.string "name"
     t.string "description"
     t.integer "price"
-    t.string "image"
     t.boolean "active?", default: true
     t.integer "inventory"
     t.bigint "merchant_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "image", default: "https://amp.businessinsider.com/images/5cdee90d021b4c15350f0c03-1136-852.jpg"
     t.index ["merchant_id"], name: "index_items_on_merchant_id"
   end
 
