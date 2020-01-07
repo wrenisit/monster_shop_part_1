@@ -26,7 +26,7 @@ class Merchant::ItemsController < Merchant::BaseController
   end
 
   def update
-    @item = Item.find(params[:id])
+    @item = Item.find(params[:item_id])
     @item.update(item_params)
     if @item.save
       redirect_to merchant_dash_items_path
@@ -37,7 +37,7 @@ class Merchant::ItemsController < Merchant::BaseController
   end
 
   def toggle_active
-    item = Item.find(params[:id])
+    item = Item.find(params[:item_id])
     item.toggle!(:active?)
     redirect_to "/merchant/items"
     if !item.active?

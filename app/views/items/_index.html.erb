@@ -18,11 +18,11 @@
       <% if item.active? %>
 
         <p>Active</p>
-        <%= link_to "Deactivate", "/merchant/items/#{item.id}", method: :put if current_merchant_user? && current_employee?(@merchant.id) %>
+        <%= link_to "Deactivate", "/merchant/items/#{item.id}/toggle_active", method: :patch if current_merchant_user? && current_employee?(@merchant.id) %>
       <% else %>
 
         <p>Inactive</p>
-        <%= link_to "Activate", "/merchant/items/#{item.id}", method: :put if current_merchant_user? && current_employee?(@merchant.id) %>
+        <%= link_to "Activate", "/merchant/items/#{item.id}/toggle_active", method: :patch if current_merchant_user? && current_employee?(@merchant.id) %>
       <% end %>
 
       <% if current_merchant_user? && current_employee?(@merchant.id) %>

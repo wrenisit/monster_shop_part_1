@@ -83,10 +83,11 @@ RSpec.describe "As a merchant", type: :feature do
       expect(page).to have_css("img[src*='#{item.image}']")
     end
 
-    xit "will have a price greater than 0 and quantity 0 or greater" do
+    it "will have a price greater than 0 and quantity 0 or greater" do
+      item = create(:random_item, merchant: @merchant)
       visit merchant_dash_items_path
       click_on "Edit Item"
-      expect(current_path).to eq(edit_merchant_dash_item_path)
+      expect(current_path).to eq(edit_merchant_dash_item_path(item))
 
       name = "Chamois Buttr"
       price = 0
@@ -99,18 +100,18 @@ RSpec.describe "As a merchant", type: :feature do
       fill_in "Inventory", with: inventory
 
       click_button "Update Item"
+
       expect(page).to have_content("Inventory must be greater than 0")
       expect(page).to have_content("Price must be greater than 0")
-      expect(current_path)
     end
 
-    xit "a merchant employee will not be able to add a new item from another shop" do
+    it "a merchant employee will not be able to add a new item from another shop" do
       ray = create(:ray_merchant)
       chain = create(:random_item, name: "chain", merchant: ray)
       tire = create(:random_item, merchant: ray)
 
       visit "merchants/#{ray.id}/items"
-      expect(page).not_to have_link("Add New Item")
+      expect(page).not_to have_link("Edit Item")
     end
   end
 end
