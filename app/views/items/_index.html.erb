@@ -16,15 +16,19 @@
       <p>Price: <%=number_to_currency(item.price/100.to_f) %> </p>
       <p>Inventory: <%= item.inventory %> </p>
       <% if item.active? %>
+
         <p>Active</p>
-        <%= link_to "Deactivate", "/merchant/items/#{item.id}", method: :patch if current_merchant_user? && current_employee?(@merchant.id) %>
+        <%= link_to "Deactivate", "/merchant/items/#{item.id}", method: :put if current_merchant_user? && current_employee?(@merchant.id) %>
       <% else %>
+
         <p>Inactive</p>
-        <%= link_to "Activate", "/merchant/items/#{item.id}", method: :patch if current_merchant_user? && current_employee?(@merchant.id) %>
+        <%= link_to "Activate", "/merchant/items/#{item.id}", method: :put if current_merchant_user? && current_employee?(@merchant.id) %>
       <% end %>
-      <% if @merchant %>
-          <p><%= link_to "Delete Item", merchant_dash_item_path(item), method: :delete if item.no_orders? && current_merchant_user? && current_employee?(@merchant.id) %></p>
-      <% end %>
+
+      <% if current_merchant_user? && current_employee?(@merchant.id) %>
+          <p><%= link_to "Delete Item", merchant_dash_item_path(item), method: :delete if item.no_orders? %></p>
+          <p><%= link_to "Edit Item", edit_merchant_dash_item_path(item) %> </p>
+      <%end %>
     </section>
   <% end %>
 </section>
