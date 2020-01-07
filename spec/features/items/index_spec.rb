@@ -189,5 +189,39 @@ RSpec.describe "Items Index Page" do
       expect(page).to_not have_content("Quantity: 12")
     end
     end
+
+    it "can deactivates and activate an item" do
+      merchant_user = create(:merchant_employee, merchant: @meg)
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(merchant_user)
+
+      visit "/merchant/items"
+
+      within "#item-#{@tire.id}" do
+        click_on "Deactivate"
+      end
+      expect(page).to have_content "#{@tire.name} is no longer for sale."
+      @tire.reload
+
+      expect(@tire.active?).to be false
+
+      visit "/merchant/items"
+
+      within "#item-#{@tire.id}" do 
+        expect(page).to have_content "Inactive"
+        click_on "Activate"
+      end
+
+      @tire.reload
+      expect(@tire.active?).to be true
+
+      expect(page).to have_content "#{@tire.name} is now avalible for sale."
+
+      visit "/merchant/items"
+      
+      within "#item-#{@tire.id}" do 
+        expect(page).to have_content "Active"
+      end
+    end
   end
 end
+

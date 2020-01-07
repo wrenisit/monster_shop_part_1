@@ -16,8 +16,10 @@
       <p>Inventory: <%= item.inventory %> </p>
       <% if item.active? %>
         <p>Active</p>
+        <%= link_to "Deactivate", "/merchant/items/#{item.id}", method: :patch if current_merchant_user? %>
       <% else %>
         <p>Inactive</p>
+        <%= link_to "Activate", "/merchant/items/#{item.id}", method: :patch if current_merchant_user? %>
       <% end %>
       <% if @merchant %>
           <p><%= link_to "Delete Item", merchant_dash_item_path(item), method: :delete if item.no_orders?%></p>
