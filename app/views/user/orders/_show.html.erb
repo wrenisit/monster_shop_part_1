@@ -33,7 +33,7 @@
       <th>Quantity</th>
       <th>Subtotal</th>
     </tr>
-  <% @item_orders.each do |item_order|%>
+  <% @order.item_orders.each do |item_order|%>
     <tr>
     <section id = "item-<%=item_order.item_id%>">
         <td><p><img src=<%= item_order.item.image %>></p></td>
