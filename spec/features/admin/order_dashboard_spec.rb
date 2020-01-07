@@ -57,5 +57,4 @@ describe "admin order dashboard" do
     end
     expect(current_path).to eq("/admin/users/#{user_1.id}/orders/#{order_1.id}")
   end
-
 end
