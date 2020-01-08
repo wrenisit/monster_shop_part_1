@@ -42,13 +42,13 @@ class SessionsController < ApplicationController
 
   def welcome(user)
     if current_admin_user?
-      flash[:success] = "Welcome Admin #{user.email}!"
+      flash[:success] = "Welcome Admin #{user.email}! You are logged in."
       redirect_to admin_dash_path
     elsif current_merchant_user?
-      flash[:success] = "Welcome Merchant #{user.email}"
+      flash[:success] = "Welcome Merchant #{user.email}! You are logged in."
       redirect_to merchant_dash_path
     else
-      flash[:success] = "Welcome #{user.email}"
+      flash[:success] = "Welcome #{user.email}! You are logged in."
       redirect_to profile_path
     end
   end
