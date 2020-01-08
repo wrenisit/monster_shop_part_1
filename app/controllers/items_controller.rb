@@ -5,6 +5,7 @@ class ItemsController<ApplicationController
       @merchant = Merchant.find(params[:merchant_id])
       @items = @merchant.items
     else
+      @merchant = current_user.merchant
       @items = Item.active_items
     end
   end
