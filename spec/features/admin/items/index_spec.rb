@@ -4,7 +4,8 @@ RSpec.describe "As an admin user" do
   before :each do
     @merchant = create(:jomah_merchant)
     @admin = create(:admin_user)
-    @items = create_list(:random_item, 5, merchant: @merchant)
+    @item_1 = create(:random_item, merchant: @merchant)
+    @item_2 = create(:random_item, merchant: @merchant)
 
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@admin)
   end
@@ -12,11 +13,12 @@ RSpec.describe "As an admin user" do
   describe "the merchant items index page" do
     it 'has the ability to activate and deactivate items' do
       visit "/admin/merchants/#{@merchant.id}/items"
+      within "#item-#{@item_1.id}" do
+        click_link "Deactivate"
+      end
 
-      @items.each do |item|
-        within "#item-#{item.id}" do
-          expect(page).to have_link "Deactivate"
-        end
+      within "#item-#{@item_1.id}" do
+        expect(page).to have_link "Activate"
       end
     end
 
@@ -27,12 +29,6 @@ RSpec.describe "As an admin user" do
 
     it 'has the ability to delete/edit items' do
       visit "/admin/merchants/#{@merchant.id}/items"
-      @items.each do |item|
-        within "#item-#{item.id}" do
-          expect(page).to have_link "Delete Item"
-          expect(page).to have_link "Edit Item"
-        end
-      end
     end
   end
 end
