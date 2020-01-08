@@ -27,9 +27,9 @@ RSpec.describe "user sees message" do
     end
     expect(current_path).to eq("/profile/messages/#{message_2.id}")
     expect(page).to have_content(message_2.title)
-    expect(page).to have_content(message_2.date_created)
+    expect(page).to have_content(message_2.created_at)
     expect(page).to have_content("Sender: #{message_2.merchant.name}")
-    expect(page).to have_content(message_2.description)
+    expect(page).to have_content(message_2.body)
 
   end
 end
