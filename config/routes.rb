@@ -13,7 +13,9 @@ Rails.application.routes.draw do
   end
 
   namespace :admin, as: :admin_dash do
-    resources :users, only: [:index, :show, :update] do
+    resources :users, only: [:index, :show, :edit, :update] do
+      get "/edit_password", to: "users#edit_password"
+      patch "/toggle_active", to: "users#toggle_active"
       resources :orders, only: [:show]
     end
     resources :merchants, only: [:index, :show, :update]
