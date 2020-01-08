@@ -5,7 +5,7 @@ class SearchController < ApplicationController
       redirect_to root_path
     else
       @parameter = params[:search].downcase
-      @results = Item.all.where("lower(items.name) LIKE :search", search: @parameter)
+      @results = Item.all.where("lower(items.name) LIKE ?","%#{@parameter}%" )
       redirect_to "/results/index"
     end
   end

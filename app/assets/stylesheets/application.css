@@ -81,6 +81,11 @@ section[id*='review'] {
    background-color: #002244;
  }
 
+ .searchnav {
+   overflow: hidden;
+   background-color: #002244;
+ }
+
  .topnav a {
    float: left;
    color: #f2f2f2;

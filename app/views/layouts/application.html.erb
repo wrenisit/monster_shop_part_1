@@ -30,7 +30,7 @@
         <%= link_to "Register", "/register"%>
         <%= link_to "Log In", "/login" %>
       <% end %>
-      <%= form_tag search_index_path, method: :get, class: 'topnav' do %>
+      <%= form_tag search_index_path, method: :get, class: 'searchnav' do %>
         <%= search_field_tag :search, params[:search] %>
         <%= button_tag "Search"%>
       <%end %>
