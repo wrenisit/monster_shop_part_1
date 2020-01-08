@@ -4,7 +4,6 @@ RSpec.describe "As an admin user" do
   before :each do
     @merchant = create(:jomah_merchant)
     @admin = create(:admin_user)
-    @items = create_list(:random_item, 5, merchant: @merchant)
 
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@admin)
   end
