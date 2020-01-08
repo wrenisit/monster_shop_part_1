@@ -1,0 +1,9 @@
+<h1><%= link_to "Messages", "/profile/messages" %></h1>
+
+
+<section class="message">
+  <h2>Sender: <%= @message.merchant.name %></h2>
+  <h2>Date: <%= @message.created_at %></h2>
+  <h2>Title: <%= @message.title %></h2>
+  <h2>Message: <%= @message.body %></h2>
+</section>
