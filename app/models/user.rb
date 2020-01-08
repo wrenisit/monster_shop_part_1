@@ -10,6 +10,8 @@ class User <ApplicationRecord
 
   belongs_to :merchant, optional: true
   has_many :orders, dependent: :destroy
+  has_many :messages
+  
 
   has_secure_password
 
