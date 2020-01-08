@@ -35,6 +35,10 @@ Rails.application.routes.draw do
       patch "/toggle_active", to: "merchants#toggle_active"
     end
 
+    resources :items, only: [] do
+      patch "/toggle_active", to: "items#toggle_active"
+    end
+
     resources :orders, only: [:update]
     get "/", to: "dashboard#index"
   end
