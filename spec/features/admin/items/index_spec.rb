@@ -25,5 +25,14 @@ RSpec.describe "As an admin user" do
       expect(page).to have_link "Add New Item"
     end
 
+    it 'has the ability to delete/edit items' do
+      visit "/admin/merchants/#{@merchant.id}/items"
+      @items.each do |item|
+        within "#item-#{item.id}" do
+          expect(page).to have_link "Delete Item"
+          expect(page).to have_link "Edit Item"
+        end
+      end
+    end
   end
 end
