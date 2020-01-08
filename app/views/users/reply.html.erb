@@ -1,0 +1,10 @@
+<h1>Compose A Message</h1>
+<%= form_tag "/profile/messages/#{@merchant_id}/new", method: :post do %>
+  <%= label_tag :title %>
+  <%= text_field_tag :title %><br>
+
+  <%= label_tag :body %>
+  <%= text_field_tag :body %><br>
+
+  <%= submit_tag "Submit", class: "button"%>
+<% end %>
