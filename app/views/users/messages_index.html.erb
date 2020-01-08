@@ -2,10 +2,9 @@
 <section class = "grid-container">
   <% @messages.each do |message|%>
     <section id="message-<%= message.id %>" class="grid-item" >
-        <h2>Sender: <%= message.merchant.name %></h2>
-        <h2>Title: <%= message.title %></h2>
-        <h2>Status: <%= message.status %></h2>
-
+      <h2>Status: <%= message.status %></h2>
+      <h2>Sender: <%= message.merchant.name %></h2>
+      <h2>Title: <%= link_to "#{message.title}", "/profile/messages/#{message.id}" %></h2>
     </section>
   <% end %>
 </section>
