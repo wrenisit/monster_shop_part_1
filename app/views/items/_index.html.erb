@@ -17,9 +17,11 @@
       <p>Inventory: <%= item.inventory %> </p>
       <% if current_employee?(item.merchant) || current_admin_user? %>
         <% if item.active? %>
-          <%= link_to "Deactivate", "/merchant/items/#{item.id}/toggle_active", method: :patch%>
+          <%= link_to "Deactivate", "/merchant/items/#{item.id}/toggle_active", method: :patch if current_merchant_user? %>
+          <%= link_to "Deactivate", "/admin/items/#{item.id}/toggle_active", method: :patch if current_admin_user? %>
         <% else %>
-          <%= link_to "Activate", "/merchant/items/#{item.id}/toggle_active", method: :patch %>
+          <%= link_to "Activate", "/merchant/items/#{item.id}/toggle_active", method: :patch if current_merchant_user?%>
+          <%= link_to "Activate", "/admin/items/#{item.id}/toggle_active", method: :patch if current_admin_user?%>
         <% end %>
         <p><%= link_to "Delete Item", merchant_dash_item_path(item), method: :delete if item.no_orders? %></p>
         <p><%= link_to "Edit Item", edit_merchant_dash_item_path(item)%> </p>
