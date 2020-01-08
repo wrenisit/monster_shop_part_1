@@ -34,7 +34,7 @@ ray_items = create_list(:random_item, 7, merchant: ray)
 hidden_ray_items = create_list(:random_item, 3, merchant: ray, active?: false)
 
 #you can now log in as any of these users as defined in the factory
-user = create(:regular_user, email: "toogood@gmail.com", password: "babe")
+user = create(:regular_user, email: "toogood@gmail.com", password: "batman")
 create(:merchant_employee, email: "so@gmail.com", password: "trex", merchant: jomah)
 create(:merchant_admin, email: "socks@gmail.com", password: "comfy", merchant: jomah)
 create(:admin_user, email: "td2@gmail.com", password: "43toddle")
