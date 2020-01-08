@@ -61,4 +61,5 @@ Rails.application.routes.draw do
   get "/profile/messages", to: "users#messages_index"
   get "/profile/messages/:id", to: "users#messages_show"
   get "/profile/messages/:id/new", to: "users#reply"
+  post "/profile/messages/:id/new", to: "messages#create"
 end
