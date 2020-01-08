@@ -31,6 +31,10 @@ class Item <ApplicationRecord
   end
 
   def self.by_popularity(limit = nil, order = "DESC")
-    joins(:item_orders).select("items.name, sum(item_orders.quantity) as quantity").group(:id).order("quantity #{order}").limit(limit)
+    left_joins(:item_orders)
+    .select("items.name, coalesce(sum(item_orders.quantity), 0) as quantity")
+    .group(:id)
+    .order("quantity #{order}")
+    .limit(limit)
   end
 end

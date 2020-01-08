@@ -1,7 +1,11 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
-  helper_method :cart, :current_user, :current_merchant_user?, :current_admin_user?, :current_employee?
+  helper_method :cart,
+                :current_user,
+                :current_merchant_user?,
+                :current_admin_user?,
+                :current_employee?
 
   def cart
     session[:cart] ||= Hash.new(0)
@@ -20,6 +24,14 @@ class ApplicationController < ActionController::Base
     current_user && current_user.admin_user?
   end
 
+  def current_employee?(merchant)
+    current_merchant_user? && (current_user.merchant.id == merchant.id)
+  end
+
+  def generate_error(resource)
+    flash[:error] = resource.errors.full_messages.to_sentence
+  end
+
   def require_merchant
     render file: "/public/404", status: 404 unless current_merchant_user?
   end
@@ -34,9 +46,5 @@ class ApplicationController < ActionController::Base
 
   def exclude_admin
     render file: "/public/404", status: 404 if current_admin_user?
-  end
-
-  def current_employee?(merchant)
-    current_user.merchant_id == merchant
   end
 end

@@ -7,10 +7,10 @@
         <h2>City: <%= merchant.city %></h2>
         <h2>State: <%= merchant.state %></h2>
         <h2><%= link_to merchant.name, "/admin/merchants/#{merchant.id}" %></h2>
-          <% if merchant.active == true %>
-            <%= button_to "Disable", "/admin/merchants/#{merchant.id}", method: :patch %>
+          <% if merchant.active? %>
+            <%= button_to "Disable", "/admin/merchants/#{merchant.id}/toggle_active", method: :patch %>
           <% else %>
-            <%= button_to "Enable", "/admin/merchants/#{merchant.id}", method: :patch %>
+            <%= button_to "Enable", "/admin/merchants/#{merchant.id}/toggle_active", method: :patch %>
           <% end %>
       <% else %>
         <h2><%=link_to merchant.name, "/merchants/#{merchant.id}"%></h2>

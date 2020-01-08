@@ -71,7 +71,7 @@ RSpec.describe "order show page" do
       click_button "Cancel Order"
     end
     expect(current_path).to eq profile_path
-    expect(page).to have_content "Order cancelled"
+    expect(page).to have_content "Order Cancelled"
 
     visit "/profile/orders/#{order.id}"
     within "#order-status" do

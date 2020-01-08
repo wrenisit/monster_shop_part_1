@@ -53,7 +53,7 @@ describe "admin order dashboard" do
 
     within "#order-#{order_1.id}" do
       expect(page).to have_link(order_1.id)
-      click_link "#{order_1.id}"
+      click_link "Order ID: #{order_1.id}"
     end
     expect(current_path).to eq("/admin/users/#{user_1.id}/orders/#{order_1.id}")
   end

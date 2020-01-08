@@ -7,25 +7,17 @@ class Admin::MerchantsController < ApplicationController
     @merchants = Merchant.all
   end
 
-  def update
-    merchant = Merchant.find(params[:id])
-    if merchant.active == true
-      update_item_status(merchant, false)
-      merchant.toggle!(:active)
+  def toggle_active
+    merchant = Merchant.find(params[:merchant_id])
+    merchant.toggle!(:active)
+    if merchant.active?
+      merchant.items.update_all(active?: true)
       flash[:notice] = "Merchant has been deactivated"
-      redirect_to "/admin/merchants"
+      redirect_to admin_dash_merchants_path
     else
-      update_item_status(merchant, true)
-      merchant.toggle!(:active)
+      merchant.items.update_all(active?: false)
       flash[:notice] = "Merchant has been activated"
-      redirect_to "/admin/merchants"
+      redirect_to admin_dash_merchants_path
     end
   end
-
-  private
-    def update_item_status(merchant, status)
-      merchant.items.each do |item|
-        item.update(active?: status)
-      end
-    end
 end

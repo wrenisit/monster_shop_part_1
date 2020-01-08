@@ -114,11 +114,11 @@ describe Item, type: :model do
       items = Item.by_popularity(5, "ASC")
 
       expect(items.length).to eq(5)
-      expect(items.first.quantity).to eq(1)
-      expect(items[1].quantity).to eq(2)
-      expect(items[2].quantity).to eq(4)
-      expect(items[3].quantity).to eq(5)
-      expect(items.last.quantity).to eq(8)
+      expect(items.first.quantity).to eq(0)
+      expect(items[1].quantity).to eq(1)
+      expect(items[2].quantity).to eq(2)
+      expect(items[3].quantity).to eq(4)
+      expect(items.last.quantity).to eq(5)
     end
   end
 end
