@@ -39,7 +39,7 @@ RSpec.describe 'review creation', type: :feature do
         within "#review-#{last_review.id}" do
           expect(page).to have_content(title)
           expect(page).to have_content(content)
-          expect(page).to have_content("Rating: #{rating}/5")
+          expect(page).to have_content("✯✯✯✯✯")
         end
       end
 
