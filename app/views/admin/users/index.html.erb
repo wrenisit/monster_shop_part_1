@@ -11,9 +11,9 @@
 <p><%= user.address %></p>
 <p><%= user.city %>, <%= user.state %> <%= user.zip %></p>
 <% if user.active %>
-  <%= link_to "Deactivate User", "/admin/users/#{user.id}", method: :patch %>
+  <%= link_to "Deactivate User", "/admin/users/#{user.id}/toggle_active", method: :patch %>
 <% else %>
-  <%= link_to "Activate User", "/admin/users/#{user.id}", method: :patch %>
+  <%= link_to "Activate User", "/admin/users/#{user.id}/toggle_active", method: :patch %>
 <% end %>
 <h3>================</h3>
 </section>
