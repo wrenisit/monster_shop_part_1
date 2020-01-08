@@ -3,26 +3,40 @@ Rails.application.routes.draw do
   get "/", to: "welcome#index"
 
   namespace :merchant, as: :merchant_dash do
+
     resources :items, only: [:index, :edit, :update, :destroy] do
-      patch "/toggle_active", to: "items#toggle_active", to: "items#toggle_active"
+      patch "/toggle_active", to: "items#toggle_active"
     end
-    resources :orders, only: [:show]
+
+    resources :orders, only: [:show] do
+      resources :item_orders, only: [] do
+        patch "/fulfill", to: "orders#fulfill"
+      end
+    end
+
     resources :items, only: [:index, :new, :create]
     get "/", to: "dashboard#index"
-    patch "/orders/:id/item_orders/:item_order_id", to: "orders#fulfill"
   end
 
   namespace :admin, as: :admin_dash do
+
     resources :users, only: [:index, :show, :edit, :update] do
       get "/edit_password", to: "users#edit_password"
       patch "/toggle_active", to: "users#toggle_active"
-      resources :orders, only: [:show]
+
+      resources :orders, only: [:show] do
+        patch "/cancel", to: "orders#cancel"
+        patch "/ship", to: "orders#ship"
+      end
     end
-    resources :merchants, only: [:index, :show, :update]
+
+    resources :merchants, only: [:index, :show] do
+      resources :items, only: [:index]
+      patch "/toggle_active", to: "merchants#toggle_active"
+    end
+
     resources :orders, only: [:update]
     get "/", to: "dashboard#index"
-    patch "/users/:user_id/orders/:id", to: "orders#cancel"
-
   end
 
   resources :merchants do
@@ -46,7 +60,7 @@ Rails.application.routes.draw do
   get "/profile/orders/new", to: "user/orders#new"
   get "/profile/orders/:id", to: "user/orders#show"
   post "/orders", to: "user/orders#create"
-  patch "/profile/orders/:id", to: "user/orders#update"
+  patch "/profile/orders/:id/cancel", to: "user/orders#cancel"
 
   post "/cart/:item_id", to: "cart#add_item"
   patch "/cart/:item_id", to: "cart#add_subtract_cart"

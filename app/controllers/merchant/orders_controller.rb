@@ -7,7 +7,7 @@ class Merchant::OrdersController < Merchant::BaseController
 
   def fulfill
     merchant = current_user.merchant
-    order = merchant.orders.find(params[:id])
+    order = merchant.orders.find(params[:order_id])
     item_order = order.item_orders.find(params[:item_order_id])
     item_order.fulfill
     order.package_if_fulfilled

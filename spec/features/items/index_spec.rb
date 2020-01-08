@@ -32,7 +32,6 @@ RSpec.describe "Items Index Page" do
         expect(page).to have_link(@tire.name)
         expect(page).to have_content(@tire.description)
         expect(page).to have_content(number_to_currency(@tire.price/100.to_f))
-        expect(page).to have_content("Active")
         expect(page).to have_content("Inventory: #{@tire.inventory}")
         expect(page).to have_link(@meg.name)
         expect(page).to have_css("img[src*='#{@tire.image}']")
@@ -42,7 +41,6 @@ RSpec.describe "Items Index Page" do
         expect(page).to have_link(@pull_toy.name)
         expect(page).to have_content(@pull_toy.description)
         expect(page).to have_content(number_to_currency(@pull_toy.price/100.to_f))
-        expect(page).to have_content("Active")
         expect(page).to have_content("Inventory: #{@pull_toy.inventory}")
         expect(page).to have_link(@brian.name)
         expect(page).to have_css("img[src*='#{@pull_toy.image}']")
@@ -52,7 +50,6 @@ RSpec.describe "Items Index Page" do
         expect(page).to have_link(@dog_bone.name)
         expect(page).to have_content(@dog_bone.description)
         expect(page).to have_content(number_to_currency(@dog_bone.price/100.to_f))
-        expect(page).to have_content("Active")
         expect(page).to have_content("Inventory: #{@dog_bone.inventory}")
         expect(page).to have_link(@brian.name)
         expect(page).to have_css("img[src*='#{@dog_bone.image}']")
@@ -156,38 +153,14 @@ RSpec.describe "Items Index Page" do
       ItemOrder.create(item: shirt, order: order_2, price: shirt.price, quantity: 2)
       ItemOrder.create(item: hat, order: order_2, price: hat.price, quantity: 1)
 
-    visit '/items'
-
-    within "#bottom_five" do
-      expect(page).to have_content(hat.name)
-      expect(page).to have_content("Quantity: 1")
-    end
-    within "#bottom_five" do
-      expect(page).to have_content(shirt.name)
-      expect(page).to have_content("Quantity: 2")
-    end
-    within "#bottom_five" do
-      expect(page).to have_content(boot.name)
-      expect(page).to have_content("Quantity: 4")
-    end
-    within "#bottom_five" do
-      expect(page).to have_content(mug.name)
-      expect(page).to have_content("Quantity: 5")
-    end
-    within "#bottom_five" do
-      expect(page).to have_content(pants.name)
-      expect(page).to have_content("Quantity: 8")
-    end
-
-    within "#bottom_five" do
-      expect(page).to_not have_content(cookie.name)
-      expect(page).to_not have_content("Quantity: 10")
-    end
-
-    within "#bottom_five" do
-      expect(page).to_not have_content(dog_toy.name)
-      expect(page).to_not have_content("Quantity: 12")
-    end
+      visit '/items'
+      within "#bottom_five" do
+        expect(page).to have_content(hat.name)
+        expect(page).to have_content(shirt.name)
+        expect(page).to have_content(@tire.name)
+        expect(page).to have_content(@pull_toy.name)
+        expect(page).to have_content(@dog_bone.name)
+      end
     end
 
     it "can deactivates and activate an item" do
@@ -206,8 +179,7 @@ RSpec.describe "Items Index Page" do
 
       visit "/merchant/items"
 
-      within "#item-#{@tire.id}" do 
-        expect(page).to have_content "Inactive"
+      within "#item-#{@tire.id}" do
         click_on "Activate"
       end
 
@@ -217,9 +189,8 @@ RSpec.describe "Items Index Page" do
       expect(page).to have_content "#{@tire.name} is now avalible for sale."
 
       visit "/merchant/items"
-      
-      within "#item-#{@tire.id}" do 
-        expect(page).to have_content "Active"
+      within "#item-#{@tire.id}" do
+        expect(page).to have_link "Deactivate"
       end
     end
   end

@@ -16,7 +16,7 @@ RSpec.describe "on user order show page" do
       click_button "Cancel Order"
     end
     expect(current_path).to eq "/admin/users/#{user.id}/orders/#{order.id}"
-    expect(page).to have_content "Order cancelled"
+    expect(page).to have_content "Order Cancelled"
 
     within "#order-status" do
       expect(page).to have_content "Cancelled"

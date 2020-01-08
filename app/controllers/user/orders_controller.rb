@@ -30,10 +30,10 @@ class User::OrdersController < User::BaseController
     @orders = current_user.orders
   end
 
-  def update
+  def cancel
     @order = current_user.orders.find(params[:id])
     @order.cancel
-    flash[:notice] = "Order cancelled"
+    flash[:notice] = "Order Cancelled"
     redirect_to profile_path
   end
 

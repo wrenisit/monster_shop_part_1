@@ -4,11 +4,11 @@
   <% @orders.each do |order| %>
     <section class="grid-item" id="order-<%= order.id %>">
       <h4><%= link_to order.user.name, "/admin/users/#{order.user.id}" %></h4>
-      <p>Order ID: <%= link_to order.id, "/admin/users/#{order.user.id}/orders/#{order.id}" %></p>
+      <p><%= link_to "Order ID: #{order.id}", "/admin/users/#{order.user.id}/orders/#{order.id}" %></p>
       <p>Created: <%= order.created_at %></p>
       <p>Status: <%= order.status.capitalize %></p>
       <% if order.packaged? %>
-        <%= button_to "Ship Order", "/admin/orders/#{order.id}", method: :patch %>
+        <%= button_to "Ship Order", "/admin/users/#{order.user_id}/orders/#{order.id}/ship", method: :patch %>
       <% end %>
     </section>
   <% end %>

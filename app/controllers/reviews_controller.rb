@@ -9,7 +9,7 @@ class ReviewsController<ApplicationController
     if field_empty?
       @item = Item.find(params[:item_id])
       flash[:error] = "Please fill in all fields in order to create a review."
-      redirect_to "/items/#{@item.id}/reviews/new"
+      redirect_to new_item_review_path(@item)
     else
       @item = Item.find(params[:item_id])
       @review = @item.reviews.create(review_params)

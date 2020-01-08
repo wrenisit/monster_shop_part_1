@@ -17,7 +17,7 @@ class MerchantsController <ApplicationController
     if @merchant.save
       redirect_to merchants_path
     else
-      flash[:error] = @merchant.errors.full_messages.to_sentence
+      generate_error(@merchant)
       render :new
     end
   end
@@ -31,7 +31,7 @@ class MerchantsController <ApplicationController
     if @merchant.update(merchant_params)
       redirect_to merchant_path(@merchant)
     else
-      flash[:error] = @merchant.errors.full_messages.to_sentence
+      generate_error(@merchant)
       render :edit
     end
   end

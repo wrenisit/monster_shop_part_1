@@ -1,8 +1,9 @@
 class Admin::OrdersController < Admin::BaseController
-  def update
-    order = Order.find(params[:id])
+  def ship
+    user = User.find(params[:user_id])
+    order = user.orders.find(params[:order_id])
     order.update(status: "shipped")
-    redirect_to "/admin"
+    redirect_to admin_dash_path
   end
 
   def show
@@ -12,9 +13,9 @@ class Admin::OrdersController < Admin::BaseController
 
   def cancel
     user = User.find(params[:user_id])
-    @order = user.orders.find(params[:id])
+    @order = user.orders.find(params[:order_id])
     @order.cancel
-    flash[:notice] = "Order cancelled"
-    redirect_to "/admin/users/#{user.id}/orders/#{@order.id}"
+    flash[:notice] = "Order Cancelled"
+    redirect_to admin_dash_user_order_path(user, @order)
   end
 end

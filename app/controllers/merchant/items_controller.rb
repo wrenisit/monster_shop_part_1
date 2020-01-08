@@ -15,7 +15,7 @@ class Merchant::ItemsController < Merchant::BaseController
     if @item.save
       redirect_to merchant_dash_items_path
     else
-      flash[:error] = @item.errors.full_messages.to_sentence
+      generate_error(@item)
       render :new
     end
   end
@@ -31,7 +31,7 @@ class Merchant::ItemsController < Merchant::BaseController
     if @item.save
       redirect_to merchant_dash_items_path
     else
-      flash[:error] = @item.errors.full_messages.to_sentence
+      generate_error(@item)
       render :edit
     end
   end
@@ -39,11 +39,11 @@ class Merchant::ItemsController < Merchant::BaseController
   def toggle_active
     item = Item.find(params[:item_id])
     item.toggle!(:active?)
-    redirect_to "/merchant/items"
-    if !item.active?
-      flash[:success] = "#{item.name} is no longer for sale."
-    else
+    redirect_to merchant_dash_items_path
+    if item.active?
       flash[:success] = "#{item.name} is now avalible for sale."
+    else
+      flash[:success] = "#{item.name} is no longer for sale."
     end
   end
 

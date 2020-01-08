@@ -17,10 +17,10 @@ class Admin::UsersController < Admin::BaseController
       password_update
     elsif @display_user.update(user_params)
       flash[:success] = "Your profile has been updated."
-      redirect_to "/admin/users/#{@display_user.id}"
+      redirect_to admin_dash_user_path(@display_user)
     else
-      flash[:error] = @display_user.errors.full_messages.to_sentence
-      redirect_to "/admin/users/#{@display_user.id}"
+      generate_error(@display_user)
+      redirect_to admin_dash_user_path(@display_user)
     end
   end
 
@@ -28,10 +28,10 @@ class Admin::UsersController < Admin::BaseController
     user = User.find(params[:user_id])
     user.toggle!(:active)
     redirect_to admin_dash_users_path
-    if !user.active
-      flash[:success] = "#{user.name} has been disabled."
-    else
+    if user.active?
       flash[:success] = "#{user.name} has been enabled."
+    else
+      flash[:success] = "#{user.name} has been disabled."
     end
   end
 
@@ -49,10 +49,10 @@ private
     if params[:password] == params[:password_confirmation]
       @display_user.update(user_params)
       flash[:success] = "Password has been updated."
-      redirect_to "/admin/users/#{@display_user.id}"
+      redirect_to admin_dash_user_path(@display_user)
     else
       flash[:error] = "Passwords entered do not match."
-      redirect_to "/admin/users/#{@display_user.id}/edit_password"
+      redirect_to admin_dash_user_edit_password_path(@display_user)
     end
   end
 end

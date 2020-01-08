@@ -43,7 +43,7 @@
         <% if item_order.fulfilled? %>
           <td><p>Fulfilled</p></td>
         <% elsif item_order.fulfillable? %>
-          <td><p><%= button_to "Fulfill", "/merchant/orders/#{@order.id}/item_orders/#{item_order.id}", method: :patch %></p></td>
+          <td><p><%= button_to "Fulfill", "/merchant/orders/#{@order.id}/item_orders/#{item_order.id}/fulfill", method: :patch %></p></td>
         <% else %>
           <td><p>Insufficient Inventory</p></td>
         <% end %>

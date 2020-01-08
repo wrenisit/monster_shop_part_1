@@ -12,7 +12,7 @@ class UsersController<ApplicationController
       session[:user_id] = @user.id
       redirect_to profile_path
     else
-      flash[:error] = @user.errors.full_messages.to_sentence
+      generate_error(@user)
       render :new
     end
   end
@@ -33,7 +33,7 @@ class UsersController<ApplicationController
       flash[:success] = "Your profile has been updated."
       redirect_to profile_path
     else
-      flash[:error] = @user.errors.full_messages.to_sentence
+      generate_error(@user)
       redirect_back(fallback_location: profile_edit_path)
     end
   end
