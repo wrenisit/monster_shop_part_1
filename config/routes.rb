@@ -59,4 +59,5 @@ Rails.application.routes.draw do
   get "/logout", to: "sessions#destroy"
 
   get "/profile/messages", to: "users#messages_index"
+  get "/profile/messages/:id", to: "users#messages_show"
 end
