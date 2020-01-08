@@ -4,8 +4,8 @@ RSpec.describe "User replies" do
   it "allows a user to respond" do
     merchant = create(:jomah_merchant)
     wren = create(:regular_user, email: "rad1@gmail.com")
-    message_1 = Message.create(merchant_id: merchant.id, user_id: wren.id, title: "Order Delayed", body: "Hello. Due to a shipping delay, your order will not ship until July 12th. Thank you for your patience.")
-    message_2 = Message.create(merchant_id: merchant.id, user_id: wren.id, title: "Order Shipped", body: "Hello. Your order has shipped.")
+    message_1 = Message.create(merchant_id: merchant.id, user_id: wren.id, title: "Order Delayed", body: "Hello. Due to a shipping delay, your order will not ship until July 12th. Thank you for your patience.", sender_id: merchant.id)
+    message_2 = Message.create(merchant_id: merchant.id, user_id: wren.id, title: "Order Shipped", body: "Hello. Your order has shipped.", sender_id: merchant.id)
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(wren)
 
     visit "/profile/messages/#{message_2.id}"
