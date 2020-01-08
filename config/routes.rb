@@ -47,6 +47,11 @@ Rails.application.routes.draw do
     resources :reviews, only: [:new, :create]
   end
 
+  resources :search do
+      get "/search", to: "search#search"
+      get "/results", to: "search#index"
+  end
+
   resources :reviews, only: [:edit, :update, :destroy]
 
   get "/register", to: "users#new"
