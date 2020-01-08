@@ -18,6 +18,7 @@
       <% if item.active? %>
 
         <p>Active</p>
+
         <%= link_to "Deactivate", "/merchant/items/#{item.id}/toggle_active", method: :patch if current_merchant_user? && current_employee?(@merchant.id) %>
       <% else %>
 
@@ -37,7 +38,7 @@
 <section class="grid-container" id="top_five">
   <% @items.by_popularity(5, "DESC").each do |item| %>
     <section class="grid-item">
-      <p>Item Name: <%=item.name %></p>
+      <p>Item Name: <%=link_to item.name, "/items/#{item.id}" %></p>
       <p>Quantity: <%= item.quantity %></p>
     </section>
   <%end %>
@@ -47,7 +48,7 @@
 <section class="grid-container" id= "bottom_five">
   <% @items.by_popularity(5, "ASC").each do |item| %>
     <section class="grid-item">
-      <p>Item Name: <%= item.name %></p>
+      <p>Item Name: <%=link_to item.name, "/items/#{item.id}" %></p>
       <p>Quantity: <%= item.quantity %></p>
     </section>
   <%end %>
