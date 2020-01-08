@@ -1,7 +1,8 @@
 <h2><%= @merchant.name %></h2>
 <p><%= @merchant.address %> <%= @merchant.city %>, <%= @merchant.state %> <%= @merchant.zip %></p>
 
-<p><%= link_to "All #{@merchant.name} Items", "/merchant/items" %></p>
+<p><%= link_to "All #{@merchant.name} Items", "/merchant/items" unless current_admin_user? %></p>
+<p><%= link_to "All #{@merchant.name} Items", "/admin/merchants/#{@merchant.id}/items" if current_admin_user? %></p>
 
 <section class="grid-container">
   <% @merchant.pending_orders.each do | order |%>
