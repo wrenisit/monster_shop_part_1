@@ -21,6 +21,10 @@ class UsersController<ApplicationController
     @messages = current_user.messages.all
   end
 
+  def messages_show
+    @message = Message.find(params[:id])
+  end
+
   def show
     @user = current_user
   end
