@@ -5,8 +5,8 @@ RSpec.describe "user sees message" do
     merchant = create(:jomah_merchant)
     wren = create(:regular_user, email: "rad1@gmail.com")
     becky = create(:regular_user, email: "rad2@gmail.com")
-    message_1 = Message.create(receiver_id: wren.id, sender_id: merchant.id, title: "Order Delayed", message: "Hello. Due to a shipping delay, your order will not ship until July 12th. Thank you for your patience.")
-    message_2 = Message.create(receiver_id: wren.id, sender_id: merchant.id, title: "Order Shipped", message: "Hello. Your order has shipped.")
+    #message_1 = Message.create(receiver_id: wren.id, sender_id: merchant.id, title: "Order Delayed", message: "Hello. Due to a shipping delay, your order will not ship until July 12th. Thank you for your patience.")
+    #message_2 = Message.create(receiver_id: wren.id, sender_id: merchant.id, title: "Order Shipped", message: "Hello. Your order has shipped.")
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(wren)
 
     visit "/profile"
@@ -30,6 +30,6 @@ RSpec.describe "user sees message" do
     expect(page).to have_content(message_2.date_created)
     expect(page).to have_content("Sender: #{message_2.sender}")
     expect(page).to have_content(message_2.description)
-    
+
   end
 end
