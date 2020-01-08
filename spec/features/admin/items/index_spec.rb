@@ -12,12 +12,18 @@ RSpec.describe "As an admin user" do
   describe "the merchant items index page" do
     it 'has the ability to activate and deactivate items' do
       visit "/admin/merchants/#{@merchant.id}/items"
-      save_and_open_page
+
       @items.each do |item|
         within "#item-#{item.id}" do
           expect(page).to have_link "Deactivate"
         end
       end
     end
+
+    it 'has the ability to add an item' do
+      visit "/admin/merchants/#{@merchant.id}/items"
+      expect(page).to have_link "Add New Item"
+    end
+
   end
 end
