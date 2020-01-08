@@ -25,6 +25,10 @@ class UsersController<ApplicationController
     @message = Message.find(params[:id])
   end
 
+  def reply
+    @merchant_id = params[:id]
+  end
+
   def show
     @user = current_user
   end
