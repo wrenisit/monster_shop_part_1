@@ -1,0 +1,11 @@
+<h1 align = "center">Messages</h1>
+<section class = "grid-container">
+  <% @messages.each do |message|%>
+    <section id="message-<%= message.id %>" class="grid-item" >
+        <h2>Sender: <%= message.merchant.name %></h2>
+        <h2>Title: <%= message.title %></h2>
+        <h2>Status: <%= message.status %></h2>
+
+    </section>
+  <% end %>
+</section>
