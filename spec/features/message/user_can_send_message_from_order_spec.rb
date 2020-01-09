@@ -13,7 +13,7 @@ RSpec.describe "message delete" do
 
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(wren)
 
-    visit "/orders"
+    visit "/profile/orders"
     within "#order-#{order.id}" do
       click_link "Order ID: #{order.id}"
     end
@@ -32,3 +32,4 @@ RSpec.describe "message delete" do
     fill_in :body, with: "I asked for mangos, not bananas!"
     click_button "Submit"
   end
+end
