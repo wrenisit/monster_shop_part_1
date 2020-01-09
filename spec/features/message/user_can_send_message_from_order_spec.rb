@@ -23,10 +23,11 @@ RSpec.describe "message delete" do
     expect(page).to have_content(order.created_at)
     expect(page).to have_content(order.updated_at)
     expect(page).to have_content(order.status.capitalize)
-    expect(page).to have_button("Message Merchant")
-    click_on("Message Merchant")
-
-    expect(current_path).to eq("/profile/messages/#{order.merchant.id}/new")
+      within "#item-#{item_1.id}" do
+        expect(page).to have_button("Message Merchant")
+        click_on("Message Merchant")
+      end
+    expect(current_path).to eq("/profile/orders/#{merchant.id}/new")
 
     fill_in :title, with: "Yuck!"
     fill_in :body, with: "I asked for mangos, not bananas!"
