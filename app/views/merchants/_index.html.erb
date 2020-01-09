@@ -1,5 +1,5 @@
 <h1 align = "center">Merchants</h1>
-<p align="center"><%= link_to "New Merchant", "/merchants/new" %></p>
+<p align="center"><%= link_to "New Merchant", "/merchants/new" if current_admin_user? || current_merchant_user? %></p>
 <section class = "grid-container">
   <% @merchants.each do |merchant|%>
     <section id="merchant-<%= merchant.id %>" class="grid-item" >
