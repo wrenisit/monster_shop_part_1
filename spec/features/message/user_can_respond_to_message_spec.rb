@@ -51,7 +51,7 @@ RSpec.describe "User replies" do
       expect(page).to have_link(message_3.title)
       click_link("#{message_3.title}")
     end
-    expect(current_path).to eq("/merchant/messages/#{message_3.id}")
+    expect(current_path).to eq("/merchants/#{merchant.id}/messages/#{message_3.id}")
     expect(page).to have_content(message_3.title)
     expect(page).to have_content(message_3.created_at)
     expect(page).to have_content("Sender: #{message_3.user.name}")
