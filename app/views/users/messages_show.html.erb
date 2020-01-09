@@ -7,4 +7,5 @@
   <h2>Title: <%= @message.title %></h2>
   <h2>Message: <%= @message.body %></h2>
   <%= button_to "Reply", "/profile/messages/#{@message.merchant.id}/new", method: :get %>
+  <%= button_to "Delete", "/profile/messages/#{@message.id}", method: :delete %>
 </section>
