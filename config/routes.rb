@@ -66,5 +66,6 @@ Rails.application.routes.draw do
   get "/profile/messages/:id/new", to: "users#reply"
   post "/profile/messages/:id/new", to: "messages#create"
   delete "/profile/messages/:id", to: "users#messages_destroy"
+  get "/profile/orders/:id/new", to: "users#reply"
 
 end
