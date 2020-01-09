@@ -18,7 +18,6 @@ RSpec.describe "message delete" do
 
     click_on "Log Out"
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(merchant_user)
-
     visit "/merchants/#{merchant.id}/messages/#{message_2.id}"
     click_button("Delete")
 
