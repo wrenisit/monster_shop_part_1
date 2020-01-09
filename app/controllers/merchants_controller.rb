@@ -50,6 +50,11 @@ class MerchantsController <ApplicationController
     @message = Message.find(params[:id])
   end
 
+  def messages_destroy
+    message = Message.find(params[:message_id])
+    message.destroy
+    redirect_to("/merchants/#{message.merchant.id}/messages")
+  end
   private
 
   def merchant_params
