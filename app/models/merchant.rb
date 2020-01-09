@@ -34,4 +34,14 @@ class Merchant <ApplicationRecord
   def item_orders_from(order)
     item_orders.where(order: order)
   end
+
+  def messages_received
+    mess = []
+    messages.each do |message|
+      if message.merchant_id != message.sender_id
+        mess << message
+      end
+    end
+    mess
+  end
 end
