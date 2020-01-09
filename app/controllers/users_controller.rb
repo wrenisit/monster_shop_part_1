@@ -29,6 +29,12 @@ class UsersController<ApplicationController
     @merchant_id = params[:id]
   end
 
+  def messages_destroy
+    message = Message.find(params[:id])
+    message.destroy
+    redirect_to("/profile/messages")
+  end
+
   def show
     @user = current_user
   end
