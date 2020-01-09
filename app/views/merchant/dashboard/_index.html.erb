@@ -1,5 +1,6 @@
 <h2><%= @merchant.name %></h2>
 <p><%= @merchant.address %> <%= @merchant.city %>, <%= @merchant.state %> <%= @merchant.zip %></p>
+<h3>Messages:  <%= link_to "#{@merchant.messages_received.count}", "/merchants/#{@merchant.id}/messages" %></h3>
 
 <p><%= link_to "All #{@merchant.name} Items", "/merchant/items" %></p>
 
