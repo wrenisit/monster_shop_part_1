@@ -1,5 +1,0 @@
-<h1>Edit <%=link_to @item.name, "/items/#{@item.id}" %></h1>
-
-<%= form_for [@merchant, @item], url: "items/#{@item.id}" do |f| %>
-  <%= render 'form' %>
-<% end %>
