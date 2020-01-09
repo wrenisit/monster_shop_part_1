@@ -28,6 +28,7 @@ Rails.application.routes.draw do
   resources :merchants do
     resources :items, only: [:index, :new, :create]
     get "/messages", to: "merchants#messages_index"
+    get "/messages/:id", to: "merchants#messages_show"
   end
 
   resources :items do
