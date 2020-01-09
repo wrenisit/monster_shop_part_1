@@ -2,10 +2,15 @@ require 'rails_helper'
 
 RSpec.describe "As a visitor" do
   describe "When I visit a merchant show page" do
+    before :each do
+
+    end
     it "I can delete a merchant" do
+      @user = create(:admin_user)
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
       bike_shop = Merchant.create(name: "Brian's Bike Shop", address: '123 Bike Rd.', city: 'Richmond', state: 'VA', zip: 80203)
 
-      visit "merchants/#{bike_shop.id}"
+      visit "/merchants"
 
       click_on "Delete Merchant"
 
@@ -14,10 +19,12 @@ RSpec.describe "As a visitor" do
     end
 
     it "I can delete a merchant that has items" do
+      @user = create(:admin_user)
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
       bike_shop = Merchant.create(name: "Brian's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
       chain = bike_shop.items.create(name: "Chain", description: "It'll never break!", price: 50, image: "https://www.rei.com/media/b61d1379-ec0e-4760-9247-57ef971af0ad?size=784x588", inventory: 5)
 
-      visit "merchants/#{bike_shop.id}"
+      visit "/merchants"
 
       click_on "Delete Merchant"
 
@@ -45,30 +52,37 @@ RSpec.describe "As a visitor" do
       visit "/items/#{pencil.id}"
       click_on "Add To Cart"
 
-      user = create(:regular_user)
+      user_1 = create(:regular_user)
       visit "/login"
-
-      fill_in :email, with: user.email
-      fill_in :password, with: user.password
+      fill_in :email, with: user_1.email
+      fill_in :password, with: user_1.password
       click_button "Log In"
 
       visit "/cart"
       click_on "Checkout"
 
 
-      fill_in :name, with: user.name
-      fill_in :address, with: user.address
-      fill_in :city, with: user.city
-      fill_in :state, with: user.state
-      fill_in :zip, with: user.zip
+      fill_in :name, with: user_1.name
+      fill_in :address, with: user_1.address
+      fill_in :city, with: user_1.city
+      fill_in :state, with: user_1.state
+      fill_in :zip, with: user_1.zip
 
       click_button "Create Order"
+      click_on "Log Out"
 
-      visit "/merchants/#{meg.id}"
-      expect(page).to_not have_link("Delete Merchant")
+      @user = create(:admin_user)
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
 
-      visit "/merchants/#{brian.id}"
-      expect(page).to have_link("Delete Merchant")
+      visit "/merchants"
+      within "#merchant-#{meg.id}" do
+        expect(page).to_not have_link("Delete Merchant")
+      end
+
+      within "#merchant-#{brian.id}" do
+        expect(page).to have_link("Delete Merchant")
+      end
+
     end
   end
 end

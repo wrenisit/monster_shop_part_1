@@ -9,6 +9,8 @@ RSpec.describe 'merchant index page', type: :feature do
       @wren = create(:wren_merchant)
       @becky = create(:becky_merchant, state: "CA")
       @ray = create(:ray_merchant)
+      @user = create(:admin_user)
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
     end
 
     it 'I can see a list of merchants in the system' do
