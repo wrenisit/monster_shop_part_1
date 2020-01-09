@@ -4,7 +4,7 @@
     <section id="message-<%= message.id %>" class="grid-item" >
       <h2>Status: <%= message.status %></h2>
       <h2>Sender: <%= message.user.name %></h2>
-      <h2>Title: <%= link_to "#{message.title}", "/merchants/messages/#{message.id}" %></h2>
+      <h2>Title: <%= link_to "#{message.title}", "/merchants/#{message.merchant.id}/messages/#{message.id}" %></h2>
     </section>
   <% end %>
 </section>
