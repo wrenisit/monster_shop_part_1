@@ -41,6 +41,11 @@ class MerchantsController <ApplicationController
     redirect_to merchants_path
   end
 
+  def messages_index
+    merchant = Merchant.find(params[:merchant_id])
+    @messages = merchant.messages_received
+  end
+
   private
 
   def merchant_params
