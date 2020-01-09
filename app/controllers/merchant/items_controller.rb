@@ -55,7 +55,7 @@ class Merchant::ItemsController < Merchant::BaseController
     redirect_to merchant_dash_items_path
   end
 
-  private
+private
 
   def item_params
     params.require(:item).permit(:name,:description,:price,:inventory,:image)
