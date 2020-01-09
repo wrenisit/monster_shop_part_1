@@ -18,7 +18,8 @@ class UsersController<ApplicationController
   end
 
   def messages_index
-    @messages = current_user.messages.all
+    user = current_user
+    @messages = user.messages_received
   end
 
   def messages_show
