@@ -46,6 +46,10 @@ class MerchantsController <ApplicationController
     @messages = merchant.messages_received
   end
 
+  def messages_show
+    @message = Message.find(params[:id])
+  end
+
   private
 
   def merchant_params
