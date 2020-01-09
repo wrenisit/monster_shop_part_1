@@ -1,0 +1,10 @@
+<h1><%= link_to "Messages", "/merchants/#{@message.merchant.id}/messages" %></h1>
+
+
+<section class="message">
+  <h2>Sender: <%= @message.user.name %></h2>
+  <h2>Date: <%= @message.created_at %></h2>
+  <h2>Title: <%= @message.title %></h2>
+  <h2>Message: <%= @message.body %></h2>
+  <%= button_to "Reply", "/merchants/#{@message.merchant.id}/messages/#{@message.merchant.id}/new", method: :get %>
+</section>
