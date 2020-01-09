@@ -26,14 +26,9 @@ class Admin::UsersController < Admin::BaseController
 
   def update_role
     @user = User.find(params[:user_id])
-
-    if @user.update(user_role_params)
-      flash[:success] = "The user role has been updated to #{@user.role}."
-      redirect_to admin_dash_users_path
-    else
-      generate_error(@display_user)
-      redirect_to admin_dash_users_path
-    end
+    @user.update(role: params[:user][:role])
+    flash[:success] = "The user role has been updated to #{@user.role}."
+    redirect_to admin_dash_users_path
   end
 
   def toggle_active
