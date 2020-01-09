@@ -15,19 +15,15 @@ RSpec.describe "message delete" do
 
     expect(current_path).to eq("/profile/messages")
     expect(page).not_to have_link(message_1.title)
-    expect(page).not_to have_content(message_1.status)
-    expect(page).not_to have_content(message_1.merchant.name)
 
     click_on "Log Out"
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(merchant_user)
 
-    visit "/merchant/#{merchant.id}/messages/#{message_2.id}"
+    visit "/merchants/#{merchant.id}/messages/#{message_2.id}"
     click_button("Delete")
 
-    expect(current_path).to eq("/merchant/#{merchant.id}/messages")
+    expect(current_path).to eq("/merchants/#{merchant.id}/messages")
     expect(page).not_to have_link(message_2.title)
-    expect(page).not_to have_content(message_2.status)
-    expect(page).not_to have_content(message_2.user.name)
-    
+
   end
 end
