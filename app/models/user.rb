@@ -11,11 +11,20 @@ class User <ApplicationRecord
   belongs_to :merchant, optional: true
   has_many :orders, dependent: :destroy
   has_many :messages
-  
+
 
   has_secure_password
 
   enum role: %w(user merchant_employee merchant_admin admin_user)
 
+  def messages_received
+    mess = []
+    messages.each do |message|
+      if message.user_id != message.sender_id
+        mess << message
+      end
+    end
+    mess
+  end
 
 end
