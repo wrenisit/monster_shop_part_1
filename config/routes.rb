@@ -23,6 +23,8 @@ Rails.application.routes.draw do
     resources :users, only: [:index, :show, :edit, :update] do
       get "/edit_password", to: "users#edit_password"
       patch "/toggle_active", to: "users#toggle_active"
+      get "/edit_role", to: "users#edit_role"
+      patch "/role", to: "users#update_role"
 
       resources :orders, only: [:show] do
         patch "/cancel", to: "orders#cancel"

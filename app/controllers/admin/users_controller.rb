@@ -24,6 +24,13 @@ class Admin::UsersController < Admin::BaseController
     end
   end
 
+  def update_role
+    @user = User.find(params[:user_id])
+    @user.update(user_role_params)
+    flash[:success] = "The user role has been updated to #{@user.role}."
+    redirect_to admin_dash_users_path
+  end
+
   def toggle_active
     user = User.find(params[:user_id])
     user.toggle!(:active)
@@ -43,6 +50,10 @@ private
 
   def user_params
     params.permit(:name, :address, :city, :state, :zip, :email, :password, :password_confirmation)
+  end
+
+  def user_role_params
+    params.require(:user).permit(:role)
   end
 
   def password_update
