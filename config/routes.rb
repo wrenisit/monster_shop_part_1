@@ -27,6 +27,7 @@ Rails.application.routes.draw do
 
   resources :merchants do
     resources :items, only: [:index, :new, :create]
+    get "/messages", to: "merchants#messages_index"
   end
 
   resources :items do
@@ -63,5 +64,4 @@ Rails.application.routes.draw do
   get "/profile/messages/:id/new", to: "users#reply"
   post "/profile/messages/:id/new", to: "messages#create"
 
-  get "/merchants/:id/messages", to: "merchants#messages_index"
 end
