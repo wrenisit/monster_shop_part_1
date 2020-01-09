@@ -5,7 +5,7 @@
   <%= f.label :content%>
   <%= f.text_field :content %><br>
   <%= f.label :rating %>
-  <%= f.text_field :rating%> <br>
+  <%= f.number_field :rating, within: 1...6%> <br>
 
   <%= f.submit %>
 <% end %>

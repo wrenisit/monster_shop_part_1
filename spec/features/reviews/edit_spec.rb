@@ -51,7 +51,7 @@ RSpec.describe 'review edit and update', type: :feature do
       within "#review-#{review_1.id}" do
         expect(page).to have_content(title)
         expect(page).to have_content(content)
-        expect(page).to have_content(rating)
+        expect(page).to have_content("✯✯✯✯")
       end
     end
 
@@ -74,7 +74,7 @@ RSpec.describe 'review edit and update', type: :feature do
         expect(page).to have_content(title)
         expect(page).to_not have_content(review_1.title)
         expect(page).to have_content(review_1.content)
-        expect(page).to have_content(review_1.rating)
+        expect(page).to have_content("✯✯✯✯✯")
       end
     end
 
