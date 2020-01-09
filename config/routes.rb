@@ -31,8 +31,12 @@ Rails.application.routes.draw do
     end
 
     resources :merchants, only: [:index, :show] do
-      resources :items, only: [:index]
+      resources :items, only: [:index, :new, :create, :edit, :update]
       patch "/toggle_active", to: "merchants#toggle_active"
+    end
+
+    resources :items, only: [] do
+      patch "/toggle_active", to: "items#toggle_active"
     end
 
     resources :orders, only: [:update]
