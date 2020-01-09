@@ -44,9 +44,9 @@ RSpec.describe "User replies" do
     expect(page).to have_link("1")
     click_link("1")
 
-    expect(current_path).to eq("/merchant/messages")
+    expect(current_path).to eq("/merchants/#{merchant.id}/messages")
     within "#message-#{message_3.id}" do
-      expect(page).to have_content(merchant.name)
+      expect(page).to have_content(message_3.user.name)
       expect(page).to have_content(message_3.status)
       expect(page).to have_link(message_3.title)
       click_link("#{message_3.title}")
