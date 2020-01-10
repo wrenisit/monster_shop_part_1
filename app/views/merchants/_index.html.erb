@@ -1,5 +1,6 @@
 <h1 align = "center">Merchants</h1>
-<p align="center"><%= link_to "New Merchant", "/merchants/new" %></p>
+<p align="center"><%= link_to "New Merchant", "/merchants/new" if current_admin_user? %></p>
+
 <section class = "grid-container">
   <% @merchants.each do |merchant|%>
     <section id="merchant-<%= merchant.id %>" class="grid-item" >
@@ -12,6 +13,8 @@
           <% else %>
             <%= button_to "Enable", "/admin/merchants/#{merchant.id}/toggle_active", method: :patch %>
           <% end %>
+        <p><%= link_to "Delete Merchant", "/merchants/#{merchant.id}", method: :delete  if merchant.no_orders? %> </p>
+        <p><%= link_to "Update Merchant", "/merchants/#{merchant.id}/edit" %></p>
       <% else %>
         <h2><%=link_to merchant.name, "/merchants/#{merchant.id}"%></h2>
       <% end %>

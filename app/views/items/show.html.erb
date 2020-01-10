@@ -52,7 +52,7 @@
         <p><%= review.content %></p>
         <div id="star-rating">
           <h2><%= render_stars(review.rating) %></h2>
-        </div> 
+        </div>
         <%= link_to "Edit", "/reviews/#{review.id}/edit" %>
         <%= link_to "Delete", "/reviews/#{review.id}", method: :delete %></p>
       </section>

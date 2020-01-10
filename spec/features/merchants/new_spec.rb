@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe 'merchant new page', type: :feature do
+  before :each do
+    @user = create(:admin_user)
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
+  end
   describe 'As a user' do
     it 'I can create a new merchant' do
       visit '/merchants/new'
