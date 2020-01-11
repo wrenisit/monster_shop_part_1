@@ -48,6 +48,7 @@ RSpec.describe 'Cart show' do
         click_on "Add To Cart"
         visit "/cart"
 
+        expect(page).to_not have_link("Checkout")
         expect(page).to have_content("Login needed to Checkout")
       end
       it "will have message to login" do
