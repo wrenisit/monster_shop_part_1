@@ -1,4 +1,7 @@
 <h1>Cart</h1>
+<% if @user == nil %>
+<h2> Login needed to Checkout </h2>
+<% end %>
 
 <% if !@items.empty? %>
 <center>
