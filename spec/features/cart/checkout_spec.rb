@@ -19,6 +19,8 @@ RSpec.describe 'Cart show' do
     end
 
     it 'Theres a link to checkout' do
+      user = create(:random_user)
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
       visit "/cart"
 
       expect(page).to have_link("Checkout")
@@ -31,6 +33,8 @@ RSpec.describe 'Cart show' do
 
   describe 'When I havent added items to my cart' do
     it 'There is not a link to checkout' do
+      user = create(:random_user)
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
       visit "/cart"
 
       expect(page).to_not have_link("Checkout")
@@ -39,11 +43,14 @@ RSpec.describe 'Cart show' do
 
     describe "I visit my cart" do
       it "will have message that I need to login to finish the checkout process" do
+        item = create(:random_item)
+        visit "/items/#{item.id}"
+        click_on "Add To Cart"
         visit "/cart"
 
         expect(page).to have_content("Login needed to Checkout")
       end
-      it "will wont have message to login" do
+      it "will have message to login" do
         regular_user = User.create!(name: "Becky",
                                 address: "123 Main",
                                 city: "Broomfield",
