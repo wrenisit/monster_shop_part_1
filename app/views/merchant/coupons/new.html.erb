@@ -1,0 +1,8 @@
+<%= form_tag "/merchant/coupons" do %>
+  <%= label_tag :name %>
+  <%= text_field_tag :name %>
+
+  <%= label_tag :amount %>
+  <%= text_field_tag :amount %>
+  <%= submit_tag 'Submit' %>
+<% end %>
