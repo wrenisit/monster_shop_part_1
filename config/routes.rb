@@ -13,7 +13,7 @@ Rails.application.routes.draw do
         patch "/fulfill", to: "orders#fulfill"
       end
     end
-
+    resources :coupons, only: [:index]
     resources :items, only: [:index, :new, :create]
     get "/", to: "dashboard#index"
   end
