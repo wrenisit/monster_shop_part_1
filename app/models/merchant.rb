@@ -34,4 +34,5 @@ class Merchant <ApplicationRecord
   def item_orders_from(order)
     item_orders.where(order: order)
   end
+
 end

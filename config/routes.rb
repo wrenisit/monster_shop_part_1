@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   get "/", to: "welcome#index"
 
   namespace :merchant, as: :merchant_dash do
+    get "/", to: "dashboard#index"
 
     resources :items, only: [:index, :edit, :update, :destroy] do
       patch "/toggle_active", to: "items#toggle_active"
@@ -14,9 +15,10 @@ Rails.application.routes.draw do
       end
     end
     get "/coupons/new", to: "coupons#new"
+    delete "/coupons/:id", to: "coupons#destroy"
+    patch "/coupons/:id", to: "coupons#disable"
     resources :coupons, only: [:index, :show, :create]
     resources :items, only: [:index, :new, :create]
-    get "/", to: "dashboard#index"
   end
 
   namespace :admin, as: :admin_dash do

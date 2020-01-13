@@ -17,6 +17,17 @@ class Merchant::CouponsController < Merchant::BaseController
     redirect_to "/merchant/coupons"
   end
 
+  def destroy
+    Coupon.destroy(params[:id])
+    redirect_to "/merchant/coupons"
+  end
+
+  def disable
+    coupon = Coupon.find(params[:id])
+    coupon.update(used: true)
+    redirect_to "/merchant/coupons"
+  end
+
   private
 
   def coupon_params

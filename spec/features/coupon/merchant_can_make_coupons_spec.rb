@@ -36,4 +36,30 @@ describe "merchant coupon code page" do
     expect(current_path).to eq("/merchant/coupons")
     expect(page).to have_link("HouseGoods")
   end
+
+  it "can allow a merchant to delete a coupon" do
+  jomah = create(:jomah_merchant)
+  merchant_employee = create(:merchant_employee, merchant: jomah)
+  coupon_1 = Coupon.create(name: "Fab20", merchant: jomah, amount: 20)
+  allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(merchant_employee)
+
+  visit "/merchant/coupons/#{coupon_1.id}"
+  click_button("Delete Coupon")
+  expect(current_path).to eq("/merchant/coupons")
+  expect(page).not_to have_link(coupon_1.name)
+  end
+
+  it "can't allow a merchant to delete a coupon if used" do
+    jomah = create(:jomah_merchant)
+    merchant_employee = create(:merchant_employee, merchant: jomah)
+    coupon_1 = Coupon.create(name: "Fab20", merchant: jomah, amount: 20, used: true)
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(merchant_employee)
+
+    visit "/merchant/coupons/#{coupon_1.id}"
+    click_button("Disable Coupon")
+    expect(current_path).to eq("/merchant/coupons")
+    within "#disabled_coupons" do
+      expect(page).to have_link(coupon_1.name)
+    end
+  end
 end
