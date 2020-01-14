@@ -44,7 +44,18 @@
     </tr>
   <% end %>
 </table>
-  <p>Total: <%= number_to_currency(cart.total/100.to_f) %></p>
+<h3>Coupon Code</h3>
+<p><%= button_to "Add Coupon", "/coupons/new", method: :get %></p>
+<% if @coupon %>
+<p><%= @coupon.name %></p>
+<p><%= @coupon.amount %>% Off</p>
+<p>Subtotal: <%= number_to_currency(cart.total/100.to_f) %></p>
+<p><%= number_to_currency(@one_merchant/100.to_f) %> Discount</p>
+<p>Total: <%= number_to_currency((cart.total - @one_merchant)/100.to_f) %></p>
+<% else %>
+<p>Total: <%= number_to_currency(cart.total/100.to_f) %></p>
+<% end %>
+
   <p><%= link_to "Empty Cart", "/cart", method: :delete %></p>
   <% if current_user %>
     <p><%= link_to "Checkout", "/profile/orders/new", method: :get%></p>

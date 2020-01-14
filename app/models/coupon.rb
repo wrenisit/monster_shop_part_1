@@ -10,4 +10,5 @@ class Coupon <ApplicationRecord
   def disabled_coupons
     where(active: false)
   end
+
 end

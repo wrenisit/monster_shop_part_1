@@ -74,8 +74,11 @@ Rails.application.routes.draw do
   post "/cart/:item_id", to: "cart#add_item"
   patch "/cart/:item_id", to: "cart#add_subtract_cart"
   get "/cart", to: "cart#show"
+  get "/cart/:coupon_id", to: "cart#show"
   delete "/cart", to: "cart#empty"
   delete "/cart/:item_id", to: "cart#remove_item"
+  get "/coupons/new", to: "coupons#new"
+  post "/coupons/new", to: "coupons#create"
 
   get "/login", to: "sessions#new"
   post "/login", to: "sessions#create"

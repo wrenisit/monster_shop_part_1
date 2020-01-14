@@ -10,6 +10,20 @@ class CartController < ApplicationController
 
   def show
     @items = cart.items
+    if params[:coupon_id]
+      @coupon = Coupon.find(params[:coupon_id])
+      @one_merchant = one_merchant(@coupon.merchant.id, @coupon.amount)
+    end
+  end
+
+  def one_merchant(merchant_id, amount)
+    sum = 0
+    cart.items.each do |item, quantity|
+      if item.merchant_id == merchant_id
+        sum += (item.price * quantity)
+      end
+    end
+    total = (sum * amount)/100
   end
 
   def empty

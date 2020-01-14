@@ -24,7 +24,7 @@ class Merchant::CouponsController < Merchant::BaseController
 
   def disable
     coupon = Coupon.find(params[:id])
-    coupon.update(used: true)
+    coupon.toggle!(:active)
     redirect_to "/merchant/coupons"
   end
 

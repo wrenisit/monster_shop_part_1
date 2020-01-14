@@ -27,7 +27,7 @@ describe "merchant coupon code page" do
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(merchant_employee)
 
     visit "/merchant/coupons"
-    click_link("Add A Coupon")
+    click_link("Add Coupon")
     expect(current_path).to eq("/merchant/coupons/new")
 
     fill_in "name", with: "HouseGoods"
@@ -53,13 +53,14 @@ describe "merchant coupon code page" do
     jomah = create(:jomah_merchant)
     merchant_employee = create(:merchant_employee, merchant: jomah)
     coupon_1 = Coupon.create(name: "Fab20", merchant: jomah, amount: 20, used: true)
+    coupon_2 = Coupon.create(name: "NewYear5", merchant: jomah, amount: 5)
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(merchant_employee)
 
     visit "/merchant/coupons/#{coupon_1.id}"
     click_button("Disable Coupon")
     expect(current_path).to eq("/merchant/coupons")
-    within "#disabled_coupons" do
-      expect(page).to have_link(coupon_1.name)
-    end
+    expect(page).to have_content(coupon_1.name)
+    visit "/merchant/coupons/#{coupon_2.id}"
+    expect(page).to have_button("Delete Coupon")
   end
 end
