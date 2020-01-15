@@ -59,3 +59,7 @@ order_4 = create(:random_order, user: user, status: 3)
 Item.all.each do |item|
   create(:item_order, order: order_3, item: item, price: item.price)
 end
+
+coupon_1 = Coupon.create(name: "Fab20", merchant: jomah, amount: 20)
+coupon_2 = Coupon.create(name: "NewYear5", merchant: ray, amount: 5)
+coupon_3 = Coupon.create(name: "NewYear10", merchant: jomah, amount: 5)
