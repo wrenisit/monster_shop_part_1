@@ -1,14 +1,8 @@
 class Coupon <ApplicationRecord
 
   validates_presence_of :name, :amount, :merchant
+  validates :name, presence: true, uniqueness: true, case_sensitive: false
+
   belongs_to :merchant
-
-  def valid_coupons
-    where(active: true)
-  end
-
-  def disabled_coupons
-    where(active: false)
-  end
 
 end

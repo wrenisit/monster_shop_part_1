@@ -5,6 +5,8 @@ describe Coupon, type: :model do
     it { should validate_presence_of :name }
     it { should validate_presence_of :amount }
     it { should validate_presence_of :merchant }
+    it { should validate_uniqueness_of :name }
+
   end
 
   describe "relationships" do

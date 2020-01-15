@@ -23,7 +23,11 @@ describe "coupons at checkout" do
     expect(current_path).to eq("/cart/#{coupon_2.id}")
     expect(page).to have_content("NewYear5")
     expect(page).to have_content("5% Off")
-    save_and_open_page
+    click_button("Add Coupon")
+    expect(current_path).to eq("/coupons/new")
+    fill_in :name, with: coupon_1.name
+    click_button("Submit")
+    expect(current_path).to eq("/cart/#{coupon_1.id}")
     click_on "Checkout"
   end
 end
