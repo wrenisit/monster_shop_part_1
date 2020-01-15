@@ -1,0 +1,7 @@
+<h3>Coupon Name: <%= @coupon.name %></h3>
+<h3>Coupon Amount: <%= @coupon.amount %></h3>
+<% if @coupon.used %>
+  <%= button_to "Disable Coupon", "/merchant/coupons/#{@coupon.id}", method: :patch %>
+<% else %>
+  <%= button_to "Delete Coupon", "/merchant/coupons/#{@coupon.id}", method: :delete %>
+<% end %>

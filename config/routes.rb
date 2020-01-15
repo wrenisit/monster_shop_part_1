@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   get "/", to: "welcome#index"
 
   namespace :merchant, as: :merchant_dash do
+    get "/", to: "dashboard#index"
 
     resources :items, only: [:index, :edit, :update, :destroy] do
       patch "/toggle_active", to: "items#toggle_active"
@@ -13,9 +14,11 @@ Rails.application.routes.draw do
         patch "/fulfill", to: "orders#fulfill"
       end
     end
-
+    get "/coupons/new", to: "coupons#new"
+    delete "/coupons/:id", to: "coupons#destroy"
+    patch "/coupons/:id", to: "coupons#disable"
+    resources :coupons, only: [:index, :show, :create]
     resources :items, only: [:index, :new, :create]
-    get "/", to: "dashboard#index"
   end
 
   namespace :admin, as: :admin_dash do
@@ -71,8 +74,11 @@ Rails.application.routes.draw do
   post "/cart/:item_id", to: "cart#add_item"
   patch "/cart/:item_id", to: "cart#add_subtract_cart"
   get "/cart", to: "cart#show"
+  get "/cart/:coupon_id", to: "cart#show"
   delete "/cart", to: "cart#empty"
   delete "/cart/:item_id", to: "cart#remove_item"
+  get "/coupons/new", to: "coupons#new"
+  post "/coupons/new", to: "coupons#create"
 
   get "/login", to: "sessions#new"
   post "/login", to: "sessions#create"

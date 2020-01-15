@@ -9,6 +9,7 @@ class Merchant <ApplicationRecord
   has_many :item_orders, through: :items
   has_many :orders, through: :item_orders
   has_many :users
+  has_many :coupons
 
   def no_orders?
     item_orders.empty?
@@ -33,4 +34,5 @@ class Merchant <ApplicationRecord
   def item_orders_from(order)
     item_orders.where(order: order)
   end
+
 end

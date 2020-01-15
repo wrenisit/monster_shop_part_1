@@ -1,0 +1,9 @@
+<h1>My Shop Coupons</h1>
+
+<% @coupons.each do |coupon| %>
+<section id="coupon-#{coupon.id}">
+  <h2> <%=link_to coupon.name, "/merchant/coupons/#{coupon.id}" %> </h2>
+  <h2>Active: <%= coupon.active %></h2>
+</section>
+<% end %>
+<h3><%=link_to "Add Coupon", "/merchant/coupons/new", method: :get%> </h3>
