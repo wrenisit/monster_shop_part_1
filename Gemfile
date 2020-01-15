@@ -15,6 +15,7 @@ gem 'coffee-rails', '~> 4.2'
 gem 'jbuilder', '~> 2.5'
 gem 'bcrypt'
 gem 'factory_bot_rails'
+gem 'faker'
 
 
 group :development, :test do
@@ -26,7 +27,6 @@ group :development, :test do
   gem 'simplecov'
   gem 'shoulda-matchers'
   gem 'nyan-cat-formatter'
-  gem 'faker'
 end
 
 group :development do
